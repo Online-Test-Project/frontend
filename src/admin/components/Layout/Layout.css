@@ -1,10 +1,9 @@
-* {
+*{
     margin: 0;
     padding: 0px;
     font-size: 14px;
 }
-
-.sepration {
+.sepration{
     height: 1px;
     background-color: #b9b9b9;
     width: 90%;
@@ -18,72 +17,67 @@
 #wrapper {
     display: flex;
 }
-
 /*========================= menu-left ==========================================*/
 .menu-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 200px;
-    background-color: #4e73df;
-    transition: 0.3s;
-}
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 200px;
+        background-color: #4e73df;
+        transition: 0.3s;
+    }
 
 
 
-.menu-left .logo {
-    width: 100%;
-    background-color: #4e73df;
-    height: 60px;
+     .menu-left .logo {
+            width: 100%;
+            background-color: #4e73df;
+            height: 60px;
+            
+    }
 
-}
-
-.menu-left .logo h5 {
-    color: white;
-    vertical-align: middle;
-    line-height: 60px;
-}
-
-/* .menu-left .menu-wrapper {
+        .menu-left .logo h5{
+                color: white;
+                vertical-align: middle;
+                line-height: 60px;
+        }
+    /* .menu-left .menu-wrapper {
 
     } */
-.menu-left .menu-wrapper .menu-item-wrapper {
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-}
-
-.menu-left .menu-wrapper .menu-item-wrapper:hover {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.menu-left .menu-wrapper .menu-item-wrapper .menu-item-text {
-    line-height: 50px;
-    vertical-align: middle;
-    text-align: center;
-    color: white;
-    font-size: 14px;
-}
-
-.menu-left .menu-wrapper .menu-item-wrapper .menu-item-icon {
-    width: 17px;
-    height: 17px;
-    margin: 0 8px;
-    vertical-align: middle;
-}
-
-.menu-left .menu-wrapper .menu-item-wrapper .fomat-icon-menu {
-    font-size: 20px;
-    color: white;
-    margin: 0 10px;
-}
+        .menu-left .menu-wrapper .menu-item-wrapper {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+        .menu-left .menu-wrapper .menu-item-wrapper:hover{
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .menu-left .menu-wrapper .menu-item-wrapper .menu-item-text{
+            line-height: 50px;
+            vertical-align: middle;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
+            .menu-left .menu-wrapper .menu-item-wrapper .menu-item-icon{
+                width: 17px;
+                height: 17px;
+                margin: 0 8px;
+                vertical-align: middle;
+            }
+            
+            .menu-left .menu-wrapper .menu-item-wrapper .fomat-icon-menu{
+                font-size: 20px;
+                color: white;
+                margin: 0 10px;
+            }
 
 /*=========================================== main-content =========================================*/
-.main-content {
-
+.main-content{
+    
     background-color: #effffb;
     position: absolute;
     left: 200px;
@@ -95,33 +89,31 @@
 
 }
 
-.main-content .header {
-    height: 60px;
-    width: 100%;
-    box-shadow: 0 0 2px 0;
-    background-color: white;
-}
-
+    .main-content .header{
+        height: 60px;
+        width: 100%;
+        box-shadow: 0 0 2px 0;
+        background-color: white;
+    }
 @media (max-width: 768px) {
     .menu-left {
         left: -200px;
     }
-
-    .main-content {
+    
+    .main-content{
         left: 0;
     }
 
-    .menu-left.default {
-        left: 0 !important;
+    .menu-left.default{
+        left: 0!important;
     }
-
-    .main-content.default-main {
-        left: 200px !important;
+    .main-content.default-main{
+        left: 200px!important;
     }
 }
 
 /* ===========================header=============================== */
-.header .header-wrapper-end {
+.header .header-wrapper-end{
     height: 100%;
     vertical-align: middle;
     align-items: center;
@@ -129,107 +121,96 @@
     width: 100%;
     padding-right: 10px;
 }
-
-.header-item-wrapper {
+.header-item-wrapper{
     display: flex;
     box-sizing: border-box;
     margin: 0 8px;
 }
 
-.header-item-wrapper:hover {
+.header-item-wrapper:hover{
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.header .header-item-wrapper .fomat-icon-menu {
-    color: #4e73df;
+.header .header-item-wrapper .fomat-icon-menu{
+    color:#4e73df;
     font-size: 20px;
     margin: 0 8px;
 }
 
-.header .header-item-wrapper .item-text {
+.header .header-item-wrapper .item-text{
     color: #96a8fa;
     line-height: 21px;
 }
-
 /* ============content================ */
 
 .content {
     height: calc(100% - 60px);
 }
-
-.content .table-content {
-    height: 100%;
-    width: 100%;
-    padding: 8px 8px 8px 8px;
-}
-
+    .content .table-content{
+        height: 100%;
+        width: 100%;
+        padding: 8px 8px 8px 8px;
+    }
 /* =====================toolbar================================ */
-.content .table-content .toolbar {
-    width: 100%;
-    height: 40px;
-    background-color: #4e73df;
-    overflow: hidden !important;
-}
-
-.content .table-content .toolbar button {
-    background-color: #4e73df;
-    border: none;
-    padding: 0 8px;
-    border-right: 1px solid #dedede;
-    color: white;
-    overflow: hidden !important;
-}
-
-.content .table-content .toolbar .fomat-icon-menu {
-    margin: 0 8px 0 0;
-}
-
+        .content .table-content .toolbar{
+            width: 100%;
+            height: 40px;
+            background-color: #4e73df;
+            overflow: hidden!important;
+        }
+        .content .table-content .toolbar button{
+            background-color:#4e73df;
+            border: none;
+            padding: 0 8px;
+            border-right: 1px solid #dedede;
+            color: white;
+            overflow: hidden!important;
+        }
+        .content .table-content .toolbar .fomat-icon-menu{
+            margin: 0 8px 0 0;
+        }
 /* ========================= bang chua cau hoi ============================== */
-.content .table-content .main-table {
-    height: calc(100% - 50px);
-    overflow: auto;
-    background: #fefefe;
-    box-shadow: 1px 2px 2px 1px #dedede;
-}
-
-.content .table-content .main-table table {
-    border-collapse: collapse;
-    width: 100%;
-    min-width: 600px;
-}
-
-.content .table-content .main-table td {
-    text-align: left;
-    padding: 8px;
-}
-
-.content .table-content .main-table th {
-    text-align: center;
-    padding: 8px;
-
-}
-
-tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
+    .content .table-content .main-table {
+        height: calc(100% - 50px);
+        overflow: auto;
+        background: #fefefe;
+        box-shadow: 1px 2px 2px 1px #dedede;
+    }
+        .content .table-content .main-table table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 600px;
+        }
+        
+        .content .table-content .main-table td {
+            text-align: left;
+            padding: 8px;
+        }
+        .content .table-content .main-table th {
+            text-align: center;
+            padding: 8px;
+            
+        }
+        
+        tr:nth-child(odd) {background-color: #f2f2f2;}
+        
 
 /* ====================thong tin ngan hang==================================== */
-.content .infob-content {
-    width: 200px;
-    margin: 8px;
-    min-height: calc(100% - 16px);
-    overflow: auto;
-    /* height: fit-content; */
-    box-sizing: border-box;
-    /* border-radius: 10px; */
-    border: 1px solid #ffffff;
-    background-color: white;
-    padding-left: 8px;
-    box-shadow: 0px 2px 2px 2px #dedede;
-}
+    .content .infob-content{
+        width: 200px;
+        margin: 8px;
+        min-height: calc(100% - 16px);
+        overflow: auto;
+        /* height: fit-content; */
+        box-sizing: border-box;
+        /* border-radius: 10px; */
+        border: 1px solid #ffffff;
+        background-color: white;
+        padding-left: 8px;
+        box-shadow: 0px 2px 2px 2px #dedede;
+    }
 
 /* =================sua class cua bootstrap================================== */
 .row {
@@ -237,22 +218,20 @@ tr:nth-child(odd) {
     margin-left: 0px !important;
     padding: 0;
 }
-
-.col-3 {
+.col-3{
     padding-right: 0px !important;
     padding-left: 0px !important;
-
+    
 }
 
-.menu-left.active {
-    left: -200px !important;
+.menu-left.active{
+    left: -200px!important;
+}
+.main-content.active-main{
+    left: 0!important;
 }
 
-.main-content.active-main {
-    left: 0 !important;
-}
-
-.menu-left .logo i.active {
+.menu-left .logo i.active{
     position: absolute;
     top: 16px;
     left: 210px;
@@ -264,55 +243,46 @@ tr:nth-child(odd) {
 
 
 
-/* set for body bank */
-/* set for nganhangcauhoi */
-.row {
+   /* set for body bank */
+    /* set for nganhangcauhoi */
+  .row {
     margin-right: -15px;
     margin-left: -15px;
 }
-
 * {
-    outline: 0 !important;
+    outline: 0!important;
 }
 
 .white-box {
     background: #fff;
     padding: 10px;
-    padding-top: 0px;
     margin-bottom: 10px;
     box-shadow: 1px 3px 3px #bac4d8;
 }
-
 .bank-center {
     margin: 0 -25px;
-    border: 20px;
-    padding: 0px 10px;
+    border:  20px;
+    padding: 0px 20px;
 }
-
 .p-t-10 {
-    padding-top: 10px !important;
+    padding-top: 10px!important;
 }
-
 .bank-center .bank-body {
     display: table;
     width: 100%;
-    padding-right: 0px;
-    padding: 5px;
+    padding: 5px 20px;
 }
-
 .bank-center .bank-contnet {
     display: table-cell;
     padding-left: 15px;
     vertical-align: top;
 }
-
 .bank-center .bank-contnet .time {
     display: inline-block;
     padding-left: 20px;
     font-size: 12px;
     color: #98a6ad;
 }
-
 .bank-center .bank-contnet .bank-desc {
     font-size: 14px;
     display: block;
@@ -325,24 +295,17 @@ tr:nth-child(odd) {
     font-family: inherit;
     padding-left: 20px;
 }
-
-.btn-default {
-    color: #848a96;
+.btn-default.btn-outline {
     background-color: #fff;
-    border-color: #fff;
 }
-
-.btn-default,
-.btn-default.disabled {
+.btn-default, .btn-default.disabled {
     background: #e4e7ea;
     border: 1px solid #e4e7ea;
-    border-color: #fff;
+    width: 90px;
 }
-
 .btn-rounded {
     border-radius: 60px;
 }
-
 .btn-warning {
     margin-left: 20px;
 }
@@ -350,7 +313,7 @@ tr:nth-child(odd) {
 /* end css for body bank */
 
 /* title */
-.main-content .header-row-list {
+.main-content .header-row-list{
     height: 50px;
     width: 100%;
     background-color: white;
@@ -359,20 +322,17 @@ tr:nth-child(odd) {
     margin-bottom: 10px;
     box-shadow: 1px 3px 3px #bac4d8;
 }
-
 /* search-box */
 .search-box {
     float: right;
     width: 150px;
     height: 40px;
     position: relative;
-}
-
+  }
 .search-box input,
 .search-box .icon {
     transition-duration: 0.3s;
-}
-
+  }
 .search-box input {
     position: absolute;
     top: 5px;
@@ -391,20 +351,17 @@ tr:nth-child(odd) {
     border: 2px solid #efefef;
     border-radius: 20px;
     transition-timing-function: cubic-bezier(0.3, 1.5, 0.6, 1);
-}
-
+  }
 .search-box input:focus {
     color: #333;
     border-color: #d6d6d6;
     width: 150%;
-}
-
-.search-box input:focus~.icon {
+  }
+.search-box input:focus ~ .icon {
     opacity: 1;
     z-index: 3;
     color: blue;
-}
-
+  }
 .search-box .icon {
     position: absolute;
     top: 0;
@@ -416,8 +373,7 @@ tr:nth-child(odd) {
     z-index: 1;
     cursor: pointer;
     opacity: 0.5;
-}
-
+  }
 /* 
   end css for search-box */
 
@@ -433,7 +389,7 @@ tr:nth-child(odd) {
     box-sizing: border-box;
 }
 
-.header-row-list .header-wrapper-end {
+.header-row-list .header-wrapper-end{
     height: 100%;
     vertical-align: middle;
     align-items: center;
@@ -442,41 +398,32 @@ tr:nth-child(odd) {
     padding-right: 10px;
 }
 
-.header-item-wrapper {
+.header-item-wrapper{
     display: flex;
     box-sizing: border-box;
     margin: 0 8px;
 }
 
-.header-item-wrapper:hover {
+.header-item-wrapper:hover{
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.header-row-list .header-item-wrapper .fomat-icon-menu {
-    color: #4e73df;
+.header-row-list .header-item-wrapper .fomat-icon-menu{
+    color:#4e73df;
     font-size: 20px;
     margin: 0 8px;
 }
 
-.header-row-list .header-item-wrapper .item-text {
+.header-row-list .header-item-wrapper .item-text{
     color: #96a8fa;
     line-height: 21px;
 }
-
 /* header-row-list */
 /*content*/
-/* sua lai css cho ten de thi va button xoa */
-.bank-body .bank-contnet .exam-name {
-    font-weight: bold;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
 
-.bank-body .bank-contnet .dt-delete {
-    color: #848a96;
-    border-color: #ffff;
-}
 
-/* het phan sua css cho ten de thi va button xoa */
+
+
+
