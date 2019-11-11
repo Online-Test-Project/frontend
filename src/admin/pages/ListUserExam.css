@@ -1,0 +1,481 @@
+.sepration {
+    height: 1px;
+    background-color: #b9b9b9;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.item-center {
+    align-items: center;
+}
+
+#wrapper {
+    display: flex;
+}
+
+/*========================= menu-left ==========================================*/
+.menu-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: #4e73df;
+    transition: 0.3s;
+}
+
+
+
+.menu-left .logo {
+    width: 100%;
+    background-color: #4e73df;
+    height: 60px;
+
+}
+
+.menu-left .logo h5 {
+    color: white;
+    vertical-align: middle;
+    line-height: 60px;
+}
+
+/* .menu-left .menu-wrapper {
+
+    } */
+.menu-left .menu-wrapper .menu-item-wrapper {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-left .menu-wrapper .menu-item-wrapper:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu-left .menu-wrapper .menu-item-wrapper .menu-item-text {
+    line-height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+}
+
+.menu-left .menu-wrapper .menu-item-wrapper .menu-item-icon {
+    width: 17px;
+    height: 17px;
+    margin: 0 8px;
+    vertical-align: middle;
+}
+
+.menu-left .menu-wrapper .menu-item-wrapper .fomat-icon-menu {
+    font-size: 20px;
+    color: white;
+    margin: 0 10px;
+}
+
+/*=========================================== main-content =========================================*/
+.main-content {
+
+    background-color: #effffb;
+    position: absolute;
+    left: 200px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: 0.3s;
+    overflow: auto;
+
+}
+
+.main-content .header {
+    height: 60px;
+    width: 100%;
+    box-shadow: 0 0 2px 0;
+    background-color: white;
+}
+
+@media (max-width: 768px) {
+    .menu-left {
+        left: -200px;
+    }
+
+    .main-content {
+        left: 0;
+    }
+
+    .menu-left.default {
+        left: 0 !important;
+    }
+
+    .main-content.default-main {
+        left: 200px !important;
+    }
+}
+
+/* ===========================header=============================== */
+.header .header-wrapper-end {
+    height: 100%;
+    vertical-align: middle;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.header-item-wrapper {
+    display: flex;
+    box-sizing: border-box;
+    margin: 0 8px;
+}
+
+.header-item-wrapper:hover {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.header .header-item-wrapper .fomat-icon-menu {
+    color: #4e73df;
+    font-size: 20px;
+    margin: 0 8px;
+}
+
+.header .header-item-wrapper .item-text {
+    color: #96a8fa;
+    line-height: 21px;
+}
+
+/* ============content================ */
+
+.content {
+    height: calc(100% - 60px);
+}
+
+.content .table-content {
+    height: 100%;
+    width: 100%;
+    padding: 8px 8px 8px 8px;
+}
+
+/* =====================toolbar================================ */
+.content .table-content .toolbar {
+    width: 100%;
+    height: 40px;
+    background-color: #4e73df;
+    overflow: hidden !important;
+}
+
+.content .table-content .toolbar button {
+    background-color: #4e73df;
+    border: none;
+    padding: 0 8px;
+    border-right: 1px solid #dedede;
+    color: white;
+    overflow: hidden !important;
+}
+
+.content .table-content .toolbar .fomat-icon-menu {
+    margin: 0 8px 0 0;
+}
+
+/* ========================= bang chua cau hoi ============================== */
+.content .table-content .main-table {
+    height: calc(100% - 50px);
+    overflow: auto;
+    background: #fefefe;
+    box-shadow: 1px 2px 2px 1px #dedede;
+}
+
+.content .table-content .main-table table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+}
+
+.content .table-content .main-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.content .table-content .main-table th {
+    text-align: center;
+    padding: 8px;
+
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+
+/* ====================thong tin ngan hang==================================== */
+.content .infob-content {
+    width: 200px;
+    margin: 8px;
+    min-height: calc(100% - 16px);
+    overflow: auto;
+    /* height: fit-content; */
+    box-sizing: border-box;
+    /* border-radius: 10px; */
+    border: 1px solid #ffffff;
+    background-color: white;
+    padding-left: 8px;
+    box-shadow: 0px 2px 2px 2px #dedede;
+}
+
+/* =================sua class cua bootstrap================================== */
+.row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    padding: 0;
+}
+
+.col-3 {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+
+}
+
+.menu-left.active {
+    left: -200px !important;
+}
+
+.main-content.active-main {
+    left: 0 !important;
+}
+
+.menu-left .logo i.active {
+    position: absolute;
+    top: 16px;
+    left: 210px;
+    z-index: 10;
+    font-size: 25px;
+    color: blue;
+}
+
+
+
+
+/* set for body bank */
+/* set for nganhangcauhoi */
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+* {
+    outline: 0 !important;
+}
+
+.white-box {
+    background: #fff;
+    padding: 10px;
+    padding-top: 0px;
+    margin-bottom: 10px;
+    box-shadow: 1px 3px 3px #bac4d8;
+}
+
+.bank-center {
+    margin: 0 -25px;
+    border: 20px;
+    padding: 0px 10px;
+}
+
+.p-t-10 {
+    padding-top: 10px !important;
+}
+
+.bank-center .bank-body {
+    display: table;
+    width: 100%;
+    padding-right: 0px;
+    padding: 5px;
+}
+
+.bank-center .bank-contnet {
+    display: table-cell;
+    padding-left: 15px;
+    vertical-align: top;
+}
+
+.bank-center .bank-contnet .time {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 15px;
+    /* color: #98a6ad; */
+}
+
+.bank-center .bank-contnet .bank-desc {
+    font-size: 14px;
+    display: block;
+    margin: 5px 0;
+    line-height: 25px;
+    /* color: #848a96; */
+    overflow: hidden;
+    max-height: 52px;
+    text-overflow: ellipsis;
+    /* font-family: inherit; */
+    padding-left: 20px;
+}
+
+.btn-default {
+    color: #848a96;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn-default,
+.btn-default.disabled {
+    background: #e4e7ea;
+    border: 1px solid #e4e7ea;
+    border-color: #fff;
+}
+
+.btn-rounded {
+    border-radius: 60px;
+}
+
+.btn-warning {
+    margin-left: 20px;
+}
+
+/* end css for body bank */
+
+/* title */
+.main-content .header-row-list {
+    height: 50px;
+    width: 100%;
+    background-color: white;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 3px 3px #bac4d8;
+}
+
+/* search-box */
+.search-box {
+    float: right;
+    width: 150px;
+    height: 40px;
+    position: relative;
+}
+
+.search-box input,
+.search-box .icon {
+    transition-duration: 0.3s;
+}
+
+.search-box input {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    text-indent: 15px;
+    height: 30px;
+    z-index: 2;
+    outline: none;
+    color: #999;
+    background: transparent;
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    transition-timing-function: cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+
+.search-box input:focus {
+    color: #333;
+    border-color: #d6d6d6;
+    width: 150%;
+}
+
+.search-box input:focus~.icon {
+    opacity: 1;
+    z-index: 3;
+    color: blue;
+}
+
+.search-box .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    z-index: 1;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+/* 
+  end css for search-box */
+
+/* header-row-list */
+.title {
+    height: 100%;
+    width: 40%;
+    text-align: -webkit-match-parent;
+    float: left;
+    text-size-adjust: initial;
+    vertical-align: middle;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header-row-list .header-wrapper-end {
+    height: 100%;
+    vertical-align: middle;
+    align-items: center;
+    box-sizing: border-box;
+    width: 60%;
+    padding-right: 10px;
+}
+
+.header-item-wrapper {
+    display: flex;
+    box-sizing: border-box;
+    margin: 0 8px;
+}
+
+.header-item-wrapper:hover {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.header-row-list .header-item-wrapper .fomat-icon-menu {
+    color: #4e73df;
+    font-size: 20px;
+    margin: 0 8px;
+}
+
+.header-row-list .header-item-wrapper .item-text {
+    color: #96a8fa;
+    line-height: 21px;
+}
+
+/* header-row-list */
+/*content*/
+/* sua lai css cho ten de thi va button xoa */
+.bank-body .bank-contnet .exam-name {
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.bank-body .bank-contnet .dt-delete {
+    color: #848a96;
+    border-color: #ffff;
+}
+
+/* het phan sua css cho ten de thi va button xoa */
+* {
+    margin: 0;
+    padding: 0px;
+    font-size: 14px;
+}
