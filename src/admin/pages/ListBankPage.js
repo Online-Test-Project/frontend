@@ -10,9 +10,28 @@ class ListBankPage extends Component {
     super(props);
     this.state = {
       listBank: [],
+      filteredBank: [],
       currentEditBank: { id: '', name: '', description: '' },
     };
   }
+
+  async onSearch() {
+		this.setState({ isSearching: true });
+		let content = document.getElementById("search").value;
+		content = normalizeString(content);
+
+		const newFilteredBank = await this.state.listBank.filter(bank => {
+			let contentValid = false;
+			contentValid = normalizeString(bank.name).includes(content);
+      return contentValid;
+		});
+		await this.setState({ filteredBank: newFilteredBank });
+		this.setState({ isSearching: false });
+  }
+  
+
+
+
 
   async componentDidMount() {
     axios
@@ -25,7 +44,7 @@ class ListBankPage extends Component {
       .then(response => {
         console.log(response.data);
         const data = response.data;
-        this.setState({ listBank: data });
+        this.setState({ listBank: data, filteredBank: data });
       });
   }
 
@@ -78,8 +97,16 @@ class ListBankPage extends Component {
               <div class="row justify-content-end header-wrapper-end">
                 <div class="header-item-wrapper">
                   <div class="search-box">
-                    <input placeholder="Tìm kiếm..." />
-                    <span class="icon glyphicon glyphicon-search"></span>
+                    <input placeholder="Tìm kiếm..."
+                     id = "search"
+                    onKeyPress={(event) => {
+											if (event.key === "Enter") {
+												this.onSearch();
+											}
+										}}
+                     />
+                    
+                    <span class="icon"><div class="fa fa-search fomat-icon-menu"></div></span>
                   </div>
                 </div>
 
@@ -96,16 +123,19 @@ class ListBankPage extends Component {
                 onUpdateListBank={() => this.onUpdateListBank()}
               ></AddBankModal>
             </div>
-            {this.state.listBank.map((bank, index) => {
-              return (
-                <Bank
-                  bank={bank}
-                  onEditBank={() => this.onUpdateListBank}
-                  key={index}
-                  onDeleteBank={id => this.onDeleteBank(id)}
-                ></Bank>
-              );
-            })}
+            {
+              this.state.filteredBank.length === 0 ? <div className="text-center">Không tìm thấy ngân hàng yêu cầu</div>:this.state.filteredBank.map((bank, index) => {
+                return (
+                  <Bank
+                    bank={bank}
+                    onEditBank={() => this.onUpdateListBank}
+                    key={index}
+                    onDeleteBank={id => this.onDeleteBank(id)}
+                  ></Bank>
+                );
+              })
+            }
+            
           </div>
         </div>
       </Layout>
@@ -407,6 +437,27 @@ class AddBankModal extends Component {
       </div>
     );
   }
+}
+
+
+function normalizeString(str) {
+	return str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a")
+		.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e")
+		.replace(/ì|í|ị|ỉ|ĩ/g, "i")
+		.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o")
+		.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u")
+		.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y")
+		.replace(/đ/g, "d")
+		.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A")
+		.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E")
+		.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I")
+		.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O")
+		.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U")
+		.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y")
+		.replace(/Đ/g, "D")
+		.trim()
+		.replace(/\s+/g, ' ')
+		.toLowerCase();
 }
 
 export default ListBankPage;
