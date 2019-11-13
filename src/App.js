@@ -1,14 +1,46 @@
 import React from 'react';
+import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Routes from './Routes/Routes';
 import './App.css';
+//////////////////////////
+import { history } from './_helpers/index';
+import { authenticationService } from './_services/index';
+import PrivateRoute from './_components/PrivateRoute';
+import HomePage from './admin/pages/HomePage';
+import LoginPage from './admin/pages/LoginPage';
+import Login from './admin/pages/Login';
 
-function App() {
-  return (
-    <div className="App">
-      <Routes></Routes>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: null
+    };
+  }
+
+  componentDidMount() {
+    authenticationService.currentUser.subscribe(x => this.setState({ currentUser: x }));
+  }
+
+  logout() {
+    authenticationService.logout();
+    history.push('/login');
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Routes></Routes>
+        <Router>
+          <PrivateRoute exact path="/" component={HomePage} />
+          <Route exact path="/login" component={Login} />
+        </Router>
+      </div>
+    );
+  }
+
 }
 
 export default App;

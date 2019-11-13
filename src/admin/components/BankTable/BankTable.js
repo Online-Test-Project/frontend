@@ -60,14 +60,14 @@ class Table extends Component {
 	 */
 	async onSearch() {
 		this.setState({ isSearching: true });
-		let content = document.getElementById("content-search").value;
+		let content = document.getElementById("content-search").defaultValue;
 		content = normalizeString(content);
 
 		const selectType = document.getElementById("type-search");
-		const type = selectType.options[selectType.selectedIndex].value;
+		const type = selectType.options[selectType.selectedIndex].defaultValue;
 
 		const selectLevel = document.getElementById("level-search");
-		const level = selectLevel.options[selectLevel.selectedIndex].value;
+		const level = selectLevel.options[selectLevel.selectedIndex].defaultValue;
 
 		const newFilteredBank = await this.state.bank.filter(question => {
 			let contentValid = false, typeValid = false, levelValid = false;
@@ -114,6 +114,7 @@ class Table extends Component {
 	// 		$("#editQuestionModal").modal("show");
 	// 	}
 	// }
+
 
 	renderEditModal() {
 		let selectedQuestions = this.state.bank.filter(question => question.selected);
@@ -182,7 +183,7 @@ class Table extends Component {
 									<div className="modal-body">
 										<div class="form-group">
 											<label for="exampleFormControlTextarea1">Tên ngân hàng</label>
-											<input class="form-control" type="text" value={this.state.name} ></input>
+											<input class="form-control" type="text" defaultValue={this.state.name} ></input>
 										</div>
 										<div class="form-group">
 											<label for="exampleFormControlTextarea1">Mô tả</label>
@@ -261,7 +262,7 @@ class Table extends Component {
 												return (
 													<tr className={e.selected ? "checked question-row" : "question-row"} key={i} onClick={() => this.toggleSelect(e.id)} onDouble>
 														<th className="text-center" scope="row">
-															<button className="btn btn-warning"  data-toggle="modal" data-target={"#editQuestionModal" + e.id}>
+															<button className="btn btn-warning" data-toggle="modal" data-target={"#editQuestionModal" + e.id}>
 																<i className="fa fa-pencil format-icon-menu "></i>
 															</button>
 														</th>
@@ -287,25 +288,25 @@ class Table extends Component {
 																			<div class="input-group-prepend">
 																				<div class="input-group-text"><input type="radio" />&nbsp;</div>
 																			</div>
-																			<input type="text" class="form-control" value="Hậu " />
+																			<input type="text" class="form-control" defaultValue="Hậu " />
 																		</div>
 																		<div class="input-group mb-2">
 																			<div class="input-group-prepend">
 																				<div class="input-group-text"><input type="radio" />&nbsp;</div>
 																			</div>
-																			<input type="text" class="form-control" value="Minh" />
+																			<input type="text" class="form-control" defaultValue="Minh" />
 																		</div>
 																		<div class="input-group mb-2">
 																			<div class="input-group-prepend">
 																				<div class="input-group-text"><input type="radio" />&nbsp;</div>
 																			</div>
-																			<input type="text" class="form-control" value="Thành" />
+																			<input type="text" class="form-control" defaultValue="Thành" />
 																		</div>
 																		<div class="input-group mb-2">
 																			<div class="input-group-prepend">
 																				<div class="input-group-text"><input type="radio" />&nbsp;</div>
 																			</div>
-																			<input type="text" class="form-control" value="Ngọc " />
+																			<input type="text" class="form-control" defaultValue="Ngọc " />
 																		</div>
 																		<div class="input-group mb-2">
 																			<div class="input-group-prepend">
@@ -315,7 +316,7 @@ class Table extends Component {
 																		</div>
 																	</div>
 																	<div className="modal-footer">
-																		<button type="button" className="btn btn-secondary" data-dismiss="modal">Xóa</button>
+																		<button type="button" className="btn btn-secondary" data-dismiss="modal">Lưu</button>
 																		<button type="button" className="btn btn-primary" data-dismiss="modal">Hủy</button>
 																	</div>
 																</div>

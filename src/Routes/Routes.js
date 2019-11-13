@@ -5,21 +5,25 @@ import ListBankPage from '../admin/pages/ListBankPage';
 import ListAdminExam from '../admin/pages/ListAdminExam';
 import ListUserExam from '../admin/pages/ListUserExam';
 import ExamPage from '../admin/pages/ExamPage';
+import PrivateRoute from '../_components/PrivateRoute';
+
 const Routes = () => {
     return (
         <Router>
-            <Route exact path="/admin">
+            {/* <Route exact path="/admin">
                 <ListBankPage></ListBankPage>
-            </Route>
+            </Route> */}
+            <PrivateRoute exact path="/admin" component={ListBankPage}></PrivateRoute>
             <Route path="/admin/bank/:id" render={(props) => <BankPage {...props}></BankPage>}>
             </Route>
+            
             <Route exact path="/user/exam">
                 <ListUserExam></ListUserExam>
             </Route>
             <Route exact path="/admin/exam">
                 <ListAdminExam></ListAdminExam>
             </Route>
-            <Route exact path="/">
+            <Route exact path="/doexam">
                 <ExamPage></ExamPage>
             </Route>
         </Router>
