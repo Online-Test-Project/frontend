@@ -15,8 +15,8 @@ class ListUserExam extends Component {
                             <div class="row justify-content-end header-wrapper-end">
                                 <div class="header-item-wrapper">
                                     <div class="search-box">
-                                        <input placeholder="Tìm kiếm..." />>
-                                            <span class="icon glyphicon glyphicon-search"></span>
+                                        <input placeholder="Tìm kiếm..." />
+                                            <span class="icon"><div class="fa fa-search fomat-icon-menu"></div></span>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@ class ListUserExam extends Component {
                                         <div class="row justify-content-end header-wrapper-end">
                                         </div>
                                         <h4 class="exam-name">Công nghệ phần mềm (Giữa kì 19-20)</h4>
-                                        <span class="time">Thi vào ngày 03/09/2019</span>
+                                        <span class="Updatetime">Thi vào ngày 03/09/2019</span>
                                         <span class="bank-desc">Điểm: 9</span>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@ class ListUserExam extends Component {
                                         <div class="row justify-content-end header-wrapper-end">
                                         </div>
                                         <h4 class="exam-name">Công nghệ phần mềm (Giữa kì 19-20)</h4>
-                                        <span class="time">Thi vào ngày 03/09/2019</span>
+                                        <span class="Updatetime">Thi vào ngày 03/09/2019</span>
                                         <span class="bank-desc">Điểm: 9</span>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@ class ListUserExam extends Component {
                                         <div class="row justify-content-end header-wrapper-end">
                                         </div>
                                         <h4 class="exam-name">Công nghệ phần mềm (Giữa kì 19-20)</h4>
-                                        <span class="time">Thi vào ngày 03/09/2019</span>
+                                        <span class="Updatetime">Thi vào ngày 03/09/2019</span>
                                         <span class="bank-desc">Điểm: 9</span>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@ class ListUserExam extends Component {
                                         <div class="row justify-content-end header-wrapper-end">
                                         </div>
                                         <h4 class="exam-name">Công nghệ phần mềm (Giữa kì 19-20)</h4>
-                                        <span class="time">Thi vào ngày 03/09/2019</span>
+                                        <span class="Updatetime">Thi vào ngày 03/09/2019</span>
                                         <span class="bank-desc">Điểm: 9</span>
                                     </div>
                                 </div>

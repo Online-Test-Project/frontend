@@ -4,21 +4,20 @@ import './ListAdminExam.css';
 import { Link } from 'react-router-dom';
 import ExamPage from './ExamPage';
 import axios from 'axios';
-
+import config from '../../_config/config'
+import { authHeader } from '../../_helpers/auth-header';
 class ListAdminExam extends Component {
     constructor(props) {
         super(props);
-        this.state = { listExam: []};
+        this.state = {
+             listExam: []};
     }
 
     async componentDidMount() {
         axios
-        .get('http://localhost:5000/api/exam/list', {
-          headers: {
-            JWT:
-              'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7IlVzZXJuYW1lIjoiTmF0YWxpZTciLCJQYXNzd29yZCI6IjYgICAgICAgICAiLCJJZCI6ImUxZWM1NDQ0LTY1OTYtNWY1MC0xMzM4LTAwMTJiZjQ4OWZlNyJ9LCJ1bmlxdWVfbmFtZSI6ImUxZWM1NDQ0LTY1OTYtNWY1MC0xMzM4LTAwMTJiZjQ4OWZlNyIsImlzcyI6IiIsImlhdCI6MTU3MzQ2MTc5NSwiZXhwIjoxNTc2MDUzNzk1fQ.IJ9D0PDlErcIhXQXXN3nv8SMGJMcnjmtbdkcAz79Pm9-ONwmb0eZQ-_-NEK1n8A3AfXcF1Ga03ZuPK7MwKl-J20jNIwpG-1cFr7fH4Lm5WMoXxd1RcJL_UGbcCEkZAYHZmMMwRs_s3pY_NA3hjvXlFLw1y2zca13cKJtKTnZLFNx5z382bdxzBw68Jk-ITi5lql8ufh67eOUatamKdZ4tVClb7lgr3-FtmZQc4z-omPW5B1VCXWIUzYFBddjEfqXtdMoVwEWeJUezAAv9X0vCu8Ae79rppQgMQgoSkfZP2VWtTURNe4xWjCtjNYOJvj3RfeGsc09egVZ3mP1wWql7A',
-          },
-        })
+      .get(config.SERVER_URL+'/api/exam/list', {
+        headers: authHeader()
+      })
         .then(response => {
           console.log(response.data);
           const data = response.data;
@@ -39,6 +38,29 @@ class ListAdminExam extends Component {
 		// await this.setState({ listExam: newFilteredExam });
         // this.setState({ isSearching: false });
   }
+
+
+  onDeleteExam(id) {
+    
+      console.log("xoa ne");
+    console.log('XOa thang: ' + id);
+    axios
+    .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
+        
+      headers: authHeader(), "Content-Type" : "application/json",
+    })
+      .then(response => {
+        console.log(response.data);
+        if (!response.data) {
+          let newListBank = this.state.listBank.filter(bank => bank.id !== id);
+          console.log(newListBank);
+          this.setState({ listBank: newListBank });
+        }
+      });
+      
+  }
+
+
 
     render() { 
         return (
@@ -79,11 +101,11 @@ class ListAdminExam extends Component {
                             <div class="bank-center">
                                 <div class="bank-body">
                                     <div class="bank-contnet">
-                                        <div class="row justify-content-end header-wrapper-end" data-toggle="modal" data-target="#modelConfirmDelete">
-                                            <button type="button" class="btn btn-sm dt-delete" onClick="ConfirmDelete()">
+                                        <div class="row justify-content-end header-wrapper-end">
+                                            <button type="button" class="btn btn-sm dt-delete" data-toggle="modal" data-target={"#modelConfirmDelete" + exam.id}>
                                                 <span class="" aria-hidden="true"><div class="fa fa-remove fomat-icon-menu"></div></span>
                                             </button>
-                                            <div class="modal fade" id="modelConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal fade" id={"modelConfirmDelete" + exam.id} tabIndex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -96,7 +118,7 @@ class ListAdminExam extends Component {
                                                         Bạn có chắc chắn muốn xóa đề thi này?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary">Xóa</button>
+                                                            <button type="submit" class="btn btn-primary"  data-dismiss="modal" onClick={this.onDeleteExam.bind(this, exam.id)}>Xóa</button>
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                                             
                                                         </div>
