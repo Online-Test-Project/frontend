@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import config from '../../_config/config'
+import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 
 import Layout from '../components/Layout/Layout';
 import './ListBankPage.css';
-
 
 class ListBankPage extends Component {
   constructor(props) {
@@ -20,27 +19,23 @@ class ListBankPage extends Component {
   }
 
   async onSearch() {
-		this.setState({ isSearching: true });
-		let content = document.getElementById("search").value;
-		content = normalizeString(content);
+    this.setState({ isSearching: true });
+    let content = document.getElementById('search').value;
+    content = normalizeString(content);
 
-		const newFilteredBank = await this.state.listBank.filter(bank => {
-			let contentValid = false;
-			contentValid = normalizeString(bank.name).includes(content);
+    const newFilteredBank = await this.state.listBank.filter(bank => {
+      let contentValid = false;
+      contentValid = normalizeString(bank.name).includes(content);
       return contentValid;
-		});
-		await this.setState({ filteredBank: newFilteredBank });
-		this.setState({ isSearching: false });
+    });
+    await this.setState({ filteredBank: newFilteredBank });
+    this.setState({ isSearching: false });
   }
-  
-
-
-
 
   async componentDidMount() {
     axios
-      .get(config.SERVER_URL+'/api/bank/list', {
-        headers: authHeader()
+      .get(config.SERVER_URL + '/api/bank/list', {
+        headers: authHeader(),
       })
       .then(response => {
         console.log(response.data);
@@ -51,11 +46,8 @@ class ListBankPage extends Component {
 
   onUpdateListBank() {
     axios
-      .get('http://localhost:5000/api/bank/list',{
-        headers: {
-          JWT:
-            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7IlVzZXJuYW1lIjoiTmF0YWxpZTciLCJQYXNzd29yZCI6IjYgICAgICAgICAiLCJJZCI6ImUxZWM1NDQ0LTY1OTYtNWY1MC0xMzM4LTAwMTJiZjQ4OWZlNyJ9LCJ1bmlxdWVfbmFtZSI6ImUxZWM1NDQ0LTY1OTYtNWY1MC0xMzM4LTAwMTJiZjQ4OWZlNyIsImlzcyI6IiIsImlhdCI6MTU3MzQ2MTc5NSwiZXhwIjoxNTc2MDUzNzk1fQ.IJ9D0PDlErcIhXQXXN3nv8SMGJMcnjmtbdkcAz79Pm9-ONwmb0eZQ-_-NEK1n8A3AfXcF1Ga03ZuPK7MwKl-J20jNIwpG-1cFr7fH4Lm5WMoXxd1RcJL_UGbcCEkZAYHZmMMwRs_s3pY_NA3hjvXlFLw1y2zca13cKJtKTnZLFNx5z382bdxzBw68Jk-ITi5lql8ufh67eOUatamKdZ4tVClb7lgr3-FtmZQc4z-omPW5B1VCXWIUzYFBddjEfqXtdMoVwEWeJUezAAv9X0vCu8Ae79rppQgMQgoSkfZP2VWtTURNe4xWjCtjNYOJvj3RfeGsc09egVZ3mP1wWql7A',
-        },
+      .get(config.SERVER_URL + '/api/bank/list', {
+        headers: authHeader(),
       })
       .then(response => {
         console.log(response.data);
@@ -72,7 +64,6 @@ class ListBankPage extends Component {
       {
         headers: authHeader()
       }
-      )
       .then(response => {
         console.log(response.data);
         if (!response.data) {
@@ -97,16 +88,19 @@ class ListBankPage extends Component {
               <div class="row justify-content-end header-wrapper-end">
                 <div class="header-item-wrapper">
                   <div class="search-box">
-                    <input placeholder="Tìm kiếm..."
-                     id = "search"
-                    onKeyPress={(event) => {
-											if (event.key === "Enter") {
-												this.onSearch();
-											}
-										}}
-                     />
-                    
-                    <span class="icon"><div class="fa fa-search fomat-icon-menu"></div></span>
+                    <input
+                      placeholder="Tìm kiếm..."
+                      id="search"
+                      onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                          this.onSearch();
+                        }
+                      }}
+                    />
+
+                    <span class="icon">
+                      <div class="fa fa-search fomat-icon-menu"></div>
+                    </span>
                   </div>
                 </div>
 
@@ -123,8 +117,12 @@ class ListBankPage extends Component {
                 onUpdateListBank={() => this.onUpdateListBank()}
               ></AddBankModal>
             </div>
-            {
-              this.state.filteredBank.length === 0 ? <div className="text-center">Không tìm thấy ngân hàng yêu cầu</div>:this.state.filteredBank.map((bank, index) => {
+            {this.state.filteredBank.length === 0 ? (
+              <div className="text-center">
+                Không tìm thấy ngân hàng yêu cầu
+              </div>
+            ) : (
+              this.state.filteredBank.map((bank, index) => {
                 return (
                   <Bank
                     bank={bank}
@@ -134,8 +132,7 @@ class ListBankPage extends Component {
                   ></Bank>
                 );
               })
-            }
-            
+            )}
           </div>
         </div>
       </Layout>
@@ -165,7 +162,7 @@ class Bank extends Component {
     console.log("sua ne");
     axios
       .post(
-        config.SERVER_URL + './api/bank/update',
+        config.SERVER_URL + '/api/bank/update',
         {
           id: this.state.id,
           name: this.state.name,
@@ -176,7 +173,7 @@ class Bank extends Component {
         },
       )
       .then(res => {
-        if (res.data == true) {
+        if (res.data === true) {
           this.props.onEditBank();
         }
       });
@@ -351,17 +348,19 @@ class AddBankModal extends Component {
 
   onAdd() {
     axios
-    .post(config.SERVER_URL+'/api/bank/create',  {
-      name: this.state.name,
-      description: this.state.description,
-  },
-  {
-      headers: authHeader()
-    },    
+      .post(
+        config.SERVER_URL + '/api/bank/create',
+        {
+          headers: authHeader(),
+        },
+        {
+          name: this.state.name,
+          description: this.state.description,
+        },
       )
       .then(res => {
         console.log(res.data);
-        if (res.data == true) {
+        if (res.data === true) {
           this.props.onUpdateListBank();
         }
       });
@@ -433,25 +432,25 @@ class AddBankModal extends Component {
   }
 }
 
-
 function normalizeString(str) {
-	return str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a")
-		.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e")
-		.replace(/ì|í|ị|ỉ|ĩ/g, "i")
-		.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o")
-		.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u")
-		.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y")
-		.replace(/đ/g, "d")
-		.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A")
-		.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E")
-		.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I")
-		.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O")
-		.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U")
-		.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y")
-		.replace(/Đ/g, "D")
-		.trim()
-		.replace(/\s+/g, ' ')
-		.toLowerCase();
+  return str
+    .replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a')
+    .replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e')
+    .replace(/ì|í|ị|ỉ|ĩ/g, 'i')
+    .replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o')
+    .replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u')
+    .replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y')
+    .replace(/đ/g, 'd')
+    .replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, 'A')
+    .replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, 'E')
+    .replace(/Ì|Í|Ị|Ỉ|Ĩ/g, 'I')
+    .replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, 'O')
+    .replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, 'U')
+    .replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, 'Y')
+    .replace(/Đ/g, 'D')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
 }
 
 export default ListBankPage;
