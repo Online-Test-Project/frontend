@@ -6,6 +6,7 @@ import ListAdminExam from '../admin/pages/ListAdminExam';
 import ListUserExam from '../admin/pages/ListUserExam';
 import ExamPage from '../admin/pages/ExamPage';
 import PrivateRoute from '../_components/PrivateRoute';
+import CreateExamPage from '../admin/pages/CreateExamPage';
 
 const Routes = () => {
     return (
@@ -22,6 +23,9 @@ const Routes = () => {
             </Route>
             <Route exact path="/admin/exam">
                 <ListAdminExam></ListAdminExam>
+            </Route>
+            <Route path="/admin/exam/create">
+                <CreateExamPage></CreateExamPage>
             </Route>
             <Route exact path="/doexam">
                 <ExamPage></ExamPage>
