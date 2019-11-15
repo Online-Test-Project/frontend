@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import axios from 'axios';
 import './BankTable.css';
+
+import config from '../../../_config/config';
+import {authHeader} from '../../../_helpers/index';
 
 const bank = [
 	{
@@ -662,11 +664,7 @@ class AddQuestionModal extends Component {
 			content: '',
 			type: 1,
 			level: 1,
-			listAnswer: [
-				{ content: 'Ming', isCorrect: true },
-				{ content: 'Không phải Ming', isCorrect: false },
-				{ content: 'Không phải Ming part 2', isCorrect: false },
-			],
+			listAnswer: [],
 			numOfBonusAnswer: 0
 		};
 	}
@@ -676,7 +674,6 @@ class AddQuestionModal extends Component {
 		const newQuestion = this.state;
 		newQuestion[name] = value;
 		await this.setState(newQuestion);
-		console.log(this.state);
 	}
 
 	async onChangeType(event) {
@@ -714,8 +711,38 @@ class AddQuestionModal extends Component {
 		console.log(this.state);
 	}
 
-	onSubmit() {
-		
+	async onSubmit() {
+		let listAnswer = [];
+		if (this.state.type === 1 || this.state.type === 2) {
+			let answers = document.getElementsByName("answer");
+			let isCorrectList = document.getElementsByName("isCorrect");
+			for (let i = 0; i < answers.length; i++) {
+				listAnswer.push({content: answers[i].value, isCorrect: isCorrectList[i].checked});
+			}
+		} else {
+			const answer = document.getElementById("text-answer").value;
+			listAnswer.push({content: answer, isCorrect: true});
+		}
+		await this.setState({listAnswer: listAnswer});
+		axios
+      .post(
+        config.SERVER_URL + '/api/question/create',
+        {
+          headers: authHeader(),
+        },
+        {
+					id: "000000000",
+					difficulty: this.state.level,
+					type: this.state.type,
+					content: this.state.content,
+					listAnswer: this.state.listAnswer
+        },
+      )
+      .then(res => {
+        console.log(res.data);
+      });
+		console.log(this.state);
+
 	}
 
 	render() {
@@ -728,10 +755,9 @@ class AddQuestionModal extends Component {
 					<div className="input-group-prepend">
 						<div className="input-group-text">
 							<input type={type === 1 ? "radio" : "checkbox"} name="isCorrect" />
-							
 						</div>
 					</div>
-					<input type="text" className="form-control" defaultValue="" name="answer" placeholder="Nhập đáp án, tích nếu đáp án đúng"/>
+					<input type="text" className="form-control" name="answer" placeholder="Nhập đáp án, tích nếu đáp án đúng"/>
 				</div>
 			);
 		}
@@ -743,13 +769,12 @@ class AddQuestionModal extends Component {
             <div className="input-group mb-2">
               <div className="input-group-prepend">
                 <div className="input-group-text">
-                  <input type="radio" name="gia tri" checked />
+                  <input type="radio" name="isCorrect" checked />
                 </div>
               </div>
               <input
                 type="text"
                 className="form-control"
-                defaultValue=""
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
               />
@@ -757,13 +782,13 @@ class AddQuestionModal extends Component {
             <div className="input-group mb-2">
               <div className="input-group-prepend">
                 <div className="input-group-text">
-                  <input type="radio" name="gia tri" />
+                  <input type="radio" name="isCorrect" />
                 </div>
               </div>
               <input
                 type="text"
                 className="form-control"
-                defaultValue=""
+                
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
               />
@@ -772,6 +797,7 @@ class AddQuestionModal extends Component {
             <button
               class="btn btn-info"
               onClick={() => {
+								
                 this.setState({
                   numOfBonusAnswer: this.state.numOfBonusAnswer + 1,
                 });
@@ -798,7 +824,7 @@ class AddQuestionModal extends Component {
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" name="gia tri" checked />
+                  <input type="checkbox" name="isCorrect" checked />
                 </div>
               </div>
               <input
@@ -812,7 +838,7 @@ class AddQuestionModal extends Component {
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" name="gia tri" />
+                  <input type="checkbox" name="isCorrect"/>
                 </div>
               </div>
               <input
@@ -850,7 +876,7 @@ class AddQuestionModal extends Component {
       case 3:
         element = (
           <div>
-            <textarea class="form-control" placeholder="Câu trả lời"></textarea>
+            <textarea class="form-control" id="text-answer" placeholder="Câu trả lời"></textarea>
           </div>
         );
         break;
@@ -928,7 +954,7 @@ class AddQuestionModal extends Component {
                 type="submit"
                 className="btn btn-secondary"
                 data-dismiss="modal"
-                onClick={() => this.onDelete()}
+                onClick={() => this.onSubmit()}
               >
                 Lưu
               </button>
