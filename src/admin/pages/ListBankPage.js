@@ -63,15 +63,15 @@ class ListBankPage extends Component {
     .post(config.SERVER_URL+'/api/bank/delete', JSON.stringify(id),
       {
         headers: authHeader()
-      }
+      })
       .then(response => {
         console.log(response.data);
-        if (!response.data) {
+        if (response.data) {
           let newListBank = this.state.listBank.filter(bank => bank.id !== id);
           console.log(newListBank);
           this.setState({ listBank: newListBank });
         }
-      });
+      })
   }
 
   render() {
