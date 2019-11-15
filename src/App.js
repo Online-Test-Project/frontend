@@ -8,7 +8,7 @@ import { history } from './_helpers/index';
 import { authenticationService } from './_services/index';
 import PrivateRoute from './_components/PrivateRoute';
 import HomePage from './admin/pages/HomePage';
-import LoginPage from './admin/pages/LoginPage';
+import Register from './admin/pages/Register';
 import Login from './admin/pages/Login';
 
 class App extends React.Component {
@@ -36,6 +36,7 @@ class App extends React.Component {
         <Router>
           <PrivateRoute exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
         </Router>
       </div>
     );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './LoginAndRegister.css';
 
 import { authenticationService } from '../../_services/index';
 
@@ -9,13 +10,14 @@ class Login extends Component {
     if (authenticationService.currentUserValue) {
       this.props.history.push('/');
     }
-    this.state = { username: "", password: "", error: "" };
+    this.state = { username: '', password: '', error: '' };
   }
 
   onSubmit() {
     // authenticationService.login()
-    console.log("Submit");
-    authenticationService.login(this.state.username, this.state.password)
+    console.log('Submit');
+    authenticationService
+      .login(this.state.username, this.state.password)
       .then(user => {
         console.log(user);
         const { from } = this.props.location.state || {
@@ -24,39 +26,108 @@ class Login extends Component {
         this.props.history.push(from);
       })
       .catch(err => {
-        this.setState({ error: "Tên tài khoản không đúng hoặc mật khẩu không chính xác!" });
+        this.setState({
+          error: 'Tên tài khoản không đúng hoặc mật khẩu không chính xác!',
+        });
         console.log(this.state.error);
-      })
+      });
   }
 
   onChange(event) {
     const { name, value } = event.target;
     let newState = this.state;
     newState[name] = value;
+    newState.error = "";
     this.setState(newState);
-    console.log(newState);
   }
 
   render() {
     return (
       <div className="container">
-        <form>
-          <div class="form-group">
-            <label for=""></label>
-            <input type="text"
-              class="form-control" name="username" aria-describedby="helpId" placeholder="" onChange={(event) => this.onChange(event)} />
-            <small id="helpId" class="form-text text-muted">Help text</small>
+        <div className="login-2 tab-box">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-5 col-md-12 col-pad-0 bg-img none-992">
+                <div className="informeson">
+                  <h3>My Test</h3>
+                  <p>
+                    Giải pháp tốt nhất cho thi online thay thế việc thi truyền
+                    thống.
+                  </p>
+                </div>
+              </div>
+              <div className="col-lg-7 col-md-12 col-pad-0 bg-color align-self-center">
+                <div className="login-inner-form">
+                  <div className="details">
+                    <a href="#">
+                      {/* <img src="assets/img/logos/logo.png" alt="logo" /> */}
+                    </a>
+                    <h3>Đăng nhập vào tài khoản của bạn</h3>
+                    <form
+                    >
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          name="username"
+                          onChange={event => this.onChange(event)}
+                          className="input-text"
+                          placeholder="Tên đăng nhập"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="password"
+                          name="password"
+                          onChange={event => this.onChange(event)}
+                          className="input-text"
+                          placeholder="Mật khẩu"
+                        />
+                      </div>
+                      <div className="checkbox clearfix">
+                        <div className="form-check checkbox-theme">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            defaultValue
+                            id="rememberMe"
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="rememberMe"
+                          >
+                            Nhớ tài khoản
+                          </label>
+                        </div>
+                        <a href="forgot-password-2.html">Quên mật khẩu</a>
+                      </div>
+                      {this.state.error === '' ? (
+                        <div></div>
+                      ) : (
+                        <div className="alert alert-danger">
+                          {this.state.error}
+                        </div>
+                      )}
+                      <div className="form-group">
+                        <button
+                          type="button"
+                          className="btn-md btn-theme btn-block"
+                          onClick={() => this.onSubmit()}
+                        >
+                          Đăng nhập
+                        </button>
+                      </div>
+                      <p className="none-2">
+                        Bạn chưa có tài khoản?
+                        <a href="register-2.html">Đăng kí</a>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for=""></label>
-            <input type="password" class="form-control" name="password" placeholder="" onChange={(event) => this.onChange(event)} />
-          </div>
-          {this.state.error === "" ? <div></div> : <div className="alert alert-danger">{this.state.error}</div>}
-          <button type="button" class="btn btn-primary" onClick={() => this.onSubmit()} >Đăng nhập</button>
-        </form>
-
+        </div>
       </div>
-
     );
   }
 }
