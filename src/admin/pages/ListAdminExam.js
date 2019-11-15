@@ -4,7 +4,7 @@ import './ListAdminExam.css';
 import { Link } from 'react-router-dom';
 import ExamPage from './ExamPage';
 import axios from 'axios';
-import config from '../../_config/config'
+import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 class ListAdminExam extends Component {
     constructor(props) {
@@ -25,36 +25,19 @@ class ListAdminExam extends Component {
         });
       }
 
-      async onSearch() {
-		// this.setState({ isSearching: true });
-		// let content = document.getElementById("search").value;
-		// content = normalizeString(content);
-
-		// const newFilteredExam = await this.state.listExam.filter(exam => {
-		// 	let contentValid = false;
-		// 	contentValid = normalizeString(exam.name).includes(content);
-        //     return contentValid;
-		// });
-		// await this.setState({ listExam: newFilteredExam });
-        // this.setState({ isSearching: false });
-  }
-
 
   onDeleteExam(id) {
-    
-      console.log("xoa ne");
-    console.log('XOa thang: ' + id);
     axios
     .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
-        
       headers: authHeader(), "Content-Type" : "application/json",
     })
-      .then(response => {
+      .then(async response => {
         console.log(response.data);
-        if (!response.data) {
-          let newListBank = this.state.listBank.filter(bank => bank.id !== id);
-          console.log(newListBank);
-          this.setState({ listBank: newListBank });
+        if (response.data) {
+          let newListExam = await this.state.listExam.filter(exam => exam.id !== id);
+          console.log(newListExam);
+          await this.setState({ listExam: newListExam });
+          console.log(this.state.listExam);
         }
       });
       
@@ -69,27 +52,18 @@ class ListAdminExam extends Component {
                     <div class="table-content">
                         <div class="header-row-list">
                             <div class="title">
-                            <Link to={'/admin/exam/'}>
+                            <Link to={'/admin/exam'}>
                                 <h3 style={{ marginTop: "10px", marginLeft: "40px", fontWeight: "bold" }}>Đề thi đã tạo</h3>
                                 </Link>
                             </div>
                             <div class="row justify-content-end header-wrapper-end">
-                                <div class="header-item-wrapper">
-                                    <div class="search-box">
-                                        <input placeholder="Tìm kiếm..." id="search"
-                                         onKeyPress={(event) => {
-											if (event.key === "Enter") {
-												this.onSearch();
-											}
-										}}
-                                        />
-                                        <span class="icon"><div class="fa fa-search fomat-icon-menu"></div></span>
-                                    </div>
-                                </div>
 
                                 <div class="header-item-wrapper" data-toggle="modal" data-target="#modelAddExam" >
                                     <div class="fa fa-plus-square fomat-icon-menu"></div>
+                                    <Link to={'/admin/exam/create'}>
                                     <div class="item-text">Thêm đề thi</div>
+                                        </Link>
+                                    
 
                                 </div>
                             </div>
@@ -118,7 +92,7 @@ class ListAdminExam extends Component {
                                                         Bạn có chắc chắn muốn xóa đề thi này?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary"  data-dismiss="modal" onClick={this.onDeleteExam.bind(this, exam.id)}>Xóa</button>
+                                                            <button type="button" class="btn btn-primary"  data-dismiss="modal" onClick={this.onDeleteExam.bind(this, exam.id)}>Xóa</button>
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                                             
                                                         </div>
@@ -126,8 +100,11 @@ class ListAdminExam extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4 class="exam-name">{exam.name}</h4>
-                                        <span class="Updatetime"><b>Sửa đổi lần cuối: </b>{exam.time}</span>
+                                        <Link to={'/exam' + exam.id}>
+                                            <h4>{exam.name}</h4>
+                                        </Link>
+                                        {/* <h4 class="exam-name">{exam.name}</h4> */}
+                                        <span class="Updatetime"><b>Thời gian làm bài: </b>{exam.time}</span>
                                         <span class="bank-desc">
                                         <span><b>Mã đề thi: </b>{exam.password}</span>
                                         </span>
@@ -144,26 +121,6 @@ class ListAdminExam extends Component {
             </Layout>
         );
     }
-}
-
-function normalizeString(str) {
-	return str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a")
-		.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e")
-		.replace(/ì|í|ị|ỉ|ĩ/g, "i")
-		.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o")
-		.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u")
-		.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y")
-		.replace(/đ/g, "d")
-		.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A")
-		.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E")
-		.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I")
-		.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O")
-		.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U")
-		.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y")
-		.replace(/Đ/g, "D")
-		.trim()
-		.replace(/\s+/g, ' ')
-		.toLowerCase();
 }
 
 export default ListAdminExam;

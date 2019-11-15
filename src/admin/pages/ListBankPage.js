@@ -52,7 +52,7 @@ class ListBankPage extends Component {
       .then(response => {
         console.log(response.data);
         const data = response.data;
-        // let resetCurrentEditBank = this.state.currentEditBank;
+       
         this.setState({ listBank: data });
       });
   }
@@ -60,9 +60,10 @@ class ListBankPage extends Component {
   onDeleteBank(id) {
     console.log('XOa thang: ' + id);
     axios
-      .post(config.SERVER_URL + '/api/bank/delete', id, {
-        headers: authHeader(),
-      })
+    .post(config.SERVER_URL+'/api/bank/delete', JSON.stringify(id),
+      {
+        headers: authHeader()
+      }
       .then(response => {
         console.log(response.data);
         if (!response.data) {
@@ -158,6 +159,7 @@ class Bank extends Component {
   }
 
   onSave() {
+    console.log("sua ne");
     axios
       .post(
         config.SERVER_URL + '/api/bank/update',
@@ -167,7 +169,7 @@ class Bank extends Component {
           description: this.state.description,
         },
         {
-          headers: authHeader(),
+          headers: authHeader()
         },
       )
       .then(res => {
@@ -410,6 +412,7 @@ class AddBankModal extends Component {
               <button
                 type="button"
                 class="btn btn-primary"
+                data-dismiss="modal"
                 onClick={() => this.onAdd()}
               >
                 Thêm
