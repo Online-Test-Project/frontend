@@ -173,7 +173,7 @@
     overflow: hidden !important;
 }
 
-.content .table-content .toolbar button {
+.content .table-content .toolbar {
     background-color: #4e73df;
     border: none;
     padding: 0 8px;

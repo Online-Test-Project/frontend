@@ -37,7 +37,7 @@
             
     }
 
-        .menu-left .logo h5{
+        .menu-left .logo{
                 color: white;
                 vertical-align: middle;
                 line-height: 60px;
@@ -160,7 +160,15 @@
             background-color: #4e73df;
             overflow: hidden!important;
         }
-        .content .table-content .toolbar button{
+        .btn-header {
+            background-color:#4e73df;
+            border: none;
+            padding: 0px 8px !important;
+            border-right: 1px solid #dedede;
+            color: white;
+            overflow: hidden!important;
+        }
+        .content .table-content .toolbar {
             background-color:#4e73df;
             border: none;
             padding: 0 8px;
