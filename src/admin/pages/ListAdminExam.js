@@ -100,7 +100,7 @@ class ListAdminExam extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Link to={'/exam' + exam.id}>
+                                        <Link to={'/view-exam/' + exam.id}>
                                             <h4>{exam.name}</h4>
                                         </Link>
                                         {/* <h4 class="exam-name">{exam.name}</h4> */}
