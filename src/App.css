@@ -28,16 +28,13 @@
   width: 200px;
   background-color: #4e73df;
   transition: 0.3s;
-  background-image: linear-gradient(to bottom, #1f3b8e, rgb(89, 192, 198));
 }
 
-#menu-icon{
-  z-index: 1001;
-}
+
 
 .menu-left .logo {
   width: 100%;
-  background-color: #254994;
+  background-color: #4e73df;
   height: 60px;
 
 }
@@ -45,10 +42,6 @@
 .menu-left .logo {
   color: white;
   vertical-align: middle;
-  line-height: 60px;
-}
-
-.text-center{
   line-height: 60px;
 }
 
@@ -90,14 +83,14 @@
 
 /*=========================================== main-content =========================================*/
 .main-content {
-  background-color: #f8f8f8;
+  background-color: #effffb;
   position: absolute;
   left: 200px;
   right: 0;
   top: 0;
   bottom: 0;
   transition: 0.3s;
-  overflow-x: hidden;
+  overflow: auto;
 
 }
 
@@ -105,10 +98,6 @@
   height: 60px;
   width: 100%;
   box-shadow: 0 0 2px 0;
-  background-color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   background-color: white;
 }
 
@@ -153,21 +142,19 @@
 }
 
 .header .header-item-wrapper .format-icon-menu {
-  color: #254994;
+  color: #4e73df;
   font-size: 20px;
   margin: 0 8px;
 }
 
 .header .header-item-wrapper .item-text {
-  color: #254994;
+  color: #96a8fa;
   line-height: 21px;
 }
 
 /* ============content================ */
 
 .content {
-  overflow: hidden;
-  overflow-y: auto;
   height: calc(100% - 60px);
 }
 
@@ -248,5 +235,5 @@
   left: 210px;
   z-index: 10;
   font-size: 25px;
-  color: #254994;
+  color: blue;
 }
