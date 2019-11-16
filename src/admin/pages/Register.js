@@ -13,32 +13,50 @@ class Register extends Component {
     this.state = { username: '', password: '', repeatPassword: '', error: '' };
   }
 
+  isValidPassword(password) {
+    let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return pattern.test(password);
+  }
+
   onSubmit() {
     // authenticationService.login()
     console.log('Submit');
-    authenticationService
-      .login(this.state.username, this.state.password)
-      .then(user => {
-        console.log(user);
-        const { from } = this.props.location.state || {
-          from: { pathname: '/' },
-        };
-        this.props.history.push(from);
-      })
-      .catch(err => {
-        this.setState({
-          error: 'Có lỗi xảy ra. Vui lòng thử lại!',
+    if (
+      this.state.username === '' ||
+      this.state.password === '' ||
+      this.state.repeatPassword === ''
+    ) {
+      this.setState({ error: 'Vui lòng nhập đủ thông tin!' });
+    } else if (!this.isValidPassword(this.state.password)) {
+      this.setState({ error: 'Mật khẩu không hợp lệ! Mật khẩu cần tối thiểu 8 kí tự, trong đó có ít nhất một chữ cái và một số, không chứa ký tự đặc biệt!' });
+    } else if (this.state.password !== this.state.repeatPassword) {
+      this.setState({ error: 'Nhập lại mật khẩu không đúng' });
+    } else {
+      authenticationService
+        .register(this.state.username, this.state.password)
+        .then(user => {
+          console.log(user);
+          const { from } = this.props.location.state || {
+            from: { pathname: '/' },
+          };
+          this.props.history.push(from);
+        })
+        .catch(err => {
+          this.setState({
+            error: 'Có lỗi xảy ra. Vui lòng thử lại!',
+          });
+          console.log(this.state.error);
         });
-        console.log(this.state.error);
-      });
+    }
   }
 
   onChange(event) {
     const { name, value } = event.target;
     let newState = this.state;
     newState[name] = value;
-    newState.error = "";
+    newState.error = '';
     this.setState(newState);
+    console.log(this.state);
   }
 
   render() {
@@ -62,24 +80,14 @@ class Register extends Component {
                     <img src="assets/img/logos/logo.png" alt="logo" />
                   </a>
                   <h3>Đăng kí tài khoản</h3>
-                  <form
-                    action="http://storage.googleapis.com/themevessel-products/logdy/index.html"
-                    method="GET"
-                  >
+                  <form>
                     <div className="form-group">
                       <input
                         type="text"
-                        name="usẻname"
+                        name="username"
                         className="input-text"
                         placeholder="Tên đăng nhập"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        name="email"
-                        className="input-text"
-                        placeholder="Email"
+                        onChange={e => this.onChange(e)}
                       />
                     </div>
                     <div className="form-group">
@@ -88,20 +96,30 @@ class Register extends Component {
                         name="password"
                         className="input-text"
                         placeholder="Mật khẩu"
+                        onChange={e => this.onChange(e)}
                       />
                     </div>
                     <div className="form-group">
                       <input
                         type="password"
-                        name="confirm-password"
+                        name="repeatPassword"
                         className="input-text"
                         placeholder="Nhập lại mật khẩu"
+                        onChange={e => this.onChange(e)}
                       />
                     </div>
+                    {this.state.error === '' ? (
+                      <div></div>
+                    ) : (
+                      <div className="alert alert-danger">
+                        {this.state.error}
+                      </div>
+                    )}
                     <div className="form-group">
                       <button
-                        type="submit"
+                        type="button"
                         className="btn-md btn-theme btn-block"
+                        onClick={() => this.onSubmit()}
                       >
                         Đăng kí
                       </button>

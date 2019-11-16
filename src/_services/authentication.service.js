@@ -8,6 +8,7 @@ const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('
 export const authenticationService = {
     login,
     logout,
+    register,
     currentUser: currentUserSubject.asObservable(),
     get currentUserValue () { return currentUserSubject.value }
 };
@@ -23,7 +24,7 @@ function login(username, password) {
         .then(response => response.json())
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            if (user.id) {
+            if (user) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 currentUserSubject.next(user);
                 console.log(user);
@@ -33,7 +34,28 @@ function login(username, password) {
             }
             
         })
-        // .catch(error => console.log(error));
+}
+
+function register(username, password) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    };
+
+    return fetch(`${config.SERVER_URL}/api/users/register`, requestOptions)
+        .then(response => response.json())
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                currentUserSubject.next(user);
+                console.log(user);
+                return user;
+            } else if(user.Message) {
+                console.log(user);
+            }  
+        })
 }
 
 function logout() {

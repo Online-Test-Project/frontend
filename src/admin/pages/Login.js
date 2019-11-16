@@ -13,31 +13,41 @@ class Login extends Component {
     this.state = { username: '', password: '', error: '' };
   }
 
+  
+
   onSubmit() {
     // authenticationService.login()
     console.log('Submit');
-    authenticationService
-      .login(this.state.username, this.state.password)
-      .then(user => {
-        console.log(user);
-        const { from } = this.props.location.state || {
-          from: { pathname: '/' },
-        };
-        this.props.history.push(from);
-      })
-      .catch(err => {
-        this.setState({
-          error: 'Tên tài khoản không đúng hoặc mật khẩu không chính xác!',
+    if (
+      this.state.username === '' ||
+      this.state.password === '' ||
+      this.state.repeatPassword === ''
+    ) {
+      this.setState({ error: 'Vui lòng nhập đủ thông tin!' });
+    } else {
+      authenticationService
+        .login(this.state.username, this.state.password)
+        .then(user => {
+          console.log(user);
+          const { from } = this.props.location.state || {
+            from: { pathname: '/' },
+          };
+          this.props.history.push(from);
+        })
+        .catch(err => {
+          this.setState({
+            error: 'Tên tài khoản không đúng hoặc mật khẩu không chính xác!',
+          });
+          console.log(this.state.error);
         });
-        console.log(this.state.error);
-      });
+    }
   }
 
   onChange(event) {
     const { name, value } = event.target;
     let newState = this.state;
     newState[name] = value;
-    newState.error = "";
+    newState.error = '';
     this.setState(newState);
   }
 
@@ -63,8 +73,7 @@ class Login extends Component {
                       {/* <img src="assets/img/logos/logo.png" alt="logo" /> */}
                     </a>
                     <h3>Đăng nhập vào tài khoản của bạn</h3>
-                    <form
-                    >
+                    <form>
                       <div className="form-group">
                         <input
                           type="text"
