@@ -54,7 +54,6 @@ class Table extends Component {
 				console.log(response.date);
 				const bankinfo = response.data;
 				this.setState({ bankInfo: bankinfo});
-
 			})
 	}
 
@@ -81,20 +80,21 @@ class Table extends Component {
 		const selectType = document.getElementById('type-search');
 		let type = selectType.options[selectType.selectedIndex].value;
 
-		const selectLevel = document.getElementById('level-search');
-		let level = selectLevel.options[selectLevel.selectedIndex].value;
+		const selectLevel = document.getElementById('difficulty-search');
+		let difficulty = selectLevel.options[selectLevel.selectedIndex].value;
 
-		switch (level) {
+		switch (difficulty) {
 			case 'Dễ':
-				level = 1;
+				difficulty = 1;
 				break;
 			case 'Trung bình':
-				level = 2;
+				difficulty = 2;
 				break;
 			case 'Khó':
-				level = 3;
+				difficulty = 3; 
+				break;
 			default:
-				level = 'Tất cả';
+				difficulty = 'Tất cả';
 		}
 
 		switch (type) {
@@ -121,9 +121,9 @@ class Table extends Component {
 			} else if (question.type === type) {
 				typeValid = true;
 			}
-			if (level === 'Tất cả') {
+			if (difficulty === 'Tất cả') {
 				levelValid = true;
-			} else if (question.level === level) {
+			} else if (question.difficulty === difficulty) {
 				levelValid = true;
 			}
 			return contentValid && typeValid && levelValid;
@@ -371,7 +371,7 @@ class Table extends Component {
 									<th scope="col" style={{ width: '20%' }}>
 										<label>Độ khó</label>
 										<select
-											id="level-search"
+											id="difficulty-search"
 											className="form-control"
 											onChange={() => this.onSearch()}
 										>
@@ -436,9 +436,9 @@ class Table extends Component {
 																	: 'Text Input'}
 														</td>
 														<td>
-															{e.level === 1
+															{e.difficulty === 1
 																? 'Dễ'
-																: e.level === 2
+																: e.difficulty === 2
 																	? 'Trung bình'
 																	: 'Khó'}
 														</td>
@@ -612,7 +612,7 @@ class AddQuestionModal extends Component {
 			id: this.props.id,
 			content: '',
 			type: 1,
-			level: 1,
+			difficulty: 1,
 			listAnswer: [],
 			numOfBonusAnswer: 0
 		};
@@ -644,19 +644,19 @@ class AddQuestionModal extends Component {
 	}
 
 	async onChangeLevel(event) {
-		let level = event.target.value;
-		switch (level) {
+		let difficulty = event.target.value;
+		switch (difficulty) {
 			case 'Dễ':
-				level = 1;
+				difficulty = 1;
 				break;
 			case 'Trung bình':
-				level = 2;
+				difficulty = 2;
 				break;
 			case 'Khó':
-				level = 3;
-			default: level = 1;
+				difficulty = 3; break;
+			default: difficulty = 1;
 		}
-		await this.setState({level: level});
+		await this.setState({difficulty: difficulty});
 		console.log(this.state);
 	}
 
@@ -678,7 +678,7 @@ class AddQuestionModal extends Component {
 		config.SERVER_URL + '/api/question/create',
 		{
 			id: this.state.id,
-			difficulty: this.state.level,
+			difficulty: this.state.difficulty,
 			type: this.state.type,
 			content: this.state.content,
 			answers: this.state.listAnswer
@@ -884,10 +884,10 @@ class AddQuestionModal extends Component {
                   <div className="col-6">
                     <select
                       className="form-control"
-                      name="level"
+                      name="difficulty"
                       onChange={event => this.onChangeLevel(event)}
                     >
-                      <option>Dễ</option>
+                      <option defaultChecked>Dễ</option>
                       <option>Trung bình</option>
                       <option>Khó</option>
                     </select>
