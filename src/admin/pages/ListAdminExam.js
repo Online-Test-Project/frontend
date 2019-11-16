@@ -103,10 +103,12 @@ class ListAdminExam extends Component {
                                         <Link to={'/view-exam/' + exam.id}>
                                             <h4>{exam.name}</h4>
                                         </Link>
-                                        {/* <h4 class="exam-name">{exam.name}</h4> */}
-                                        <span class="Updatetime"><b>Thời gian làm bài: </b>{exam.time}</span>
+                                        <span class="Updatetime"><b>Mật khẩu: </b>{exam.password}</span>
                                         <span class="bank-desc">
-                                        <span><b>Mã đề thi: </b>{exam.password}</span>
+                                        <span><b>Thời gian làm bài: </b>{exam.time}</span><br></br>
+                                        <span><b>Thời gian mở: </b> từ <b>{exam.startTime}</b> đến <b>{exam.endTime}</b></span><br></br>
+                                        <span><b>Số câu hỏi: </b>{exam.count}</span><br></br>
+                                        <span><b>Loại đề: </b>{exam.isRandom === true ? 'Ngẫu nhiên' : 'Tự chọn'}</span><br></br>
                                         </span>
                                     </div>
                                 </div>

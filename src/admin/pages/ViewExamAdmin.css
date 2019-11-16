@@ -1,0 +1,183 @@
+*{
+    margin: 0;
+    padding: 0px;
+}
+
+/* css chia 2 phan */
+
+.question-title {color: #1877f2;}
+#list-question{
+    float: left;
+}
+#exam-test{
+    
+    float: right;
+}
+.clear {
+    clear: both;
+}
+/* het chia cot */
+
+
+
+/* css cho phan stt */
+
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.pr-2 {
+    padding-right: .5rem!important; ;
+}
+.flex-shrink-1 {
+    flex-shrink: 1!important;
+}
+/* .card-question {
+    border-radius:0!important ;
+    border-color: rgb(84, 152, 247);
+} */
+/* 
+
+css cho phan dap an */
+.row {
+    display: flex;
+    flex-wrap: wrap ;
+}
+.select-answer {
+    margin: .15rem 0;
+}
+.w-100{
+    width: 100%!important;
+}
+.card-question {
+    border: none;
+}
+.card-question> .card-body {
+    padding: 0 0 1rem 0;
+}
+
+.options .select-check {
+    position: absolute;
+    border: .1em solid #1877F2;
+    color: #1877F2;
+    border-radius: .25rem;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+.select-checked .select-check{
+    position: absolute;
+    border: .1em solid #1877F2;
+    color: white;
+    background: #1877F2;
+    border-radius: .25rem;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+    
+}
+.select-check+div, .multiselect-check+div {
+    margin-left: 2em;
+}
+.text-wrap {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+.select-answer .options
+{
+    cursor: pointer;
+}
+.disabled {
+    cursor: no-drop;
+}
+
+.options .multiselect-check
+{
+    position: absolute;
+    border: .1em solid #1877F2!important;
+    color: #1877F2!important;
+    border-radius: .25rem!important;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+.input[type = checkbox]{
+    border: .1em solid #1877F2!important;
+    color: #1877F2!important;
+    border-radius: .25rem!important;
+}
+.options .input-answer
+{
+    position: absolute;
+    line-height: 1.3em;
+    float: right;
+}
+
+
+/* css cho phan so luong cau hoi ben trai */
+
+#pagination-question .pagination {
+    margin: 0;
+    font-weight: 600 ;
+    padding: .25em ;
+    border: .1em solid #1877F2;
+    color: #1877F2;
+    border-radius: .25rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-item.is-answered-true .page-link {
+    
+    color: #fff;
+    background-color: #28a745 ;
+    
+}
+.d-inline-block {
+    display: inline-block;
+}
+.pagination {
+    padding-left: 0 ;
+    list-style: none;
+    
+}
+.page-link {
+    border-radius: 0!important;
+    height: 2.3em;
+    width: 2.3em;
+    text-align: center;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    margin: .25rem;
+    
+}
+.float-left {
+    float: left!important;
+}
+.time {
+    border: .1em solid #1877F2;
+    text-align: center;
+    font-weight:600 ;
+    border-radius: .25rem;
+    margin: 0 0 0.5rem 0;
+}
+.clssubmit {
+    margin: 0 0 0.5rem 0;
+}
+.submit {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-body {
+    background-color: #EFFFFB !important;  
+}
+
+.card {
+    border-color: #EFFFFB !important;
+}
+/* end css cho phan bang cau hoi */

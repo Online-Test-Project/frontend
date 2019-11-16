@@ -316,10 +316,11 @@ tr:nth-child(odd) {
     font-size: 14px;
     display: block;
     margin: 15px 0;
-    line-height: 25px;
+    
     color: #848a96;
     overflow: hidden;
-    max-height: 52px;
+    max-height: 100px;
+    line-height: 25px;
     text-overflow: ellipsis;
     font-family: inherit;
     padding-left: 20px;
