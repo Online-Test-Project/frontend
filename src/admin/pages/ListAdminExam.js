@@ -10,7 +10,7 @@ class ListAdminExam extends Component {
     constructor(props) {
         super(props);
         this.state = {
-             listExam: [{id: "alskjfalsdf", name:"kasjdfhksdjaf", password: "132451234"}]};
+             listExam: []};
     }
 
     async componentDidMount() {
