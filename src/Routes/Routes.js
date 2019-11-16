@@ -7,6 +7,7 @@ import ListUserExam from '../admin/pages/ListUserExam';
 import ExamPage from '../admin/pages/ExamPage';
 import PrivateRoute from '../_components/PrivateRoute';
 import CreateExamPage from '../admin/pages/CreateExamPage';
+import ViewAdminExam from '../admin/pages/ViewExamAdmin';
 
 const Routes = () => {
     return (
@@ -14,9 +15,10 @@ const Routes = () => {
             {/* <Route exact path="/admin">
                 <ListBankPage></ListBankPage>
             </Route> */}
-            <PrivateRoute exact path="/admin" component={ListBankPage}></PrivateRoute>
-            <Route path="/admin/bank/:id" render={(props) => <BankPage {...props}></BankPage>}>
-            </Route>
+            <PrivateRoute exact path="/admin" component={ListBankPage}>
+            </PrivateRoute>
+            <PrivateRoute path="/admin/bank/:id" component={BankPage}>
+            </PrivateRoute>
             
             <Route exact path="/user/exam">
                 <ListUserExam></ListUserExam>
@@ -30,6 +32,8 @@ const Routes = () => {
             <Route exact path="/doexam">
                 <ExamPage></ExamPage>
             </Route>
+            <PrivateRoute exact path="/view-exam/:id" component={ViewAdminExam}>
+            </PrivateRoute>
         </Router>
     );
 }

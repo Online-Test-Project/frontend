@@ -6,94 +6,6 @@ import config from '../../../_config/config';
 import {authHeader} from '../../../_helpers/index';
 
 const bank = [
-	{
-		id: '001',
-		content: 'Ai là người thông minh nhất thế giới',
-		type: 1,
-		level: 1,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
-	{
-		id: '002',
-		content: 'Top 3 thành phố đắt đỏ nhất thế giới',
-		type: 2,
-		level: 2,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
-	{
-		id: '003',
-		content: 'Chiếc điện thoại mới nhất của Samsung tính đến 24/09/2019 là?',
-		type: 1,
-		level: 3,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
-	{
-		id: '004',
-		content: 'Khổ thơ đầu bài thơ Đồng chí?',
-		type: 3,
-		level: 2,
-		listAnswer: [{ content: 'Ming', isCorrect: true }],
-		selected: false,
-	},
-	{
-		id: '005',
-		content: 'Ai là người thông minh nhất thế giới',
-		type: 1,
-		level: 1,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
-	{
-		id: '006',
-		content: 'Top 3 thành phố đắt đỏ nhất thế giới',
-		type: 2,
-		level: 2,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
-	{
-		id: '007',
-		content: 'Chiếc điện thoại mới nhất của Samsung tính đến 24/09/2019 là?',
-		type: 1,
-		level: 3,
-		listAnswer: [{ content: 'Ming', isCorrect: true }],
-		selected: false,
-	},
-	{
-		id: '008',
-		content: 'Khổ thơ đầu bài thơ Đồng chí?',
-		type: 3,
-		level: 2,
-		listAnswer: [
-			{ content: 'Ming', isCorrect: true },
-			{ content: 'Không phải Ming', isCorrect: false },
-			{ content: 'Không phải Ming part 2', isCorrect: false },
-		],
-		selected: false,
-	},
 ];
 
 function normalizeString(str) {
@@ -123,6 +35,7 @@ class Table extends Component {
 		this.state = {
 			id: this.props.id,
 			name: 'Công nghệ phần mềm',
+			bankInfo: {},
 			description: 'Bộ câu hỏi ôn tập cuối kì cho môn Công nghệ phần mềm',
 			bank: bank,
 			filteredBank: bank,
@@ -132,7 +45,29 @@ class Table extends Component {
 	}
 
 	componentDidMount() {
-		// axios.get('')
+		this.updateBankFromServer();
+		axios
+		.get(config.SERVER_URL + '/api/bank/get/' + this.state.id, {
+			headers: authHeader()
+		}).then( response =>
+			{
+				console.log(response.date);
+				const bankinfo = response.data;
+				this.setState({ bankInfo: bankinfo});
+
+			})
+	}
+
+	async updateBankFromServer() {
+		await axios
+		.get( config.SERVER_URL + '/api/question/list/' + this.state.id, {
+			headers: authHeader(),
+		})
+		.then(res => {
+			console.log(res.data);
+			const data = res.data;
+			this.setState({bank: data ,filteredBank : data});
+		})
 	}
 
 	/**
@@ -209,8 +144,30 @@ class Table extends Component {
 	}
 
 	onDelete() {
-		let newBank = this.state.bank.filter(question => !question.selected);
-		this.setState({ bank: newBank, filteredBank: newBank });
+		const arrDelete = this.state.bank.filter(question => question.selected).map(question => question.id);
+		if(arrDelete.length === 0){
+			alert("Vui lòng chọn ít nhất một câu hỏi");
+		}else {
+			axios
+		.post(config.SERVER_URL + '/api/question/delete', arrDelete,
+		{
+			headers: authHeader()
+		})
+		.then (res => {
+			console.log(res.data);
+
+			if(res.data){
+				alert("Bạn đã xóa thành công!");
+				let newBank = this.state.bank.filter(question => !question.selected);
+				this.setState({ bank: newBank, filteredBank: newBank });
+			}else{
+				alert("Xóa không thành công!")
+			}
+		})
+		}
+		
+		
+
 	}
 
 	// onEdit() {
@@ -238,6 +195,7 @@ class Table extends Component {
 
 	render() {
 		return (
+
 			<div className="content row">
 				<div className="table-content">
 					<div className="toolbar row">
@@ -245,15 +203,8 @@ class Table extends Component {
 							<i className="fa fa-plus-square format-icon-menu "></i>
 							<div>Thêm</div>
 						</button>
-						<AddQuestionModal></AddQuestionModal>
-						<button
-							className="row item-center btn-header"
-							data-toggle="modal"
-							data-target="#editBankModal"
-						>
-							<i className="fa fa-pencil format-icon-menu "></i>
-							<div>Sửa</div>
-						</button>
+						<AddQuestionModal id={this.state.id} updateBankFromServer={() => this.updateBankFromServer()}></AddQuestionModal>
+						
 						<button
 							className="row item-center btn-header"
 							data-toggle="modal"
@@ -261,10 +212,6 @@ class Table extends Component {
 						>
 							<i className="fa fa-trash format-icon-menu "></i>
 							<div>Xóa</div>
-						</button>
-						<button className="row item-center btn-header">
-							<i className="fa fa-plus-square format-icon-menu "></i>
-							<div>Nhập</div>
 						</button>
 
 						<div
@@ -298,21 +245,22 @@ class Table extends Component {
 										sau khi xóa.
                   </div>
 									<div className="modal-footer">
-										<button
+									<button
 											type="button"
 											className="btn btn-secondary"
 											data-dismiss="modal"
-											onClick={() => this.onDelete()}
 										>
-											Xóa
+											Hủy
                     </button>
 										<button
 											type="button"
 											className="btn btn-primary"
 											data-dismiss="modal"
+											onClick={() => this.onDelete()}
 										>
-											Hủy
+											Xóa
                     </button>
+										
 									</div>
 								</div>
 							</div>
@@ -513,7 +461,7 @@ class Table extends Component {
 																			id="exampleModalLongTitle"
 																		>
 																			Sửa
-                                </h5>
+                                									</h5>
 																		<button
 																			type="button"
 																			className="close"
@@ -661,6 +609,7 @@ class AddQuestionModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: this.props.id,
 			content: '',
 			type: 1,
 			level: 1,
@@ -726,23 +675,23 @@ class AddQuestionModal extends Component {
 		await this.setState({listAnswer: listAnswer});
 		axios
       .post(
-        config.SERVER_URL + '/api/question/create',
+		config.SERVER_URL + '/api/question/create',
+		{
+			id: this.state.id,
+			difficulty: this.state.level,
+			type: this.state.type,
+			content: this.state.content,
+			answers: this.state.listAnswer
+		},
         {
           headers: authHeader(),
         },
-        {
-					id: "000000000",
-					difficulty: this.state.level,
-					type: this.state.type,
-					content: this.state.content,
-					listAnswer: this.state.listAnswer
-        },
       )
       .then(res => {
-        console.log(res.data);
+		console.log(res.data);
+		this.props.updateBankFromServer();
       });
-		console.log(this.state);
-
+	
 	}
 
 	render() {
@@ -830,7 +779,7 @@ class AddQuestionModal extends Component {
               <input
                 type="text"
                 class="form-control"
-                value="Hậu "
+                
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
               />
@@ -838,14 +787,16 @@ class AddQuestionModal extends Component {
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" name="isCorrect"/>
+                  <input type="checkbox" name="isCorrect"
+				   
+				  />
                 </div>
               </div>
               <input
                 type="text"
                 class="form-control"
                 name="answer"
-                value="Hậu "
+                placeholder="Nhập đáp án, tích nếu đáp án đúng"
               />
             </div>
             {bonusAnswers}
