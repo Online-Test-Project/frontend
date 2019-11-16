@@ -77,7 +77,7 @@ class ExamPage extends Component {
                         </div>
                     </div>
                 </div>
-                <div id="exam-test" class="exam-test col-sm-10">
+                <div id="exam-test" class="exam-test ">
                     <h4>Công nghệ phần mềm( Giữa kì 19-20)</h4>
                     <div class="question">
                         <div class="question-title pt-2">
@@ -89,7 +89,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="select-check">A</div>
                                                     <div class="text-wrap">True</div>
@@ -129,7 +129,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4 ">
                                                     <div class="select-check">A</div>
                                                     <div class="text-wrap">True</div>
@@ -166,7 +166,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4 ">
                                                     <div class="select-check">A</div>
                                                     <div class="text-wrap">True</div>
@@ -198,7 +198,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4 multiselect-checked">
                                                     <div class="multiselect-check">
                                                         <i class="fa fa-check" aria-hidden="true"></i>
@@ -234,7 +234,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4 multiselect-checked">
                                                     <div class="multiselect-check">
                                                         <i class="fa fa-check" aria-hidden="true"></i>
@@ -270,7 +270,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check">
 
@@ -307,7 +307,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check"></div>
                                                     <div class="text-wrap">True</div>
@@ -413,7 +413,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check"></div>
                                                     <div class="text-wrap">True</div>
@@ -451,7 +451,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check"></div>
                                                     <div class="text-wrap">True</div>
@@ -489,7 +489,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check"></div>
                                                     <div class="text-wrap">True</div>
@@ -527,7 +527,7 @@ class ExamPage extends Component {
                                 <div class="card card-question">
                                     <div class="card-body">
                                         <div class="content">
-                                            <div class="row select-answer">
+                                            <div class="select-answer">
                                                 <div class="options col-sm mb-2 md-4">
                                                     <div class="multiselect-check"></div>
                                                     <div class="text-wrap">True</div>
