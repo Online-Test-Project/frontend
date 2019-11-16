@@ -1,5 +1,5 @@
 const config = {
-    SERVER_URL: "http://localhost:5000",
-}
+  SERVER_URL: 'http://online-test.ddns.net:5000',
+};
 
 export default config;
