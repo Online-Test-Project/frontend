@@ -1,0 +1,238 @@
+*{
+    margin: 0;
+    padding: 0px;
+}
+
+/* css chia 2 phan */
+#content {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+#list-question{
+    float: left;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+
+}
+#exam-test{
+    float: right;
+}
+.clear {
+    clear: both;
+}
+/* het chia cot */
+
+
+
+/* css cho phan stt */
+
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.pr-2 {
+    padding-right: .5rem!important; ;
+}
+.flex-shrink-1 {
+    flex-shrink: 1!important;
+}
+/* .card-question {
+    border-radius:0!important ;
+    border-color: rgb(84, 152, 247);
+} */
+/* 
+
+css cho phan dap an */
+
+.row {
+    display: flex;
+    flex-wrap: wrap ;
+}
+.select-answer {
+    margin: .15rem 0;
+}
+.w-100{
+    width: 100%!important;
+}
+.card-question {
+    border: none;
+}
+.card-question> .card-body {
+    padding: 0 0 1rem 0;
+}
+
+.options .select-check {
+    position: absolute;
+    border: .1em solid #1877F2;
+    color: #1877F2;
+    border-radius: .25rem;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+.select-checked-true .select-check{
+    position: absolute;
+    border: .1em solid #28a745;
+    color: white;
+    background: #28a745;
+    border-radius: .25rem;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+    
+}
+.select-checked-false .select-check{
+    position: absolute;
+    border: .1em solid #dc3545;
+    color: white;
+    background: #dc3545;
+    border-radius: .25rem;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+    
+}
+
+/* 
+=======================^_^============ */
+
+
+.select-check+div, .multiselect-check+div {
+    margin-left: 2em;
+}
+.text-wrap {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+.disable {
+    cursor: not-allowed;
+}
+
+.options .multiselect-check
+{
+    position: absolute;
+    border: .1em solid #1877F2!important;
+    color: #1877F2!important;
+    border-radius: .25rem!important;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+.input[type = checkbox]{
+    border: .1em solid #1877F2!important;
+    color: #1877F2!important;
+    border-radius: .25rem!important;
+}
+
+.multiselect-checked-true .multiselect-check {
+    position: absolute;
+    border: .1em solid #28a745!important;
+    color: #28a745!important;
+    border-radius: .25rem!important;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+
+.multiselect-checked-false .multiselect-check {
+    position: absolute;
+    border: .1em solid #dc3545!important;
+    color: #dc3545!important;
+    border-radius: .25rem!important;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.3em;
+    text-align: center;
+}
+.options .input-answer
+{
+    position: absolute;
+    text-align: center;
+    line-height: 1.3em;
+    float: right;
+}
+
+
+/* css cho phan so luong cau hoi ben trai */
+
+#pagination-question .pagination {
+    margin: 0;
+    font-weight: 600 ;
+    padding: .25em ;
+    border: .1em solid #1877F2;
+    border-radius: .25rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-item.is-answered-true .page-link {
+    color: #fff;
+    background-color: #28a745 ;
+    
+}
+
+.page-item.is-answered-false .page-link {
+    color: #fff;
+    background-color: #dc3545;
+}
+.d-inline-block {
+    display: inline-block;
+}
+.pagination {
+    padding-left: 0 ;
+    list-style: none;
+    
+}
+.page-link {
+    border-radius: 0!important;
+    height: 2.3em;
+    width: 2.3em;
+    text-align: center;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    margin: .25rem;
+    
+}
+.float-left {
+    float: left!important;
+}
+.time {
+    border: .1em solid #1877F2;
+    text-align: center;
+    font-weight:600 ;
+    border-radius: .25rem;
+    margin: 0 0 0.5rem 0;
+}
+.clssubmit {
+    margin: 0 0 0.5rem 0;
+}
+.submit {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* end css cho phan bang cau hoi */
+
+
+/* css cho true/false  */
+.badge{
+    margin-left: 13em!important;
+    font-size: 90%!important;
+}
+.input-answer-false .input-answer {
+    color: #dc3545;
+}
+.input-answer-true .input-answer {
+    color: #28a745;
+}
