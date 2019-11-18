@@ -22,6 +22,7 @@
 }
 #exam-test{
     float: right;
+    overflow-y: auto;
 }
 .clear {
     clear: both;

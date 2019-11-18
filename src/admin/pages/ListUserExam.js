@@ -56,12 +56,12 @@ class ListUserExam extends Component {
 
             {this.state.listReviewExam.map((exam, index) => {
               return (
-                <div class="white-box" key={index} id={exam.id}>
+                <div class="white-box" key={index} id={exam.examId}>
                   <div class="bank-center">
                     <div class="bank-body">
                       <div class="bank-contnet">
                         <div class="row justify-content-end header-wrapper-end"></div>
-                        <Link to={'/preview-exam/' + exam.id}>
+                        <Link to={'/preview-exam/' + exam.examId}>
                           <h4>{exam.name}</h4>
                         </Link>
                         <span class="Updatetime">
@@ -70,7 +70,7 @@ class ListUserExam extends Component {
                         </span>
                         <span class="bank-desc">
                           <b>Thời gian làm bài: </b>
-                          {exam.time}
+                          {exam.timeSpent}
                         </span>
                         <span class="bank-desc">
                           <b>Ngày thi: </b>

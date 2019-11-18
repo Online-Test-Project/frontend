@@ -171,7 +171,7 @@ class PreviewExam extends Component{
               );
             } else if (question.type == 3) {
               return (
-                <div className="question" id={index + 1} key={index + 1}>
+                <div className="question"  id={index + 1} key={index + 1}>
                   <div className="question-title pt-2">
                     <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                       {index + 1}.{' '}
