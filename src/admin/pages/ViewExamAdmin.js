@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout/Layout';
 import './ViewExamAdmin.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';

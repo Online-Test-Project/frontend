@@ -67,14 +67,14 @@ class CreateExamPage extends Component {
   async onChangeBank(e) {
     const bankId = e.target.value;
     await this.setState({ bankId: bankId });
-    console.log(this.state);
-    axios
-      .get(config.SERVER_URL + '/api/question/list/' +  this.state.bankId, {
+    await axios
+      .get(config.SERVER_URL + '/api/question/list/' + this.state.bankId, {
         headers: authHeader(),
       })
       .then(async res => {
         await this.setState({ bankData: res.data });
       });
+    console.log(this.state);
   }
 
   onCreateRandomExam(e) {
@@ -86,7 +86,6 @@ class CreateExamPage extends Component {
     ) {
       alert('Bạn chưa nhập đủ thông tin đề thi!');
     } else {
-      console.log('random de thi');
       axios
         .post(
           config.SERVER_URL + '/api/exam/createrandom',
@@ -108,10 +107,10 @@ class CreateExamPage extends Component {
         )
         .then(response => {
           console.log(response.data);
-          if(response.data == true){
-            alert("Tạo đề ngẫu nhiên thành công!");
+          if (response.data === true) {
+            alert('Tạo đề ngẫu nhiên thành công!');
           } else {
-            alert("Tạo đề không thành công");
+            alert('Tạo đề không thành công');
           }
           console.log(this.state.startTime);
         });
@@ -140,7 +139,7 @@ class CreateExamPage extends Component {
             time: this.state.time,
             questionId: listQuestionsId,
             startTime: this.state.startTime.toUTCString(),
-            endTime: this.state.endTime.toUTCString(),
+            endTime: this.state.endTime.toUTCString()
           },
           {
             headers: authHeader(),
@@ -148,12 +147,12 @@ class CreateExamPage extends Component {
         )
         .then(res => {
           console.log(res.data);
-          if(res.data == true){
-            alert("Tạo đề tự chọn thành công!");
+          if (res.data == true) {
+            alert('Tạo đề tự chọn thành công!');
           } else {
-            alert("Tạo đề không thành công");
+            alert('Tạo đề không thành công');
           }
-        })
+        });
     }
   }
 
@@ -169,14 +168,16 @@ class CreateExamPage extends Component {
   }
 
   onChangeStartTime = startTime => {
-    this.setState({ 
-    startTime: startTime
-  });
+    this.setState({
+      startTime: startTime,
+    });
     console.log(startTime);
   };
-    
-  onChangeEndTime = endTime => this.setState({ 
-    endTime: endTime})
+
+  onChangeEndTime = endTime =>
+    this.setState({
+      endTime: endTime,
+    });
 
   render() {
     let banks = this.state.listBank.map((bank, index) => {
@@ -277,11 +278,11 @@ class CreateExamPage extends Component {
                   Thời gian bắt đầu:
                 </label>
                 <div className="col-sm-9">
- 
-                    <DateTimePicker format='dd-MM-yyyy HH:mm'
-                      onChange={this.onChangeStartTime}
-                      value={this.state.startTime}
-                    />
+                  <DateTimePicker
+                    format="dd-MM-yyyy HH:mm"
+                    onChange={this.onChangeStartTime}
+                    value={this.state.startTime}
+                  />
                 </div>
               </div>
 
@@ -293,11 +294,10 @@ class CreateExamPage extends Component {
                   Thời gian đóng:
                 </label>
                 <div className="col-sm-9">
- 
-                    <DateTimePicker
-                      onChange={this.onChangeEndTime}
-                      value={this.state.endTime}
-                    />
+                  <DateTimePicker
+                    onChange={this.onChangeEndTime}
+                    value={this.state.endTime}
+                  />
                 </div>
               </div>
 

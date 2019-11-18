@@ -4,9 +4,9 @@
 }
 
 /* css chia 2 phan */
-#content{
+#content {
     position: absolute;
-    top: 0;
+    top: 60;
     left: 0;
 }
 
@@ -26,9 +26,9 @@
 
     float: right;
     position: absolute;
-    top: 0;
+    top: 60;
     left: 213px;
-    right: 0!important;
+    right: 0 !important;
     overflow: hidden;
 }
 
@@ -97,7 +97,7 @@ css cho phan dap an */
 .select-checked .select-check {
     position: absolute;
     border: .1em solid #1877F2;
-    color: white;
+    color: white !important;
     background: #1877F2;
     border-radius: .25rem;
     height: 1.5em;
@@ -214,10 +214,11 @@ li {
     margin-right: auto;
 }
 
-@media (min-width: 576px){
+@media (min-width: 576px) {
     .col-sm-2 {
-        flex: none!important;
-        max-width: none!important;
+        flex: none !important;
+        max-width: none !important;
     }
 }
+
 /* end css cho phan bang cau hoi */

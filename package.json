@@ -12,6 +12,7 @@
     "popper.js": "^1.15.0",
     "prettier": "^1.19.1",
     "react": "^16.10.2",
+    "react-countdown-now": "^2.1.2",
     "react-datetime-picker": "^2.7.1",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
