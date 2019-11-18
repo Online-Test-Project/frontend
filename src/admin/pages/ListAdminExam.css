@@ -91,7 +91,7 @@
     top: 0;
     bottom: 0;
     transition: 0.3s;
-    overflow: auto;
+    overflow: hidden;
 
 }
 
@@ -232,10 +232,11 @@ tr:nth-child(odd) {
 }
 
 /* =================sua class cua bootstrap================================== */
-.row {
+.main-content .row {
     margin-right: 0px !important;
     margin-left: 0px !important;
     padding: 0;
+    overflow: auto;
 }
 
 .col-3 {
