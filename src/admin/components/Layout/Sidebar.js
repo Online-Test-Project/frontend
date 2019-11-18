@@ -16,42 +16,42 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <div className="menu-left" id="sideBar">
-                <div className="logo">
-                    <h5 className="text-center">MY TEST</h5>
-                    <i className="	fa fa-align-justify active" id="menu-icon" onClick={() => this.toggleSidebar()}></i>
-                </div>
-                <div className="separation"></div>
-                <div className="menu-wrapper">
-                    <Link to="/admin">
-                        <div className="menu-item-wrapper">
-                            <i className="fa fa-book format-icon-menu"></i>
-                            <div className="menu-item-text">Ngân hàng câu hỏi</div>
-                        </div>
-                    </Link>
-                    <div className="separation"></div>
-                    <Link to="admin/exam">
-                        <div className="menu-item-wrapper">
-                            <i className="fa fa-file-text-o format-icon-menu"></i>
-                            <div className="menu-item-text">Đề thi đã tạo</div>
-                        </div>
-                    </Link>
-                    <div className="separation"></div>
-                    <Link to="/user/exam">
-                        <div className="menu-item-wrapper">
-                            <i className="fa fa-edit format-icon-menu"></i>
-                            <div className="menu-item-text">Bài thi đã làm</div>
-                        </div>
-                    </Link>
+          <div className="menu-left" id="sideBar">
+            <div className="logo">
+              <Link to="/">
+                <h5 className="text-center">MY TEST</h5>
+              </Link>
 
-                    <div className="separation"></div>
-                    <div className="menu-item-wrapper">
-                        <i className="fa fa-book format-icon-menu"></i>
-                        <div className="menu-item-text">Ngân hàng câu hỏi</div>
-                    </div>
-                    <div className="separation"></div>
-                </div>
+              <i
+                className="	fa fa-align-justify active"
+                id="menu-icon"
+                onClick={() => this.toggleSidebar()}
+              ></i>
             </div>
+            <div className="separation"></div>
+            <div className="menu-wrapper">
+              <Link to="/admin">
+                <div className="menu-item-wrapper">
+                  <i className="fa fa-book format-icon-menu"></i>
+                  <div className="menu-item-text">Ngân hàng câu hỏi</div>
+                </div>
+              </Link>
+              <div className="separation"></div>
+              <Link to="admin/exam">
+                <div className="menu-item-wrapper">
+                  <i className="fa fa-file-text-o format-icon-menu"></i>
+                  <div className="menu-item-text">Đề thi đã tạo</div>
+                </div>
+              </Link>
+              <div className="separation"></div>
+              <Link to="/user/exam">
+                <div className="menu-item-wrapper">
+                  <i className="fa fa-edit format-icon-menu"></i>
+                  <div className="menu-item-text">Bài thi đã làm</div>
+                </div>
+              </Link>
+            </div>
+          </div>
         );
     }
 }

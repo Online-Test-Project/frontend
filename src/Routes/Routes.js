@@ -35,7 +35,7 @@ const Routes = () => {
             </PrivateRoute>
             <PrivateRoute exact path="/view-exam/:id" component={ViewAdminExam}>
             </PrivateRoute>
-            <PrivateRoute exact path="/before-exam/:id" component={DoingExam}>
+            <PrivateRoute exact path="/do-exam/:id" component={DoingExam}>
                 
             </PrivateRoute>
             <PrivateRoute exact path="/preview-exam/:id" component={PreviewExam}>

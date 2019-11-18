@@ -2,7 +2,17 @@
     margin: 0;
     padding: 0px;
 }
+.main-content{
+    overflow: hidden!important;
+    background-color: #EFFFFB !important;
+  
+}
 
+#content {
+    position: relative;
+    height: 100%;
+    overflow: auto!important;
+}
 /* css chia 2 phan */
 
 .question-title {color: #1877f2;}

@@ -12,6 +12,7 @@ class ViewExamAdmin extends Component {
       id: this.props.match.params.id,
       exam: {},
       examData: [],
+      
     };
     console.log(this.state);
   }
@@ -26,6 +27,7 @@ class ViewExamAdmin extends Component {
         const data = response.data;
         this.setState({ examData: data.questions });
         this.setState({ exam: data });
+       
       });
   }
 
@@ -34,7 +36,7 @@ class ViewExamAdmin extends Component {
       if (question.type === 1) {
         return (
           <div className="question" id={index + 1} key={index + 1}>
-            <div className="question-title pt-2">
+            <div className="question-title">
               <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                 {index + 1}.
               </div>
@@ -65,7 +67,7 @@ class ViewExamAdmin extends Component {
       } else if (question.type == 2) {
         return (
           <div className="question" id={index + 1} key={index + 1}>
-            <div className="question-title pt-2">
+            <div className="question-title">
               <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                 {' '}
                 {index + 1}.{' '}
@@ -97,7 +99,7 @@ class ViewExamAdmin extends Component {
       } else if (question.type == 3) {
         return (
           <div className="question" id={index + 1} key={index + 1}>
-            <div className="question-title pt-2">
+            <div className="question-title">
               <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                 {index + 1}.{' '}
               </div>

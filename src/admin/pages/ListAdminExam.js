@@ -28,10 +28,9 @@ class ListAdminExam extends Component {
 
   onDeleteExam(id) {
     axios
-      .post(config.SERVER_URL + '/api/exam/delete', JSON.stringify(id), {
-        headers: authHeader(),
-        'Content-Type': 'application/json',
-      })
+    .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
+      headers: authHeader(),
+    })
       .then(async response => {
         console.log(response.data);
         if (response.data) {

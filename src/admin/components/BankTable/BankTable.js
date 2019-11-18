@@ -40,6 +40,8 @@ class Table extends Component {
 			bank: bank,
 			filteredBank: bank,
 			isSearching: false,
+			type:[],
+			difficulty:[]
 		};
 		console.log(this.state);
 	}
@@ -51,9 +53,11 @@ class Table extends Component {
 			headers: authHeader()
 		}).then( response =>
 			{
-				console.log(response.date);
 				const bankinfo = response.data;
 				this.setState({ bankInfo: bankinfo});
+				console.log(this.state.bankInfo);
+				this.setState({type: bankinfo.type })
+				this.setState({difficulty: bankinfo.difficulty})
 			})
 	}
 
@@ -197,7 +201,7 @@ class Table extends Component {
 		return (
 
 			<div className="content row">
-				<div className="table-content">
+				<div className="table-content infor">
 					<div className="toolbar row">
 						<button className="row item-center btn-header" data-toggle="modal" data-target="#addQuestionModal">
 							<i className="fa fa-plus-square format-icon-menu "></i>
@@ -571,32 +575,33 @@ class Table extends Component {
 				</div>
 				<div className="infob-content">
 					<div className="mt-2 mb-2">
-						<h5>Thông tin ngân hàng</h5>
-						<label>Tên: {this.state.name}</label>
+						<h5><b>Thông tin ngân hàng</b></h5>
+						<label><b>Tên:</b> {this.state.bankInfo.name}</label>
 						<br />
-						<label>Mô tả: {this.state.description}</label>
+						<label><b>Mô tả:</b> {this.state.bankInfo.description}</label>
 						<br />
-						<label>Sửa lần cuối: </label>
-						<br />
-					</div>
-					<div className="separation"></div>
-					<div className="mt-2 mb-2">
-						<h5>Cấu trúc ngân hàng</h5>
-						<label>Số câu dễ: </label>
-						<br />
-						<label>Số câu TB: </label>
-						<br />
-						<label>Số câu khó: </label>
+						<label><b>Sửa lần cuối:</b> {this.state.bankInfo.modifiedDate}</label>
 						<br />
 					</div>
 					<div className="separation"></div>
 					<div className="mt-2 mb-2">
-						<h5>Cấu trúc ngân hàng</h5>
-						<label>Single choice: </label>
+					
+						<h5><b>Cấu trúc ngân hàng</b></h5>
+						<label><b>Single choice:</b> {this.state.type[0]} </label>
 						<br />
-						<label>Mutil choice: </label>
+						<label><b>Mutil choice:</b> {this.state.type[1]}</label>
 						<br />
-						<label>Text Input: </label>
+						<label><b>Text Input:</b> {this.state.type[2]} </label>
+						<br />
+					</div>
+					<div className="separation"></div>
+					<div className="mt-2 mb-2">
+						<h5><b>Cấu trúc ngân hàng</b></h5>
+						<label><b>Số câu dễ:</b> {this.state.difficulty[0]}</label>
+						<br />
+						<label><b>Số câu TB:</b> {this.state.difficulty[1]}</label>
+						<br />
+						<label><b>Số câu khó:</b> {this.state.difficulty[2]}</label>
 						<br />
 					</div>
 				</div>
