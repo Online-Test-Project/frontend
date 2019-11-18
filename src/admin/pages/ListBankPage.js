@@ -349,13 +349,12 @@ class AddBankModal extends Component {
   onAdd() {
     axios
       .post(
-        config.SERVER_URL + '/api/bank/create',
-        {
-          headers: authHeader(),
-        },
-        {
+        config.SERVER_URL + '/api/bank/create',{
           name: this.state.name,
           description: this.state.description,
+        },
+        {
+          headers: authHeader(),
         },
       )
       .then(res => {

@@ -10,7 +10,7 @@ class ListAdminExam extends Component {
     constructor(props) {
         super(props);
         this.state = {
-             listExam: []};
+             listExam: [{id: "", name:"", password: ""}]};
     }
 
     async componentDidMount() {
@@ -29,7 +29,7 @@ class ListAdminExam extends Component {
   onDeleteExam(id) {
     axios
     .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
-      headers: authHeader(), "Content-Type" : "application/json",
+      headers: authHeader(),
     })
       .then(async response => {
         console.log(response.data);

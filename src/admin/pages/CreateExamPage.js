@@ -64,12 +64,12 @@ class CreateExamPage extends Component {
     console.log(this.state);
   }
 
-  onChangeBank(e) {
+  async onChangeBank(e) {
     const bankId = e.target.value;
-    this.setState({ bankId: bankId });
+    await this.setState({ bankId: bankId });
     console.log(this.state);
     axios
-      .get(config.SERVER_URL + '/api/question/list/' + this.state.bankId, {
+      .get(config.SERVER_URL + '/api/question/list/' +  this.state.bankId, {
         headers: authHeader(),
       })
       .then(async res => {
@@ -139,6 +139,8 @@ class CreateExamPage extends Component {
             name: this.state.nameExam,
             time: this.state.time,
             questionId: listQuestionsId,
+            startTime: this.state.startTime.toUTCString(),
+            endTime: this.state.endTime.toUTCString(),
           },
           {
             headers: authHeader(),

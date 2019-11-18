@@ -42,16 +42,7 @@ class ListUserExam extends Component {
                   Đề thi đã làm
                 </h3>
               </div>
-              <div class="row justify-content-end header-wrapper-end">
-                <div class="header-item-wrapper">
-                  <div class="search-box">
-                    <input placeholder="Tìm kiếm..." />
-                    <span class="icon">
-                      <div class="fa fa-search fomat-icon-menu"></div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+             
             </div>
 
             {this.state.listReviewExam.map((exam, index) => {

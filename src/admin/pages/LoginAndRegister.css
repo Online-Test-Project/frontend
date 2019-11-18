@@ -1,0 +1,335 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #535353;
+}
+
+.img-fluid {
+    max-width: 100% !important;
+    height: auto;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.login-2 .login-inner-form .col-pad-0 {
+    padding: 0;
+}
+
+.login-2 .bg-img {
+    background: rgba(0, 0, 0, 0.04) top left repeat;
+    background-size: cover;
+    top: 0;
+    width: 100%;
+    bottom: 0;
+    min-height: 100vh;
+    text-align: right;
+    z-index: 999;
+    opacity: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 50px 30px 40px;
+}
+
+.login-2 .bg-color {
+    background: #0f96f9;
+    min-height: 100vh;
+    position: relative;
+    text-align: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.login-2 .login-inner-form {
+    max-width: 350px;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+
+.login-2 .login-inner-form p {
+    color: #e4e4e4;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.login-2 .login-inner-form p a {
+    color: #e4e4e4;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+.login-2 .login-inner-form img {
+    margin-bottom: 15px;
+    height: 30px;
+}
+
+.login-2 .login-inner-form h3 {
+    margin: 0 0 25px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+
+.login-2 .login-inner-form .form-group {
+    margin-bottom: 25px;
+}
+
+.login-2 .login-inner-form .input-text {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #e8e7e7;
+    outline: none;
+    color: #717171;
+    border-radius: 3px;
+    height: 45px;
+}
+
+.login-2 .login-inner-form .form-check {
+    float: left;
+    margin-bottom: 0;
+}
+
+.login-2 .login-inner-form .form-check a {
+    color: #717171;
+    float: right;
+}
+
+.login-2 .login-inner-form .checkbox {
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.login-2 .login-inner-form .form-check-input {
+    position: absolute;
+    margin-left: 0;
+}
+
+.login-2 .login-inner-form .form-check label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    margin-left: -25px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.login-2 .login-inner-form .form-check-label {
+    padding-left: 25px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.login-2 .login-inner-form .checkbox-theme input[type="checkbox"]:checked+label::before {
+    background-color: #f0151f;
+    border-color: #f0151f;
+}
+
+.login-2 .login-inner-form input[type=checkbox]:checked+label:before {
+    font-weight: 300;
+    color: #f3f3f3;
+    line-height: 15px;
+    font-size: 14px;
+    content: "\2713";
+}
+
+.login-2 .login-inner-form input[type=checkbox],
+input[type=radio] {
+    margin-top: 4px;
+}
+
+.login-2 .login-inner-form .checkbox a {
+    font-size: 14px;
+    color: #fff;
+    float: right;
+}
+
+.login-2 .login-inner-form .terms {
+    margin-left: 4px;
+}
+
+.login-2 .login-inner-form .btn-md {
+    cursor: pointer;
+    padding: 12px 30px 11px 30px;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 3px;
+}
+
+.login-2 .login-inner-form input[type=checkbox],
+input[type=radio] {
+    margin-right: 3px;
+}
+
+.login-2 .login-inner-form button:focus {
+    outline: none;
+    outline: 0 auto -webkit-focus-ring-color;
+}
+
+.login-2 .login-inner-form .btn-theme.focus,
+.btn-theme:focus {
+    box-shadow: none;
+}
+
+.login-2 .login-inner-form .btn-theme {
+    background: #f0151f;
+    border: none;
+    color: #fff;
+}
+
+.login-2 .login-inner-form .btn-theme:hover {
+    background: #dc141d;
+}
+
+.login-2 .informeson {
+    color: #fff;
+}
+
+.login-2 .informeson .link-btn {
+    background: #fff;
+    padding: 6px 30px;
+    font-size: 13px;
+    border-radius: 3px;
+    margin: 3px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #f0151f;
+}
+
+.login-2 .informeson .active {
+    background: #f0151f;
+    color: #fff;
+}
+
+.login-2 .informeson .link-btn:hover {
+    text-decoration: none;
+}
+
+.login-2 .informeson h3 {
+    color: #fbfbfb;
+    margin-bottom: 25px;
+    font-size: 31px;
+}
+
+.btn-section {
+    margin-bottom: 30px;
+}
+
+.login-2 .informeson p {
+    color: #fbfbfb;
+    line-height: 30px;
+    margin-bottom: 30px;
+}
+
+.login-2 .social-box ul {
+    margin: 0;
+    padding: 0;
+}
+
+.login-2 .social-box .social-list li {
+    font-size: 16px;
+    display: inline-block;
+}
+
+.login-2 .social-box .social-list li a {
+    margin: 3px;
+    font-size: 17px;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+}
+
+.login-2 .social-box {
+    bottom: 40px;
+    position: absolute;
+    right: 45px;
+}
+
+.login-2 .none-2 {
+    padding: 10px 0px 10px 0px;
+}
+
+/** Social media **/
+.login-2 .facebook-bg {
+    background: #4867aa;
+    color: #fff;
+}
+
+.login-2 .facebook-bg:hover {
+    background: #3b589e;
+    color: #fff;
+}
+
+.login-2 .twitter-bg {
+    background: #33CCFF;
+    color: #fff;
+}
+
+.login-2 .twitter-bg:hover {
+    background: #56d7fe;
+    color: #fff;
+}
+
+.login-2 .google-bg {
+    background: #db4437;
+    color: #fff;
+}
+
+.login-2 .google-bg:hover {
+    background: #dc4e41;
+    color: #fff;
+}
+
+.login-2 .linkedin-bg {
+    background: #0177b5;
+    color: #fff;
+}
+
+.login-2 .linkedin-bg:hover {
+    background: #1c82ca;
+    color: #fff;
+}
+
+/** MEDIA **/
+@media (max-width: 992px) {
+    .login-2 .none-2 {
+        display: inline-flex;
+    }
+
+    .login-2 .bg-color {
+        padding: 30px 15px;
+    }
+}

@@ -4,6 +4,15 @@
 }
 
 /* css chia 2 phan */
+#content{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.list-question {
+    width: 212px!important;
+}
 
 .question-title {
     color: #1877f2;
@@ -16,6 +25,11 @@
 #exam-test {
 
     float: right;
+    position: absolute;
+    top: 0;
+    left: 213px;
+    right: 0!important;
+    overflow: hidden;
 }
 
 .clear {
@@ -66,7 +80,7 @@ css cho phan dap an */
 }
 
 .card-question>.card-body {
-    padding: 0 0 1rem 0;
+    padding: 1rem 0;
 }
 
 .options .select-check {
@@ -132,6 +146,7 @@ css cho phan dap an */
     position: absolute;
     line-height: 1.3em;
     float: right;
+    margin-left: 8px;
 }
 
 
@@ -199,4 +214,10 @@ li {
     margin-right: auto;
 }
 
+@media (min-width: 576px){
+    .col-sm-2 {
+        flex: none!important;
+        max-width: none!important;
+    }
+}
 /* end css cho phan bang cau hoi */

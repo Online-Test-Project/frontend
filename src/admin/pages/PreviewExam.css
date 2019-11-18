@@ -3,7 +3,7 @@
     padding: 0px;
 }
 .main-content{
-    overflow: hidden!important;
+    overflow: auto!important;
 }
 
 /* css chia 2 phan */

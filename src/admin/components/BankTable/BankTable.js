@@ -40,6 +40,8 @@ class Table extends Component {
 			bank: bank,
 			filteredBank: bank,
 			isSearching: false,
+			type:[],
+			difficulty:[]
 		};
 		console.log(this.state);
 	}
@@ -51,10 +53,11 @@ class Table extends Component {
 			headers: authHeader()
 		}).then( response =>
 			{
-				console.log(response.date);
 				const bankinfo = response.data;
 				this.setState({ bankInfo: bankinfo});
-
+				console.log(this.state.bankInfo);
+				this.setState({type: bankinfo.type })
+				this.setState({difficulty: bankinfo.difficulty})
 			})
 	}
 
@@ -81,20 +84,21 @@ class Table extends Component {
 		const selectType = document.getElementById('type-search');
 		let type = selectType.options[selectType.selectedIndex].value;
 
-		const selectLevel = document.getElementById('level-search');
-		let level = selectLevel.options[selectLevel.selectedIndex].value;
+		const selectLevel = document.getElementById('difficulty-search');
+		let difficulty = selectLevel.options[selectLevel.selectedIndex].value;
 
-		switch (level) {
+		switch (difficulty) {
 			case 'Dễ':
-				level = 1;
+				difficulty = 1;
 				break;
 			case 'Trung bình':
-				level = 2;
+				difficulty = 2;
 				break;
 			case 'Khó':
-				level = 3;
+				difficulty = 3; 
+				break;
 			default:
-				level = 'Tất cả';
+				difficulty = 'Tất cả';
 		}
 
 		switch (type) {
@@ -121,9 +125,9 @@ class Table extends Component {
 			} else if (question.type === type) {
 				typeValid = true;
 			}
-			if (level === 'Tất cả') {
+			if (difficulty === 'Tất cả') {
 				levelValid = true;
-			} else if (question.level === level) {
+			} else if (question.difficulty === difficulty) {
 				levelValid = true;
 			}
 			return contentValid && typeValid && levelValid;
@@ -197,7 +201,7 @@ class Table extends Component {
 		return (
 
 			<div className="content row">
-				<div className="table-content">
+				<div className="table-content infor">
 					<div className="toolbar row">
 						<button className="row item-center btn-header" data-toggle="modal" data-target="#addQuestionModal">
 							<i className="fa fa-plus-square format-icon-menu "></i>
@@ -371,7 +375,7 @@ class Table extends Component {
 									<th scope="col" style={{ width: '20%' }}>
 										<label>Độ khó</label>
 										<select
-											id="level-search"
+											id="difficulty-search"
 											className="form-control"
 											onChange={() => this.onSearch()}
 										>
@@ -436,9 +440,9 @@ class Table extends Component {
 																	: 'Text Input'}
 														</td>
 														<td>
-															{e.level === 1
+															{e.difficulty === 1
 																? 'Dễ'
-																: e.level === 2
+																: e.difficulty === 2
 																	? 'Trung bình'
 																	: 'Khó'}
 														</td>
@@ -571,32 +575,33 @@ class Table extends Component {
 				</div>
 				<div className="infob-content">
 					<div className="mt-2 mb-2">
-						<h5>Thông tin ngân hàng</h5>
-						<label>Tên: {this.state.name}</label>
+						<h5><b>Thông tin ngân hàng</b></h5>
+						<label><b>Tên:</b> {this.state.bankInfo.name}</label>
 						<br />
-						<label>Mô tả: {this.state.description}</label>
+						<label><b>Mô tả:</b> {this.state.bankInfo.description}</label>
 						<br />
-						<label>Sửa lần cuối: </label>
-						<br />
-					</div>
-					<div className="separation"></div>
-					<div className="mt-2 mb-2">
-						<h5>Cấu trúc ngân hàng</h5>
-						<label>Số câu dễ: </label>
-						<br />
-						<label>Số câu TB: </label>
-						<br />
-						<label>Số câu khó: </label>
+						<label><b>Sửa lần cuối:</b> {this.state.bankInfo.modifiedDate}</label>
 						<br />
 					</div>
 					<div className="separation"></div>
 					<div className="mt-2 mb-2">
-						<h5>Cấu trúc ngân hàng</h5>
-						<label>Single choice: </label>
+					
+						<h5><b>Cấu trúc ngân hàng</b></h5>
+						<label><b>Single choice:</b> {this.state.type[0]} </label>
 						<br />
-						<label>Mutil choice: </label>
+						<label><b>Mutil choice:</b> {this.state.type[1]}</label>
 						<br />
-						<label>Text Input: </label>
+						<label><b>Text Input:</b> {this.state.type[2]} </label>
+						<br />
+					</div>
+					<div className="separation"></div>
+					<div className="mt-2 mb-2">
+						<h5><b>Cấu trúc ngân hàng</b></h5>
+						<label><b>Số câu dễ:</b> {this.state.difficulty[0]}</label>
+						<br />
+						<label><b>Số câu TB:</b> {this.state.difficulty[1]}</label>
+						<br />
+						<label><b>Số câu khó:</b> {this.state.difficulty[2]}</label>
 						<br />
 					</div>
 				</div>
@@ -612,7 +617,7 @@ class AddQuestionModal extends Component {
 			id: this.props.id,
 			content: '',
 			type: 1,
-			level: 1,
+			difficulty: 1,
 			listAnswer: [],
 			numOfBonusAnswer: 0
 		};
@@ -644,19 +649,19 @@ class AddQuestionModal extends Component {
 	}
 
 	async onChangeLevel(event) {
-		let level = event.target.value;
-		switch (level) {
+		let difficulty = event.target.value;
+		switch (difficulty) {
 			case 'Dễ':
-				level = 1;
+				difficulty = 1;
 				break;
 			case 'Trung bình':
-				level = 2;
+				difficulty = 2;
 				break;
 			case 'Khó':
-				level = 3;
-			default: level = 1;
+				difficulty = 3; break;
+			default: difficulty = 1;
 		}
-		await this.setState({level: level});
+		await this.setState({difficulty: difficulty});
 		console.log(this.state);
 	}
 
@@ -678,7 +683,7 @@ class AddQuestionModal extends Component {
 		config.SERVER_URL + '/api/question/create',
 		{
 			id: this.state.id,
-			difficulty: this.state.level,
+			difficulty: this.state.difficulty,
 			type: this.state.type,
 			content: this.state.content,
 			answers: this.state.listAnswer
@@ -884,10 +889,10 @@ class AddQuestionModal extends Component {
                   <div className="col-6">
                     <select
                       className="form-control"
-                      name="level"
+                      name="difficulty"
                       onChange={event => this.onChangeLevel(event)}
                     >
-                      <option>Dễ</option>
+                      <option defaultChecked>Dễ</option>
                       <option>Trung bình</option>
                       <option>Khó</option>
                     </select>

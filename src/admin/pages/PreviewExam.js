@@ -55,7 +55,7 @@ class PreviewExam extends Component{
             if (question.type === 1) {
               return (
                 <div className="question" id={index + 1} key={index + 1}>
-                  <div className="question-title pt-2">
+                  <div className="question-title">
                     <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                       {index + 1}.
                     </div>
@@ -112,7 +112,7 @@ class PreviewExam extends Component{
             } else if (question.type == 2) {
               return (
                 <div className="question" id={index + 1} key={index + 1}>
-                  <div className="question-title pt-2">
+                  <div className="question-title">
                     <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                       {' '}
                       {index + 1}.{' '}
@@ -172,7 +172,7 @@ class PreviewExam extends Component{
             } else if (question.type == 3) {
               return (
                 <div className="question"  id={index + 1} key={index + 1}>
-                  <div className="question-title pt-2">
+                  <div className="question-title">
                     <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
                       {index + 1}.{' '}
                     </div>
