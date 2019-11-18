@@ -8,6 +8,7 @@ import ExamPage from '../admin/pages/ExamPage';
 import PrivateRoute from '../_components/PrivateRoute';
 import CreateExamPage from '../admin/pages/CreateExamPage';
 import ViewAdminExam from '../admin/pages/ViewExamAdmin';
+import PreviewExam from '../admin/pages/PreviewExam';
 
 const Routes = () => {
     return (
@@ -34,7 +35,9 @@ const Routes = () => {
             </Route>
             <PrivateRoute exact path="/view-exam/:id" component={ViewAdminExam}>
             </PrivateRoute>
-        </Router>
+            <PrivateRoute exact path="/preview-exam/:id" component={PreviewExam}>
+            </PrivateRoute>
+            </Router>
     );
 }
 
