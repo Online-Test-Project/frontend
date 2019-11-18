@@ -27,7 +27,7 @@ class DoingExam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '91dcae51-fbb4-4f02-a1e4-c3877c5518b9',
+      id: '4f02cc95-4f1f-4688-83ff-966c9b181232',
       status: 'intime',
       name: '',
       time: 0,
