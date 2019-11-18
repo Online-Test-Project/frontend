@@ -8,6 +8,7 @@ import ExamPage from '../admin/pages/ExamPage';
 import PrivateRoute from '../_components/PrivateRoute';
 import CreateExamPage from '../admin/pages/CreateExamPage';
 import ViewAdminExam from '../admin/pages/ViewExamAdmin';
+import DoingExam from '../admin/pages/DoingExam';
 
 const Routes = () => {
     return (
@@ -29,10 +30,12 @@ const Routes = () => {
             <Route path="/admin/exam/create">
                 <CreateExamPage></CreateExamPage>
             </Route>
-            <Route exact path="/doexam">
-                <ExamPage></ExamPage>
-            </Route>
+            <PrivateRoute path="/doexam" component={ExamPage}>
+            </PrivateRoute>
             <PrivateRoute exact path="/view-exam/:id" component={ViewAdminExam}>
+            </PrivateRoute>
+            <PrivateRoute exact path="/before-exam/:id" component={DoingExam}>
+                
             </PrivateRoute>
         </Router>
     );

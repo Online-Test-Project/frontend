@@ -773,13 +773,12 @@ class AddQuestionModal extends Component {
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input type="checkbox" name="isCorrect" checked />
+                  <input type="checkbox" name="isCorrect" />
                 </div>
               </div>
               <input
                 type="text"
                 class="form-control"
-                
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
               />

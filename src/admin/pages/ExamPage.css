@@ -4,11 +4,11 @@
 }
 
 /* css chia 2 phan */
-#content{
+#content {
     position: absolute;
-    top: 0;
+    top: 60;
     left: 0;
-    width: 212px!important;
+    width: 212px !important;
 }
 
 .question-title {
@@ -23,9 +23,9 @@
 
     float: right;
     position: absolute;
-    top: 0;
+    top: 60;
     left: 213px;
-    right: 0!important;
+    right: 0 !important;
     overflow: hidden;
 }
 
@@ -211,10 +211,11 @@ li {
     margin-right: auto;
 }
 
-@media (min-width: 576px){
+@media (min-width: 576px) {
     .col-sm-2 {
-        flex: none!important;
-        max-width: none!important;
+        flex: none !important;
+        max-width: none !important;
     }
 }
+
 /* end css cho phan bang cau hoi */

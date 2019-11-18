@@ -1,0 +1,10 @@
+.content-row {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.bg-img {
+    background-image: url(../../images/background.jpg);
+    background-position: center;
+    background-size: cover;
+}

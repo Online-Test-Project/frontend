@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import './ExamPage.css';
+import axios from 'axios';
+import config from '../../_config/config';
+import { authHeader } from '../../_helpers/auth-header';
 
 class ExamPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state ={id: window.location.pathname.split("/")[2]};
+    }
+
+    componentDidMount() {
+          axios.post(config.SERVER_URL + "/api/examinee/do", {
+              headers: authHeader()
+          })
+    }
+
     render() {
         return (
             <React.Fragment>
