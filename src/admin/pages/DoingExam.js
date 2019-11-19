@@ -209,7 +209,7 @@ class DoingExam extends Component {
           </div>
           {this.state.status === 'doing' ? (
             <React.Fragment>
-              <div id="content">
+              <div id="content row">
                 <div id="list-question" className="list-question col-sm-2">
                   <div className="time">
                     Thời gian còn:{' '}
@@ -254,6 +254,165 @@ class DoingExam extends Component {
                       Nộp bài
                     </button>
                   </div>
+                </div>
+                <div id="exam-test" className="exam-test col-sm-10">
+                  <h4>{this.state.name}</h4>
+                  {this.state.examData.map((question, index) => {
+                    if (question.type === 1) {
+                      return (
+                        <div
+                          className="question"
+                          id={index + 1}
+                          key={index + 1}
+                        >
+                          <div className="question-title pt-2">
+                            <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
+                              {index + 1}.
+                            </div>
+                            {question.content}
+                          </div>
+                          <div className="d-flex bd-highlight">
+                            <div className="w-100 bd-highlight">
+                              <div className="card card-question">
+                                <div className="card-body">
+                                  <div className="content">
+                                    <div className="row select-answer">
+                                      {question.answers.map((answer, i) => {
+                                        return (
+                                          <div
+                                            className={
+                                              answer.selected
+                                                ? 'options col-sm mb-2 md-4 select-checked'
+                                                : 'options col-sm mb-2 md-4'
+                                            }
+                                          >
+                                            <div
+                                              className="select-check"
+                                              onClick={() =>
+                                                this.onChangeAnswer(
+                                                  question.id,
+                                                  answer.id,
+                                                )
+                                              }
+                                            >
+                                              {String.fromCharCode(i + 65)}
+                                            </div>
+                                            <div className="text-wrap">
+                                              {answer.content}
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else if (question.type === 2) {
+                      return (
+                        <div
+                          className="question"
+                          id={index + 1}
+                          key={index + 1}
+                        >
+                          <div className="question-title pt-2">
+                            <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
+                              {' '}
+                              {index + 1}.{' '}
+                            </div>
+                            {question.content}
+                          </div>
+                          <div className="d-flex bd-highlight">
+                            <div className="w-100 bd-highlight">
+                              <div className="card card-question">
+                                <div className="card-body">
+                                  <div className="content">
+                                    <div className="row select-answer">
+                                      {question.answers.map((answer, i) => (
+                                        <div
+                                          className={
+                                            answer.selected
+                                              ? 'options col-sm mb-2 md-4 multiselect-checked'
+                                              : 'options col-sm mb-2 md-4'
+                                          }
+                                          onClick={() =>
+                                            this.onChangeAnswer(
+                                              question.id,
+                                              answer.id,
+                                            )
+                                          }
+                                        >
+                                          <div className="multiselect-check">
+                                            {answer.selected ? (
+                                              <i
+                                                className="fa fa-check"
+                                                aria-hidden=""
+                                              />
+                                            ) : (
+                                              ''
+                                            )}
+                                          </div>
+                                          <div className="text-wrap">
+                                            {answer.content}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else if (question.type === 3) {
+                      return (
+                        <div
+                          className="question"
+                          id={index + 1}
+                          key={index + 1}
+                        >
+                          <div className="question-title pt-2">
+                            <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
+                              {index + 1}.{' '}
+                            </div>
+                            {question.content}
+                          </div>
+                          <div className="d-flex bd-highlight">
+                            <div className="w-100 bd-highlight">
+                              <div className="card card-question">
+                                <div className="card-body">
+                                  <div className="content">
+                                    <div className="row select-answer">
+                                      <div className="options col-sm mb-2 md-4">
+                                        <div className="text-wrap float-left">
+                                          Đáp án:{' '}
+                                        </div>
+                                        <textarea
+                                          type="text"
+                                          className="input-answer"
+                                          name={'input' + question.id}
+                                          onChange={() =>
+                                            this.onChangeInputAnswer(
+                                              question.id,
+                                              'input' + question.id,
+                                            )
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
               </div>
               <div
@@ -308,153 +467,6 @@ class DoingExam extends Component {
                 </div>
               </div>
 
-              <div id="exam-test" className="exam-test ">
-                <h4>{this.state.name}</h4>
-                {this.state.examData.map((question, index) => {
-                  if (question.type === 1) {
-                    return (
-                      <div className="question" id={index + 1} key={index + 1}>
-                        <div className="question-title pt-2">
-                          <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
-                            {index + 1}.
-                          </div>
-                          {question.content}
-                        </div>
-                        <div className="d-flex bd-highlight">
-                          <div className="w-100 bd-highlight">
-                            <div className="card card-question">
-                              <div className="card-body">
-                                <div className="content">
-                                  <div className="row select-answer">
-                                    {question.answers.map((answer, i) => {
-                                      return (
-                                        <div
-                                          className={
-                                            answer.selected
-                                              ? 'options col-sm mb-2 md-4 select-checked'
-                                              : 'options col-sm mb-2 md-4'
-                                          }
-                                        >
-                                          <div
-                                            className="select-check"
-                                            onClick={() =>
-                                              this.onChangeAnswer(
-                                                question.id,
-                                                answer.id,
-                                              )
-                                            }
-                                          >
-                                            {String.fromCharCode(i + 65)}
-                                          </div>
-                                          <div className="text-wrap">
-                                            {answer.content}
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  } else if (question.type === 2) {
-                    return (
-                      <div className="question" id={index + 1} key={index + 1}>
-                        <div className="question-title pt-2">
-                          <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
-                            {' '}
-                            {index + 1}.{' '}
-                          </div>
-                          {question.content}
-                        </div>
-                        <div className="d-flex bd-highlight">
-                          <div className="w-100 bd-highlight">
-                            <div className="card card-question">
-                              <div className="card-body">
-                                <div className="content">
-                                  <div className="row select-answer">
-                                    {question.answers.map((answer, i) => (
-                                      <div
-                                        className={
-                                          answer.selected
-                                            ? 'options col-sm mb-2 md-4 multiselect-checked'
-                                            : 'options col-sm mb-2 md-4'
-                                        }
-                                        onClick={() =>
-                                          this.onChangeAnswer(
-                                            question.id,
-                                            answer.id,
-                                          )
-                                        }
-                                      >
-                                        <div className="multiselect-check">
-                                          {answer.selected ? (
-                                            <i
-                                              className="fa fa-check"
-                                              aria-hidden=""
-                                            />
-                                          ) : (
-                                            ''
-                                          )}
-                                        </div>
-                                        <div className="text-wrap">
-                                          {answer.content}
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  } else if (question.type === 3) {
-                    return (
-                      <div className="question" id={index + 1} key={index + 1}>
-                        <div className="question-title pt-2">
-                          <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
-                            {index + 1}.{' '}
-                          </div>
-                          {question.content}
-                        </div>
-                        <div className="d-flex bd-highlight">
-                          <div className="w-100 bd-highlight">
-                            <div className="card card-question">
-                              <div className="card-body">
-                                <div className="content">
-                                  <div className="row select-answer">
-                                    <div className="options col-sm mb-2 md-4">
-                                      <div className="text-wrap float-left">
-                                        Đáp án:{' '}
-                                      </div>
-                                      <textarea
-                                        type="text"
-                                        className="input-answer"
-                                        name={'input' + question.id}
-                                        onChange={() =>
-                                          this.onChangeInputAnswer(
-                                            question.id,
-                                            'input' + question.id,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
               <div className="clear"></div>
             </React.Fragment>
           ) : this.state.status === 'viewResult' ? (

@@ -3,7 +3,7 @@ import './LoginAndRegister.css';
 import { Link } from 'react-router-dom';
 
 import { authenticationService } from '../../_services/index';
-
+import logoPencilWhite from '../../images/logoPencilWhite.png';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +22,7 @@ class Login extends Component {
     ) {
       this.setState({ error: 'Vui lòng nhập đủ thông tin!' });
     } else {
+      console.log(this.state.password + " " + this.state.username);
       authenticationService
         .login(this.state.username, this.state.password)
         .then(user => {
@@ -52,21 +53,12 @@ class Login extends Component {
         <div className="login-2 tab-box">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-lg-7 col-md-12 col-pad-0 bg-img none-992">
-                <div className="informeson">
-                  <h3>My Test</h3>
-                  <p>
-                    Giải pháp tốt nhất cho thi online thay thế việc thi truyền
-                    thống.
-                  </p>
-                </div>
+              <div className="col-lg-6 col-md-12 col-pad-0 bg-img none-992">
               </div>
-              <div className="col-lg-7 col-md-12 col-pad-0 bg-color align-self-center">
+              <div className="col-lg-6 col-md-12 col-pad-0 bg-color align-self-center">
                 <div className="login-inner-form">
                   <div className="details">
-                    <a href="../../images/loginbackground.jpg">
-                      <img src="../../images/loginbackground.jpg" alt="logo" />
-                    </a>
+                      <img src={logoPencilWhite} alt="logo" />
                     <h3>Đăng nhập vào tài khoản của bạn</h3>
                     <form>
                       <div className="form-group">

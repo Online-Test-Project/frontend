@@ -48,7 +48,7 @@ h6,
 }
 
 .login-2 .bg-color {
-    background: #0f96f9;
+    background: #254994;
     min-height: 100vh;
     position: relative;
     text-align: center;
@@ -82,7 +82,7 @@ h6,
 
 .login-2 .login-inner-form img {
     margin-bottom: 15px;
-    height: 30px;
+    height: 80px;
 }
 
 .login-2 .login-inner-form h3 {
@@ -147,8 +147,8 @@ h6,
 }
 
 .login-2 .login-inner-form .checkbox-theme input[type="checkbox"]:checked+label::before {
-    background-color: #f0151f;
-    border-color: #f0151f;
+    background-color: #fd9903;
+    border-color: #fd9903;
 }
 
 .login-2 .login-inner-form input[type=checkbox]:checked+label:before {
@@ -200,13 +200,14 @@ input[type=radio] {
 }
 
 .login-2 .login-inner-form .btn-theme {
-    background: #f0151f;
+    background: #fd9903;
     border: none;
     color: rgb(0, 0, 0);
 }
 
 .login-2 .login-inner-form .btn-theme:hover {
-    background: #dc141d;
+    background: #28a745;
+    color: #fff;
 }
 
 .login-2 .informeson {
@@ -221,16 +222,12 @@ input[type=radio] {
     margin: 3px;
     letter-spacing: 1px;
     font-weight: 600;
-    color: #f0151f;
+    color: #fd9903;
 }
 
 .login-2 .informeson .active {
-    background: #f0151f;
+    background: #fd9903;
     color: rgb(0, 0, 0);
-}
-
-.login-2 .informeson .link-btn:hover {
-    text-decoration: none;
 }
 
 .login-2 .informeson h3 {
@@ -286,28 +283,14 @@ input[type=radio] {
     color: #fff;
 }
 
-.login-2 .facebook-bg:hover {
-    background: #3b589e;
-    color: #fff;
-}
-
 .login-2 .twitter-bg {
     background: #33CCFF;
     color: #fff;
 }
 
-.login-2 .twitter-bg:hover {
-    background: #56d7fe;
-    color: #fff;
-}
 
 .login-2 .google-bg {
     background: #db4437;
-    color: #fff;
-}
-
-.login-2 .google-bg:hover {
-    background: #dc4e41;
     color: #fff;
 }
 
@@ -316,10 +299,6 @@ input[type=radio] {
     color: #fff;
 }
 
-.login-2 .linkedin-bg:hover {
-    background: #1c82ca;
-    color: #fff;
-}
 
 /** MEDIA **/
 @media (max-width: 992px) {

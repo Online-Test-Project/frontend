@@ -218,7 +218,7 @@ class Table extends Component {
               <thead>
                 <tr className="align-self-start">
                   <th scope="col" style={{ width: '10%' }}>
-                    <label>STT</label>
+                    <label>Sửa</label>
                   </th>
                   <th scope="col" style={{ width: '10%' }}>
                     <label>Đã chọn</label>
@@ -608,6 +608,9 @@ class AddQuestionModal extends Component {
       .then(res => {
         console.log(res.data);
         this.props.updateBankFromServer();
+        alert("Thêm câu hỏi thành công!");
+      }).catch(error => {
+        console.log("Có lỗi xảy ra. Vui lòng thử lại!");
       });
   }
 
@@ -677,6 +680,7 @@ class AddQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
+            {"  "}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -730,6 +734,7 @@ class AddQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
+            {"  "}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -1012,6 +1017,7 @@ class EditQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
+            {"  "}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -1062,6 +1068,7 @@ class EditQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
+            {"  "}
             <button
               className="btn btn-danger"
               onClick={() => {

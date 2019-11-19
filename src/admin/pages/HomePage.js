@@ -35,6 +35,8 @@ class HomePage extends React.Component {
     .then(async res => {
       console.log(res.data);
       await this.setState({statusUrl: true, examId: id});
+    }).catch(error => {
+      alert("Mã đề hoặc liên kết không đúng!");
     })
    
   }
@@ -48,8 +50,6 @@ class HomePage extends React.Component {
           <div className="text-center mt-5">
             <h1>LÀM BÀI NGAY</h1>
             <br />
-            <h4> Nhập mã đề thi</h4>
-            <br />
             <div className="row">
               <div className="col-4" />
               <div className="form-group col-4">
@@ -60,7 +60,7 @@ class HomePage extends React.Component {
                   type="text"
                   className="form-control"
                   id="inputPassword2"
-                  placeholder="Mã đề thi"
+                  placeholder="Nhập mã đề thi hoặc liên kết tới đề thi"
                   name="examUrl"
                   onChange={(event) => this.onChange(event)}
                 />
