@@ -16,8 +16,7 @@ class Login extends Component {
   
 
   onSubmit() {
-    // authenticationService.login()
-    console.log('Submit');
+
     if (
       this.state.username === '' ||
       this.state.password === '' ||
@@ -28,7 +27,6 @@ class Login extends Component {
       authenticationService
         .login(this.state.username, this.state.password)
         .then(user => {
-          console.log(user);
           const { from } = this.props.location.state || {
             from: { pathname: '/' },
           };
@@ -38,7 +36,6 @@ class Login extends Component {
           this.setState({
             error: 'Tên tài khoản không đúng hoặc mật khẩu không chính xác!',
           });
-          console.log(this.state.error);
         });
     }
   }

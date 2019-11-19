@@ -45,7 +45,7 @@ class HomePage extends React.Component {
         <Sidebar></Sidebar>
         <div className="main-content bg-img" id="field-main">
           <Header />
-          <div>
+          <div className="text-center mt-5">
             <h1>LÀM BÀI NGAY</h1>
             <br />
             <h4> Nhập mã đề thi</h4>

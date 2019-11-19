@@ -6,3 +6,7 @@
     width: calc(100% - 216px)!important;
     padding: 8px 0 0 8px;
 }
+
+.purple-blue-text {
+    color: #4e73df;
+}
