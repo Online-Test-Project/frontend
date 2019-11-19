@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './LoginAndRegister.css';
+import { Link } from 'react-router-dom';
 
 import { authenticationService } from '../../_services/index';
 
@@ -13,10 +14,7 @@ class Login extends Component {
     this.state = { username: '', password: '', error: '' };
   }
 
-  
-
   onSubmit() {
-
     if (
       this.state.username === '' ||
       this.state.password === '' ||
@@ -124,7 +122,7 @@ class Login extends Component {
                       </div>
                       <p className="none-2">
                         Bạn chưa có tài khoản?
-                        <a href="register-2.html">Đăng kí</a>
+                        <Link to="/register">Đăng kí</Link>
                       </p>
                     </form>
                   </div>

@@ -52,7 +52,7 @@ class ListUserExam extends Component {
                     <div class="bank-body">
                       <div class="bank-contnet">
                         <div class="row justify-content-end header-wrapper-end"></div>
-                        <Link to={'/preview-exam/' + exam.examId}>
+                        <Link to={'/done-exam/' + exam.examId}>
                           <h4>{exam.name}</h4>
                         </Link>
                         <span class="Updatetime">
