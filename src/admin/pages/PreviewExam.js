@@ -66,7 +66,7 @@ class PreviewExam extends Component{
                       <div className="card card-question">
                         <div className="card-body">
                           <div className="content">
-                            <div className="row select-answer">
+                            <div className="select-answer">
                          {question.reviewAnswers.map((answer, i) => {
                                   if (answer.isSelected ===true){
                                       if (question.isCorrect) {
@@ -125,7 +125,7 @@ class PreviewExam extends Component{
                       <div className="card card-question">
                         <div className="card-body">
                           <div className="content">
-                            <div className="row select-answer">
+                            <div className="select-answer">
                               {question.reviewAnswers.map((answer, i) => {
                                   if (answer.isSelected ===true){
                                       if(question.isCorrect === true){
@@ -183,9 +183,9 @@ class PreviewExam extends Component{
                       <div className="card card-question">
                         <div className="card-body">
                           <div className="content">
-                            <div className="row select-answer">
+                            <div className="select-answer">
                             {question.reviewAnswers.map((answer, i) => {
-                                  if (answer.isCorrect ===true){
+                              if (answer.isCorrect ===true){
                                       return(
                                         <div className="options col-sm mb-2 md-4 disable input-answer-true">
                                   <div className="text-wrap float-left">Đáp án: </div>
@@ -202,7 +202,7 @@ class PreviewExam extends Component{
                                       );
                                   } else {
                                     return(
-                                        <div className="options col-sm mb-2 md-4 disable input-answer-false">
+                                <div className="options col-sm mb-2 md-4 disable input-answer-false">
                                 <div className="text-wrap float-left">Đáp án: </div>
                                 <input
                                   type="text"

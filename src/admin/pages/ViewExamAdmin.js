@@ -47,7 +47,7 @@ class ViewExamAdmin extends Component {
                 <div className="card card-question">
                   <div className="card-body">
                     <div className="content">
-                      <div className="row select-answer">
+                      <div className="select-answer">
                         {question.answers.map((answer, i) => (
                           <div className="options col-sm mb-2 md-4">
                             <div className="select-check">
@@ -79,7 +79,7 @@ class ViewExamAdmin extends Component {
                 <div className="card card-question">
                   <div className="card-body">
                     <div className="content">
-                      <div className="row select-answer">
+                      <div className="select-answer">
                         {question.answers.map((answer, i) => (
                           <div className="options col-sm mb-2 md-4 multiselect-checked">
                             <div className="multiselect-check">
@@ -110,7 +110,7 @@ class ViewExamAdmin extends Component {
                 <div className="card card-question">
                   <div className="card-body">
                     <div className="content">
-                      <div className="row select-answer">
+                      <div className="select-answer">
                         <div className="options col-sm mb-2 md-4">
                           <div className="text-wrap float-left">Đáp án: </div>
                           <input

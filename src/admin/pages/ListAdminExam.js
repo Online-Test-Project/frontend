@@ -51,7 +51,7 @@ class ListAdminExam extends Component {
           <div class="table-content">
             <div class="header-row-list">
               <div class="title">
-                <Link to={'/admin/exam'}>
+               
                   <h3
                     style={{
                       marginTop: '10px',
@@ -61,7 +61,6 @@ class ListAdminExam extends Component {
                   >
                     Đề thi đã tạo
                   </h3>
-                </Link>
               </div>
               <div class="row justify-content-end header-wrapper-end">
                 <div
