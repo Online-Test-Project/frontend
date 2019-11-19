@@ -32,7 +32,7 @@ h6,
 }
 
 .login-2 .bg-img {
-    background: rgba(0, 0, 0, 0.04) top left repeat;
+    background: rgba(0, 0, 0, 0.04) url(../../images/loginbackground.jpg) top left repeat;
     background-size: cover;
     top: 0;
     width: 100%;
@@ -45,11 +45,10 @@ h6,
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 50px 30px 40px;
 }
 
 .login-2 .bg-color {
-    background: #0f96f9;
+    background: #254994;
     min-height: 100vh;
     position: relative;
     text-align: center;
@@ -60,7 +59,6 @@ h6,
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
 }
 
 .login-2 .login-inner-form {
@@ -84,7 +82,7 @@ h6,
 
 .login-2 .login-inner-form img {
     margin-bottom: 15px;
-    height: 30px;
+    height: 80px;
 }
 
 .login-2 .login-inner-form h3 {
@@ -149,8 +147,8 @@ h6,
 }
 
 .login-2 .login-inner-form .checkbox-theme input[type="checkbox"]:checked+label::before {
-    background-color: #f0151f;
-    border-color: #f0151f;
+    background-color: #fd9903;
+    border-color: #fd9903;
 }
 
 .login-2 .login-inner-form input[type=checkbox]:checked+label:before {
@@ -202,41 +200,38 @@ input[type=radio] {
 }
 
 .login-2 .login-inner-form .btn-theme {
-    background: #f0151f;
+    background: #fd9903;
     border: none;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .login-2 .login-inner-form .btn-theme:hover {
-    background: #dc141d;
+    background: #28a745;
+    color: #fff;
 }
 
 .login-2 .informeson {
-    color: #fff;
+    color: #000;
 }
 
 .login-2 .informeson .link-btn {
     background: #fff;
-    padding: 6px 30px;
+    padding: 6px 10px;
     font-size: 13px;
     border-radius: 3px;
     margin: 3px;
     letter-spacing: 1px;
     font-weight: 600;
-    color: #f0151f;
+    color: #fd9903;
 }
 
 .login-2 .informeson .active {
-    background: #f0151f;
-    color: #fff;
-}
-
-.login-2 .informeson .link-btn:hover {
-    text-decoration: none;
+    background: #fd9903;
+    color: rgb(0, 0, 0);
 }
 
 .login-2 .informeson h3 {
-    color: #fbfbfb;
+    color: #000000;
     margin-bottom: 25px;
     font-size: 31px;
 }
@@ -246,7 +241,7 @@ input[type=radio] {
 }
 
 .login-2 .informeson p {
-    color: #fbfbfb;
+    color: #000000;
     line-height: 30px;
     margin-bottom: 30px;
 }
@@ -288,28 +283,14 @@ input[type=radio] {
     color: #fff;
 }
 
-.login-2 .facebook-bg:hover {
-    background: #3b589e;
-    color: #fff;
-}
-
 .login-2 .twitter-bg {
     background: #33CCFF;
     color: #fff;
 }
 
-.login-2 .twitter-bg:hover {
-    background: #56d7fe;
-    color: #fff;
-}
 
 .login-2 .google-bg {
     background: #db4437;
-    color: #fff;
-}
-
-.login-2 .google-bg:hover {
-    background: #dc4e41;
     color: #fff;
 }
 
@@ -318,10 +299,6 @@ input[type=radio] {
     color: #fff;
 }
 
-.login-2 .linkedin-bg:hover {
-    background: #1c82ca;
-    color: #fff;
-}
 
 /** MEDIA **/
 @media (max-width: 992px) {

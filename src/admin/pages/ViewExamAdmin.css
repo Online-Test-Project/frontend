@@ -1,31 +1,39 @@
-*{
+* {
     margin: 0;
     padding: 0px;
 }
-.main-content{
-    overflow: hidden!important;
+
+.main-content {
+    overflow: hidden !important;
     background-color: #EFFFFB !important;
-  
+
 }
 
 #content {
     position: relative;
     height: 100%;
-    overflow: auto!important;
+    overflow: auto !important;
 }
+
 /* css chia 2 phan */
 
-.question-title {color: #1877f2;}
-#list-question{
+.question-title {
+    color: #1877f2;
+}
+
+#list-question {
     float: left;
 }
-#exam-test{
-    
+
+#exam-test {
+
     float: right;
 }
+
 .clear {
     clear: both;
 }
+
 /* het chia cot */
 
 
@@ -33,14 +41,18 @@
 /* css cho phan stt */
 
 .font-weight-bold {
-    font-weight: 700!important;
+    font-weight: 700 !important;
 }
+
 .pr-2 {
-    padding-right: .5rem!important; ;
+    padding-right: .5rem !important;
+    ;
 }
+
 .flex-shrink-1 {
-    flex-shrink: 1!important;
+    flex-shrink: 1 !important;
 }
+
 /* .card-question {
     border-radius:0!important ;
     border-color: rgb(84, 152, 247);
@@ -50,18 +62,22 @@
 css cho phan dap an */
 .row {
     display: flex;
-    flex-wrap: wrap ;
+    flex-wrap: wrap;
 }
+
 .select-answer {
     margin: .15rem 0;
 }
-.w-100{
-    width: 100%!important;
+
+.w-100 {
+    width: 100% !important;
 }
+
 .card-question {
     border: none;
 }
-.card-question> .card-body {
+
+.card-question>.card-body {
     padding: 0 0 1rem 0;
 }
 
@@ -75,7 +91,8 @@ css cho phan dap an */
     line-height: 1.3em;
     text-align: center;
 }
-.select-checked .select-check{
+
+.select-checked .select-check {
     position: absolute;
     border: .1em solid #1877F2;
     color: white;
@@ -85,41 +102,45 @@ css cho phan dap an */
     width: 1.5em;
     line-height: 1.3em;
     text-align: center;
-    
+
 }
-.select-check+div, .multiselect-check+div {
+
+.select-check+div,
+.multiselect-check+div {
     margin-left: 2em;
 }
+
 .text-wrap {
     word-wrap: break-word;
     white-space: pre-wrap;
 }
-.select-answer .options
-{
+
+.select-answer .options {
     cursor: pointer;
 }
+
 .disabled {
     cursor: no-drop;
 }
 
-.options .multiselect-check
-{
+.options .multiselect-check {
     position: absolute;
-    border: .1em solid #1877F2!important;
-    color: #1877F2!important;
-    border-radius: .25rem!important;
+    border: .1em solid #1877F2 !important;
+    color: #1877F2 !important;
+    border-radius: .25rem !important;
     height: 1.5em;
     width: 1.5em;
     line-height: 1.3em;
     text-align: center;
 }
-.input[type = checkbox]{
-    border: .1em solid #1877F2!important;
-    color: #1877F2!important;
-    border-radius: .25rem!important;
+
+.input[type=checkbox] {
+    border: .1em solid #1877F2 !important;
+    color: #1877F2 !important;
+    border-radius: .25rem !important;
 }
-.options .input-answer
-{
+
+.options .input-answer {
     position: absolute;
     line-height: 1.3em;
     float: right;
@@ -130,8 +151,8 @@ css cho phan dap an */
 
 #pagination-question .pagination {
     margin: 0;
-    font-weight: 600 ;
-    padding: .25em ;
+    font-weight: 600;
+    padding: .25em;
     border: .1em solid #1877F2;
     color: #1877F2;
     border-radius: .25rem;
@@ -139,44 +160,52 @@ css cho phan dap an */
 }
 
 .page-item.is-answered-true .page-link {
-    
+
     color: #fff;
-    background-color: #28a745 ;
-    
+    background-color: #28a745;
+
 }
+
 .d-inline-block {
     display: inline-block;
 }
+
 .pagination {
-    padding-left: 0 ;
+    padding-left: 0;
     list-style: none;
-    
+
 }
+
 .page-link {
-    border-radius: 0!important;
+    border-radius: 0 !important;
     height: 2.3em;
     width: 2.3em;
     text-align: center;
 }
+
 li {
     display: list-item;
     text-align: -webkit-match-parent;
     margin: .25rem;
-    
+
 }
+
 .float-left {
-    float: left!important;
+    float: left !important;
 }
+
 .time {
     border: .1em solid #1877F2;
     text-align: center;
-    font-weight:600 ;
+    font-weight: 600;
     border-radius: .25rem;
     margin: 0 0 0.5rem 0;
 }
+
 .clssubmit {
     margin: 0 0 0.5rem 0;
 }
+
 .submit {
     display: block;
     margin-left: auto;
@@ -184,10 +213,11 @@ li {
 }
 
 .card-body {
-    background-color: #EFFFFB !important;  
+    background-color: #EFFFFB !important;
 }
 
 .card {
     border-color: #EFFFFB !important;
 }
+
 /* end css cho phan bang cau hoi */

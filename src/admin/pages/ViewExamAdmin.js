@@ -12,7 +12,6 @@ class ViewExamAdmin extends Component {
       id: this.props.match.params.id,
       exam: {},
       examData: [],
-      
     };
     console.log(this.state);
   }
@@ -27,7 +26,6 @@ class ViewExamAdmin extends Component {
         const data = response.data;
         this.setState({ examData: data.questions });
         this.setState({ exam: data });
-       
       });
   }
 
@@ -143,9 +141,10 @@ class ViewExamAdmin extends Component {
     return (
       <Layout>
         <div id="content">
-          <div id="list-question" className="list-question col-sm-2">
-            <div className="time">Thời gian: {this.state.exam.time}</div>
-
+          <div id="list-question" className="list-question col-sm-2 mt-3">
+            <div className="time">
+              Thời gian: {this.state.exam.time + ' phút'}
+            </div>
             <div className="row-fluid" id="pagination-question">
               <ul
                 className="pagination pagination-sm d-inline-block"
@@ -155,14 +154,11 @@ class ViewExamAdmin extends Component {
               </ul>
             </div>
           </div>
-          <div id="exam-test" className="exam-test col-sm-10">
+          <div id="exam-test" className="exam-test col-sm-10 mt-3">
             <h4>{this.state.exam.name}</h4>
             {questions}
           </div>
         </div>
-
-
-        
       </Layout>
     );
   }

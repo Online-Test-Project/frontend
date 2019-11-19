@@ -3,6 +3,8 @@ import './LoginAndRegister.css';
 
 import {Link} from 'react-router-dom';
 import { authenticationService } from '../../_services/index';
+import logoPencilWhite from '../../images/logoPencilWhite.png';
+
 
 class Register extends Component {
   constructor(props) {
@@ -65,21 +67,12 @@ class Register extends Component {
       <div className="login-2 tab-box">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-5 col-md-12 col-pad-0 bg-img none-992">
-              <div className="informeson">
-                <h3>My Test</h3>
-                <p>
-                  Giải pháp tốt nhất cho thi online thay thế việc thi truyền
-                  thống.
-                </p>
-              </div>
+            <div className="col-lg-6 col-md-12 col-pad-0 bg-img none-992">
             </div>
-            <div className="col-lg-7 col-md-12 col-pad-0 bg-color">
+            <div className="col-lg-6 col-md-12 col-pad-0 bg-color">
               <div className="login-inner-form">
                 <div className="details">
-                  <a href="#">
-                    <img src="assets/img/logos/logo.png" alt="logo" />
-                  </a>
+                <img src={logoPencilWhite} alt="logo" />
                   <h3>Đăng kí tài khoản</h3>
                   <form>
                     <div className="form-group">

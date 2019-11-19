@@ -37,10 +37,11 @@ class ListAdminExam extends Component {
           let newListExam = await this.state.listExam.filter(
             exam => exam.id !== id,
           );
-          console.log(newListExam);
           await this.setState({ listExam: newListExam });
-          console.log(this.state.listExam);
+          alert("Xóa đề thành công!");
         }
+      }).catch(error => {
+        alert("Có lỗi xảy ra. Vui lòng thử lại!");
       });
   }
 

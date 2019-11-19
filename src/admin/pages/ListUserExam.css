@@ -19,10 +19,10 @@
     padding: 10px;
     padding-top: 0px;
     margin-bottom: 10px;
-    box-shadow: 1px 3px 3px #bac4d8;
+    box-shadow: 1px 3px 3px #d5d5d5;
     box-shadow: none;
-    border: 1px solid #254994;
-    border-radius: 10px;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
 }
 
 .bank-center {

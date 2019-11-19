@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Link } from 'react-router-dom';
+import logoPencilWhite from '../../../images/logoPencilWhite.png';
 
 class Sidebar extends Component {
   toggleSidebar() {
@@ -17,7 +18,7 @@ class Sidebar extends Component {
         <div className="menu-left" id="sideBar">
           <div className="logo">
             <Link to="/">
-              <h5 className="text-center">MY TEST</h5>
+              <img src={logoPencilWhite} style={{width: "120px", paddingLeft: "1rem"}} alt="logo"/>
             </Link>
 
             <i

@@ -370,7 +370,10 @@ class AddBankModal extends Component {
         console.log(res.data);
         if (res.data === true) {
           this.props.onUpdateListBank();
+          alert("Tạo ngân hàng mới thành công!");
         }
+      }).catch(error => {
+        alert("Có lỗi xảy ra. Vui lòng thử lại!");
       });
   }
 
