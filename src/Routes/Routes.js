@@ -24,7 +24,7 @@ const Routes = () => {
       <PrivateRoute exact path="/bank/:id" component={BankPage}></PrivateRoute>
 
       <PrivateRoute
-        exact
+        exact1
         path="/created-exam"
         component={ListAdminExam}
       ></PrivateRoute>
