@@ -494,19 +494,19 @@ class Table extends Component {
           <div className="separation"></div>
           <div className="mt-2 mb-2">
             <h5 className="font-weight-bold purple-blue-text">
-              Cấu trúc ngân hàng
+              Độ khó câu hỏi
             </h5>
             <div className="px-1">
               <label>
-                <b>Số câu dễ:</b> {this.state.difficulty[0]}
+                <b>Dễ:</b> {this.state.difficulty[0]}
               </label>
               <br />
               <label>
-                <b>Số câu TB:</b> {this.state.difficulty[1]}
+                <b>Trung bình:</b> {this.state.difficulty[1]}
               </label>
               <br />
               <label>
-                <b>Số câu khó:</b> {this.state.difficulty[2]}
+                <b>Khó:</b> {this.state.difficulty[2]}
               </label>
               <br />
             </div>
@@ -606,12 +606,23 @@ class AddQuestionModal extends Component {
         },
       )
       .then(res => {
-        console.log(res.data);
+        if (res.data) {
         this.props.updateBankFromServer();
+        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
+        let answers = document.getElementsByName('answer');
+        document.getElementById('content').value = "";
+        document.getElementById("typeSelect").value = "Single Choice";
+        document.getElementById("levelSelect").value = "Dễ";
+        for (let i = 0; i < answers.length; i++) {
+          answers[i].value = "";
+        }
         alert("Thêm câu hỏi thành công!");
+        console.log(this.state);
+        }
       }).catch(error => {
         console.log("Có lỗi xảy ra. Vui lòng thử lại!");
       });
+      
   }
 
   render() {
@@ -793,8 +804,9 @@ class AddQuestionModal extends Component {
                   className="form-control mb-2"
                   type="text"
                   name="content"
+                  id='content'
                   placeholder="Nhập nội dung câu hỏi"
-                  defaultValue={this.state.content}
+                  defaultValue=''
                   onChange={event => this.onChange(event)}
                 ></input>
                 <div className="row">
@@ -803,6 +815,7 @@ class AddQuestionModal extends Component {
                       className="form-control"
                       name="type"
                       onChange={event => this.onChangeType(event)}
+                      id="typeSelect"
                     >
                       <option>Single Choice</option>
                       <option>Multiple Choice</option>
@@ -813,6 +826,7 @@ class AddQuestionModal extends Component {
                     <select
                       className="form-control"
                       name="difficulty"
+                      id="levelSelect"
                       onChange={event => this.onChangeLevel(event)}
                     >
                       <option defaultChecked>Dễ</option>
@@ -941,6 +955,7 @@ class EditQuestionModal extends Component {
         if (res.data) {
           this.props.updateBankFromServer();
           alert('Sửa câu hỏi thành công');
+          
         }
       })
       .catch(error => {
