@@ -65,7 +65,7 @@ class Register extends Component {
       <div className="login-2 tab-box">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-5 col-md-12 col-pad-0 bg-img none-992">
+            <div className="col-lg-7 col-md-12 col-pad-0 bg-img none-992">
               <div className="informeson">
                 <h3>My Test</h3>
                 <p>
@@ -74,7 +74,7 @@ class Register extends Component {
                 </p>
               </div>
             </div>
-            <div className="col-lg-7 col-md-12 col-pad-0 bg-color">
+            <div className="col-lg-5 col-md-12 col-pad-0 bg-color">
               <div className="login-inner-form">
                 <div className="details">
                   <a href="#">

@@ -48,11 +48,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <div className="login-2 tab-box">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-lg-5 col-md-12 col-pad-0 bg-img none-992">
+              <div className="col-lg-7 col-md-12 col-pad-0 bg-img none-992">
                 <div className="informeson">
                   <h3>My Test</h3>
                   <p>
@@ -64,8 +64,8 @@ class Login extends Component {
               <div className="col-lg-7 col-md-12 col-pad-0 bg-color align-self-center">
                 <div className="login-inner-form">
                   <div className="details">
-                    <a href="#">
-                      {/* <img src="assets/img/logos/logo.png" alt="logo" /> */}
+                    <a href="../../images/loginbackground.jpg">
+                      <img src="../../images/loginbackground.jpg" alt="logo" />
                     </a>
                     <h3>Đăng nhập vào tài khoản của bạn</h3>
                     <form>

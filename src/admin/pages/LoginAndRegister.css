@@ -32,7 +32,7 @@ h6,
 }
 
 .login-2 .bg-img {
-    background: rgba(0, 0, 0, 0.04) top left repeat;
+    background: rgba(0, 0, 0, 0.04) url(../../images/loginbackground.jpg) top left repeat;
     background-size: cover;
     top: 0;
     width: 100%;
@@ -45,7 +45,6 @@ h6,
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 50px 30px 40px;
 }
 
 .login-2 .bg-color {
@@ -60,7 +59,6 @@ h6,
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
 }
 
 .login-2 .login-inner-form {
@@ -204,7 +202,7 @@ input[type=radio] {
 .login-2 .login-inner-form .btn-theme {
     background: #f0151f;
     border: none;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .login-2 .login-inner-form .btn-theme:hover {
@@ -212,12 +210,12 @@ input[type=radio] {
 }
 
 .login-2 .informeson {
-    color: #fff;
+    color: #000;
 }
 
 .login-2 .informeson .link-btn {
     background: #fff;
-    padding: 6px 30px;
+    padding: 6px 10px;
     font-size: 13px;
     border-radius: 3px;
     margin: 3px;
@@ -228,7 +226,7 @@ input[type=radio] {
 
 .login-2 .informeson .active {
     background: #f0151f;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .login-2 .informeson .link-btn:hover {
@@ -236,7 +234,7 @@ input[type=radio] {
 }
 
 .login-2 .informeson h3 {
-    color: #fbfbfb;
+    color: #000000;
     margin-bottom: 25px;
     font-size: 31px;
 }
@@ -246,7 +244,7 @@ input[type=radio] {
 }
 
 .login-2 .informeson p {
-    color: #fbfbfb;
+    color: #000000;
     line-height: 30px;
     margin-bottom: 30px;
 }
