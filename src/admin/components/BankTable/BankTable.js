@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './BankTable.css';
-
 import config from '../../../_config/config';
 import { authHeader } from '../../../_helpers/index';
 

@@ -194,10 +194,7 @@ class PreviewExam extends Component{
                                   className="input-answer"
                                   disabled
                                   value={answer.content}
-                                />
-                                 <span class="badge badge-success"> <i class="fa fa-check"
-                                                        aria-hidden="true"></i></span>
-                                         
+                                />       
                               </div>
                                       );
                                   } else {
@@ -210,9 +207,6 @@ class PreviewExam extends Component{
                                   disabled
                                   value={answer.content}
                                 />
-                                <span class="badge badge-danger">
-                                                      <i class="fas fa-minus"></i>
-                                                    </span>
                               </div>
                                       );
                                   }

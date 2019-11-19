@@ -51,7 +51,6 @@ class ListAdminExam extends Component {
           <div class="table-content">
             <div class="header-row-list">
               <div class="title">
-               
                   <h3
                     style={{
                       marginTop: '10px',
@@ -69,7 +68,7 @@ class ListAdminExam extends Component {
                   data-target="#modelAddExam"
                 >
                   <div class="fa fa-plus-square fomat-icon-menu"></div>
-                  <Link to={'/admin/exam/create'}>
+                  <Link to={'/create-exam'}>
                     <div class="item-text">Thêm đề thi</div>
                   </Link>
                 </div>
@@ -141,9 +140,10 @@ class ListAdminExam extends Component {
                             </div>
                           </div>
                         </div>
-                        <Link to={'/view-exam/' + exam.id}>
+                        {exam.isRandom ? <h4>{exam.name}</h4> : <Link to={'/created-exam/' + exam.id}>
                           <h4>{exam.name}</h4>
-                        </Link>
+                        </Link> }
+                        
                         <span class="Updatetime">
                           <b>Mật khẩu: </b>
                           {exam.password}

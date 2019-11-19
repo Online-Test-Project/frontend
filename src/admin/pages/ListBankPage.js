@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { history } from '../../_helpers/index';
+import PrivateRoute from '../../_components/PrivateRoute';
+
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 
 import Layout from '../components/Layout/Layout';
 import './ListBankPage.css';
+
+import BankPage from './BankPage';
 
 class ListBankPage extends Component {
   constructor(props) {
@@ -52,7 +58,7 @@ class ListBankPage extends Component {
       .then(response => {
         console.log(response.data);
         const data = response.data;
-       
+
         this.setState({ listBank: data });
       });
   }
@@ -60,9 +66,8 @@ class ListBankPage extends Component {
   onDeleteBank(id) {
     console.log('XOa thang: ' + id);
     axios
-    .post(config.SERVER_URL+'/api/bank/delete', JSON.stringify(id),
-      {
-        headers: authHeader()
+      .post(config.SERVER_URL + '/api/bank/delete', JSON.stringify(id), {
+        headers: authHeader(),
       })
       .then(response => {
         console.log(response.data);
@@ -71,71 +76,74 @@ class ListBankPage extends Component {
           console.log(newListBank);
           this.setState({ listBank: newListBank });
         }
-      })
+      });
   }
 
   render() {
     return (
-      <Layout>
-        <div class="content row">
-          <div class="table-content">
-            <div class="header-row-list">
-              <div class="title">
-                <h3 className="pt-2 ml-3 font-weight-bold">
-                  Ngân hàng câu hỏi
-                </h3>
-              </div>
-              <div class="row justify-content-end header-wrapper-end">
-                <div class="header-item-wrapper">
-                  <div class="search-box">
-                    <input
-                      placeholder="Tìm kiếm..."
-                      id="search"
-                      onKeyPress={event => {
-                        if (event.key === 'Enter') {
-                          this.onSearch();
-                        }
-                      }}
-                    />
+      <React.Fragment>
+        <Layout>
+          <div class="content row">
+            <div class="table-content">
+              <div class="header-row-list">
+                <div class="title">
+                  <h3 className="pt-2 ml-3 font-weight-bold">
+                    Ngân hàng câu hỏi
+                  </h3>
+                </div>
+                <div class="row justify-content-end header-wrapper-end">
+                  <div class="header-item-wrapper">
+                    <div class="search-box">
+                      <input
+                        placeholder="Tìm kiếm..."
+                        id="search"
+                        onKeyPress={event => {
+                          if (event.key === 'Enter') {
+                            this.onSearch();
+                          }
+                        }}
+                      />
 
-                    <span class="icon">
-                      <div class="fa fa-search fomat-icon-menu"></div>
-                    </span>
+                      <span class="icon">
+                        <div class="fa fa-search fomat-icon-menu"></div>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    class="header-item-wrapper"
+                    data-toggle="modal"
+                    data-target="#modelAddBank"
+                  >
+                    <div class="fa fa-plus-square fomat-icon-menu"></div>
+                    <div class="item-text"></div>Thêm ngân hàng
                   </div>
                 </div>
-
-                <div
-                  class="header-item-wrapper"
-                  data-toggle="modal"
-                  data-target="#modelAddBank"
-                >
-                  <div class="fa fa-plus-square fomat-icon-menu"></div>
-                  <div class="item-text"></div>Thêm ngân hàng
+                <AddBankModal
+                  onUpdateListBank={() => this.onUpdateListBank()}
+                ></AddBankModal>
+              </div>
+              {this.state.filteredBank.length === 0 ? (
+                <div className="text-center">
+                  Không tìm thấy ngân hàng yêu cầu
                 </div>
-              </div>
-              <AddBankModal
-                onUpdateListBank={() => this.onUpdateListBank()}
-              ></AddBankModal>
+              ) : (
+                this.state.filteredBank.map((bank, index) => {
+                  return (
+                    <Bank
+                      bank={bank}
+                      onEditBank={() => this.onUpdateListBank}
+                      key={index}
+                      onDeleteBank={id => this.onDeleteBank(id)}
+                    ></Bank>
+                  );
+                })
+              )}
             </div>
-            {this.state.filteredBank.length === 0 ? (
-              <div className="text-center">
-                Không tìm thấy ngân hàng yêu cầu
-              </div>
-            ) : (
-              this.state.filteredBank.map((bank, index) => {
-                return (
-                  <Bank
-                    bank={bank}
-                    onEditBank={() => this.onUpdateListBank}
-                    key={index}
-                    onDeleteBank={id => this.onDeleteBank(id)}
-                  ></Bank>
-                );
-              })
-            )}
           </div>
-        </div>
-      </Layout>
+        </Layout>
+        
+      </React.Fragment>
     );
   }
 }
@@ -159,7 +167,7 @@ class Bank extends Component {
   }
 
   onSave() {
-    console.log("sua ne");
+    console.log('sua ne');
     axios
       .post(
         config.SERVER_URL + '/api/bank/update',
@@ -169,7 +177,7 @@ class Bank extends Component {
           description: this.state.description,
         },
         {
-          headers: authHeader()
+          headers: authHeader(),
         },
       )
       .then(res => {
@@ -189,7 +197,7 @@ class Bank extends Component {
         <div class="bank-center p-t-10">
           <div class="bank-body">
             <div class="bank-contnet">
-              <Link to={'/admin/bank/' + this.state.id}>
+              <Link to={'/bank/' + this.state.id}>
                 <h4>{this.state.name}</h4>
               </Link>
               <span class="pl-4">
@@ -349,7 +357,8 @@ class AddBankModal extends Component {
   onAdd() {
     axios
       .post(
-        config.SERVER_URL + '/api/bank/create',{
+        config.SERVER_URL + '/api/bank/create',
+        {
           name: this.state.name,
           description: this.state.description,
         },

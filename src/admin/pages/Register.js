@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './LoginAndRegister.css';
 
+import {Link} from 'react-router-dom';
 import { authenticationService } from '../../_services/index';
 
 class Register extends Component {
@@ -43,7 +44,7 @@ class Register extends Component {
         })
         .catch(err => {
           this.setState({
-            error: 'Có lỗi xảy ra. Vui lòng thử lại!',
+            error: 'Tài khoản đã tồn tại!',
           });
           console.log(this.state.error);
         });
@@ -126,7 +127,7 @@ class Register extends Component {
                     </div>
                   </form>
                   <p className="none-2">
-                    Bạn đã có tài khoản? <a href="login-2.html">Đăng nhập</a>
+                    Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
                   </p>
                 </div>
               </div>
