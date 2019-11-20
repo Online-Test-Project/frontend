@@ -28,9 +28,9 @@ class ListAdminExam extends Component {
 
   onDeleteExam(id) {
     axios
-    .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
-      headers: authHeader(),
-    })
+      .post(config.SERVER_URL + '/api/exam/delete', JSON.stringify(id), {
+        headers: authHeader(),
+      })
       .then(async response => {
         console.log(response.data);
         if (response.data) {
@@ -38,10 +38,11 @@ class ListAdminExam extends Component {
             exam => exam.id !== id,
           );
           await this.setState({ listExam: newListExam });
-          alert("Xóa đề thành công!");
+          alert('Xóa đề thành công!');
         }
-      }).catch(error => {
-        alert("Có lỗi xảy ra. Vui lòng thử lại!");
+      })
+      .catch(error => {
+        alert('Có lỗi xảy ra. Vui lòng thử lại!');
       });
   }
 
@@ -52,15 +53,15 @@ class ListAdminExam extends Component {
           <div class="table-content">
             <div class="header-row-list">
               <div class="title">
-                  <h3
-                    style={{
-                      marginTop: '10px',
-                      marginLeft: '40px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Đề thi đã tạo
-                  </h3>
+                <h3
+                  style={{
+                    marginTop: '10px',
+                    marginLeft: '40px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Đề thi đã tạo
+                </h3>
               </div>
               <div class="row justify-content-end header-wrapper-end">
                 <div
@@ -141,10 +142,14 @@ class ListAdminExam extends Component {
                             </div>
                           </div>
                         </div>
-                        {exam.isRandom ? <h4>{exam.name}</h4> : <Link to={'/created-exam/' + exam.id}>
+                        {exam.isRandom ? (
                           <h4>{exam.name}</h4>
-                        </Link> }
-                        
+                        ) : (
+                          <Link to={'/created-exam/' + exam.id}>
+                            <h4>{exam.name}</h4>
+                          </Link>
+                        )}
+
                         <span class="Updatetime">
                           <b>Mật khẩu: </b>
                           {exam.password}
@@ -170,6 +175,9 @@ class ListAdminExam extends Component {
                             {exam.isRandom === true ? 'Ngẫu nhiên' : 'Tự chọn'}
                           </span>
                           <br></br>
+                          <Link to={'/created-exam/' + exam.id + '/statistics'}>
+                            <button class="btn btn-primary">Thống kê</button>
+                          </Link>
                         </span>
                       </div>
                     </div>

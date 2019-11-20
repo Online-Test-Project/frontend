@@ -53,10 +53,9 @@
     font-size: 14px;
     display: block;
     margin: 15px 0;
-
     color: #848a96;
     overflow: hidden;
-    max-height: 100px!important;
+    max-height: 140px !important;
     line-height: 25px;
     text-overflow: ellipsis;
     font-family: inherit;

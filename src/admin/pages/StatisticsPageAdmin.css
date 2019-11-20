@@ -1,0 +1,67 @@
+.separation-y {
+    height: 10px !important;
+}
+
+.m-15 {
+    margin: 0 15px;
+}
+
+.header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+}
+
+.content {
+    overflow: auto;
+}
+
+.menu-left .logo i.active {
+    z-index: 101 !important;
+}
+
+.border-left-primary {
+    border-left: .25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: .25rem solid #1cc88a !important;
+}
+
+.border-left-info {
+    border-left: .25rem solid #36b9cc !important;
+}
+
+.border-left-warning {
+    border-left: .25rem solid #f6c23e !important;
+}
+
+.shadow {
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+}
+
+.text-xs {
+    font-size: .7rem;
+}
+
+.text-gray-300 {
+    color: #dddfeb !important;
+}
+
+.fa,
+.far,
+.fas {
+    font-family: "Font Awesome 5 Free";
+}
+
+.fa-2x {
+    font-size: 2em;
+}
+
+.fs-22 {
+    font-size: 22px;
+}
+
+.table thead th {
+    background-color: #fcfcfc;
+}
