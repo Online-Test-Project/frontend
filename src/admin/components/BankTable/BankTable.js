@@ -1190,6 +1190,7 @@ class EditQuestionModal extends Component {
                             <input
                               type="radio"
                               name={'isCorrect' + this.state.id}
+                              readOnly
                             />
                           )}
                         </div>
