@@ -402,17 +402,17 @@ class CreateExamPage extends Component {
                 <th scope="col">STT</th>
                 <th scope="col">Nội dung</th>
                 <th scope="col">Loại câu hỏi</th>
-                <th scope="col">#</th>
+                <th scope="col">Độ khó</th>
               </tr>
             </thead>
             <tbody>
               {this.state.bankData.map(question => (
-                <tr>
+                <tr onClick={() => this.toggleSelect(question.id)}>
                   <td>
                     <input
                       type="checkbox"
                       checked={!!question.selected}
-                      onClick={() => this.toggleSelect(question.id)}
+                      
                       readOnly
                     ></input>
                   </td>
@@ -422,10 +422,17 @@ class CreateExamPage extends Component {
                       ? 'Single Choice'
                       : question.type === 2
                       ? 'Multiple Choice'
-                      : 'Text Input'}
+                      : question.type === 3
+                      ? 'Text Input'
+                      : 'Yes/No'
+                    }
                   </td>
                   <td>
-                    <i className="fa fa-trash-o" />
+                    {question.difficulty === 1 
+                    ? "Dễ" :
+                    question.difficulty === 2
+                    ? "Trung bình" :
+                    "Khó"}
                   </td>
                 </tr>
               ))}

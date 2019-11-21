@@ -3,14 +3,14 @@
     padding: 0px;
 }
 .main-content{
-    overflow: auto!important;
+    overflow-y: auto!important;
 }
 
 /* css chia 2 phan */
 #content {
     position: relative;
     height: 100%;
-    overflow: auto!important;
+    overflow-y: auto;
 }
 
 #list-question{
@@ -61,7 +61,7 @@ css cho phan dap an */
     margin: .15rem 0;
 }
 .w-100{
-    width: 100%!important;
+    width: 100%;
 }
 .card-question {
     border: none;
