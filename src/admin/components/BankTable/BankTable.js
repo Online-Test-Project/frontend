@@ -1200,7 +1200,7 @@ class EditQuestionModal extends Component {
                         className="form-control"
                         name={'answer' + this.state.id}
                         defaultValue={answer.content}
-                        placeholder="Nhập đáp án, tích nếu đáp án đúng"
+                        readOnly
                       />
                     </div>
                   );
