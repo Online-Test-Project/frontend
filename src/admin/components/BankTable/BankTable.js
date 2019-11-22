@@ -252,6 +252,7 @@ class Table extends Component {
                       <option>Single Choice</option>
                       <option>Multiple Choice</option>
                       <option>Text Input</option>
+                      <option>Yes/No</option>
                     </select>
                   </th>
                   <th scope="col" style={{ width: '20%' }}>
@@ -604,7 +605,7 @@ class AddQuestionModal extends Component {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
     } else if(this.state.type === 4){
-      let answers = document.getElementsByName('yn-answer');
+      let answers = document.getElementsByName('ynanswer');
       let isCorrectList = document.getElementsByName('isCorrect');
       for (let i = 0; i < answers.length; i++) {
         listAnswer.push({
@@ -630,15 +631,19 @@ class AddQuestionModal extends Component {
       )
       .then(res => {
         if (res.data) {
-        this.props.updateBankFromServer();
-        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
+        this.props.updateBankFromServer();     
         let answers = document.getElementsByName('answer');
+        if(this.state.type === 1 || this.state.type === 2 || this.state.type === 3){
+          for (let i = 0; i < answers.length; i++) {
+            answers[i].value = "";
+          }
+          
+        }
+        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
         document.getElementById('content').value = "";
         document.getElementById("typeSelect").value = "Single Choice";
         document.getElementById("levelSelect").value = "Dễ";
-        for (let i = 0; i < answers.length; i++) {
-          answers[i].value = "";
-        }
+        
         alert("Thêm câu hỏi thành công!");
         console.log(this.state);
         }
@@ -806,7 +811,7 @@ class AddQuestionModal extends Component {
                     <input
                       type="text"
                       className="form-control"
-                      name="yn-answer"
+                      name="ynanswer"
                       defaultValue = 'Đúng'
                       readOnly
                     />
@@ -820,7 +825,7 @@ class AddQuestionModal extends Component {
                     <input
                       type="text"
                       className="form-control"
-                      name="yn-answer"
+                      name="ynanswer"
                       defaultValue='Sai'
                       readOnly
                     />
@@ -980,7 +985,7 @@ class EditQuestionModal extends Component {
 
   async onSubmit() {
     let listAnswer = [];
-    if (this.state.type === 1 || this.state.type === 2 || this.state.type === 4) {
+    if (this.state.type === 1 || this.state.type === 2) {
       let answers = document.getElementsByName('answer' + this.state.id);
       let isCorrectList = document.getElementsByName(
         'isCorrect' + this.state.id,
@@ -991,9 +996,20 @@ class EditQuestionModal extends Component {
           isCorrect: isCorrectList[i].checked,
         });
       }
-    } else {
+    } else if (this.state.type === 3) {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
+    } else if (this.state.type === 4){
+      let answers = document.getElementsByName('ynanswer' + this.state.id);
+      let isCorrectList = document.getElementsByName(
+        'isCorrect' + this.state.id,
+      );
+      for (let i = 0; i < answers.length; i++) {
+        listAnswer.push({
+          content: answers[i].value,
+          isCorrect: isCorrectList[i].checked,
+        });
+      }
     }
     const content = document.getElementById('content' + this.state.id).value;
     await this.setState({ answers: listAnswer, content: content });
@@ -1198,7 +1214,7 @@ class EditQuestionModal extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        name={'answer' + this.state.id}
+                        name={'ynanswer' + this.state.id}
                         defaultValue={answer.content}
                         readOnly
                       />
