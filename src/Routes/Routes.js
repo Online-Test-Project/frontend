@@ -37,7 +37,7 @@ const Routes = () => {
       ></PrivateRoute>
       <PrivateRoute
         exact
-        path="/created-exam/:id/statistics"
+        path="/created-exam/statistics/:id"
         component={StatisticsPageAdmin}
       ></PrivateRoute>
       <PrivateRoute

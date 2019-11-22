@@ -25,15 +25,20 @@ import './StatisticsPageAdmin.css';
 class StatisticsPageAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = { id: this.props.match.params.id };
+    this.state = { id: this.props.match.params.id, name: '' };
   }
 
   componentDidMount() {
-      axios.get(config.SERVER_URL + "/api/examinee/get/" + this.state.id, {
-          headers: authHeader()
-      }).then(res => {
-          console.log(res.data);
+    axios
+      .get(config.SERVER_URL + '/api/examinee/get/' + this.state.id, {
+        headers: authHeader(),
       })
+      .then(res => {
+        this.setState({ name: res.data.name });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -43,7 +48,7 @@ class StatisticsPageAdmin extends Component {
           <div className="separation-y" />
           <div className="container-fluid">
             <div className="header-row-list">
-                <h3></h3>
+              <h3 className="ml-3 py-3">{this.state.name}</h3>
             </div>
             <OverallDataRow examId={this.state.id}></OverallDataRow>
             {/* Biểu đồ đường/tròn */}
@@ -54,16 +59,10 @@ class StatisticsPageAdmin extends Component {
               <RaitoPieChart examId={this.state.id}></RaitoPieChart>
             </div>
             {/* biểu đồ progress */}
-            <div className="row">
-              {/*  Biểu đồ dạng progress bar tỉ lệ trả lời đúng câu hỏi Dễ/ TB/ Khó */}
-              <DifficultyProgressBar
-                examId={this.state.id}
-              ></DifficultyProgressBar>
-              {/*  Biểu đồ dạng progress bar tỉ lệ trả lời đúng câu hỏi text/ single-choice/ multil-choice */}
-              <TypeProgressBar examId={this.state.id}></TypeProgressBar>
-            </div>
+            {/*  Biểu đồ dạng progress bar tỉ lệ trả lời đúng câu hỏi Dễ/ TB/ Khó */}
+            <ProgressBar examId={this.state.id}></ProgressBar>
             {/* Bảng thống kê người làm bài */}
-            <UserExamTable examId={this.state.id}></UserExamTable>
+            <ParticipantsTable examId={this.state.id}></ParticipantsTable>
           </div>
         </div>
       </Layout>
@@ -74,8 +73,36 @@ class StatisticsPageAdmin extends Component {
 class OverallDataRow extends Component {
   constructor(props) {
     super(props);
-    this.state = { examId: this.props.examId };
+    this.state = {
+      examId: this.props.examId,
+      participants: 0,
+      avgScore: 0,
+      avgTimeSpent: '',
+    };
   }
+
+  componentDidMount() {
+    axios
+      .post(
+        config.SERVER_URL + '/API/statistic/statistics',
+        JSON.stringify(this.state.examId),
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(res => {
+        const data = res.data;
+        this.setState({
+          participants: data.participants,
+          avgScore: data.avgScore,
+          avgTimeSpent: data.avgTimeSpent,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div className="row">
@@ -88,7 +115,7 @@ class OverallDataRow extends Component {
                     Số lượng người làm
                   </div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800 fs-22">
-                    215,000
+                    {this.state.participants}
                   </div>
                 </div>
                 <div className="col-auto">
@@ -107,7 +134,7 @@ class OverallDataRow extends Component {
                     Điểm trung bình
                   </div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800 fs-22">
-                    7.5
+                    {this.state.avgScore}
                   </div>
                 </div>
                 <div className="col-auto">
@@ -126,7 +153,7 @@ class OverallDataRow extends Component {
                     Thời gian trung bình
                   </div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800 ">
-                    45 phút 36 giây
+                    {this.state.avgTimeSpent}
                   </div>
                 </div>
                 <div className="col-auto">
@@ -144,79 +171,62 @@ class OverallDataRow extends Component {
 class ScoreLineChart extends PureComponent {
   constructor(props) {
     super(props);
-    const data = [
-      {
-        name: '0-1',
-        total: 4000,
-      },
-      {
-        name: '1-2',
-        total: 3000,
-      },
-      {
-        name: '2-3',
-        total: 2000,
-      },
-      {
-        name: '3-4',
-        total: 2780,
-      },
-      {
-        name: '4-5',
-        total: 1890,
-      },
-      {
-        name: '5-6',
-        total: 2390,
-      },
-      {
-        name: '6-7',
-        total: 3490,
-      },
-      {
-        name: '7-8',
-        total: 2009,
-      },
-      {
-        name: '8-9',
-        total: 2390,
-      },
-      {
-        name: '9-10',
-        total: 3490,
-      },
-    ];
-    this.state = { examId: this.props.examId, data: data };
+    this.state = { examId: this.props.examId, step: 1, data: [] };
   }
+
+  componentDidMount() {
+    this.updateLineChart();
+  }
+
+  updateLineChart() {
+    let list;
+    axios
+      .post(
+        config.SERVER_URL + '/api/statistic/line-chart',
+        { examId: this.state.examId, step: this.state.step },
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(async res => {
+        list = res.data;
+        const data = await this.renderData(this.state.step, list);
+        await this.setState({ data: data });
+        console.log(this.state);
+      });
+  }
+
+  renderData(step, list) {
+    const data = [];
+    for (let i = 0; i < 10 / step; i++) {
+      data.push({ name: i * step + '-' + (i + 1) * step, total: list[i] });
+    }
+    return data;
+  }
+
   render() {
     return (
       <div className="col-xl-8 col-lg-7">
         <div className="card shadow mb-4">
           <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">Phổ điểm</h6>
-            <div className="dropdown no-arrow">
-              <a
-                className="dropdown-toggle"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fa fa-ellipsis-v fa-sm fa-fw text-gray-400" />
-              </a>
-              <div
-                className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                aria-labelledby="dropdownMenuLink"
-              >
-                <div className="dropdown-header">step</div>
-                <div className="dropdown-item" href="#">
-                  1
-                </div>
-                <div className="dropdown-item" href="#">
-                  0.5
-                </div>
+            <div>
+              <div className="dropdown no-arrow">
+                <select
+                  className="form-control"
+                  onChange={async event => {
+                    await this.setState({ step: event.target.value });
+                    this.updateLineChart();
+                  }}
+                >
+                  <option disabled selected value>
+                    Chọn bước nhảy
+                  </option>
+                  <option value="0.5">0.5</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="2.5">2.5</option>
+                </select>
               </div>
             </div>
           </div>
@@ -224,7 +234,7 @@ class ScoreLineChart extends PureComponent {
             <div className="chart-area">
               {/* đổ biểu đồ đường trong thẻ canvas */}
               <LineChart
-                width={600}
+                width={700}
                 height={300}
                 data={this.state.data}
                 margin={{
@@ -238,7 +248,7 @@ class ScoreLineChart extends PureComponent {
                 <XAxis dataKey="name">
                   <Label
                     value="Phổ điểm"
-                    offset="-5"
+                    offset={-5}
                     position="insideBottom"
                   ></Label>
                 </XAxis>
@@ -252,7 +262,7 @@ class ScoreLineChart extends PureComponent {
                 ></YAxis>
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="total" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="total" stroke="#0055ff" />
               </LineChart>
             </div>
           </div>
@@ -266,17 +276,25 @@ class RaitoPieChart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { examId: this.props.examId, data: [] };
-    console.log(RaitoPieChart.COLORS);
   }
 
   componentDidMount() {
-    const data = [
-      { name: 'Yếu', value: 100 },
-      { name: 'Trung bình', value: 200 },
-      { name: 'Khá', value: 600 },
-      { name: 'Giỏi', value: 250 },
-    ];
-    this.setState({ data: data });
+    axios
+      .post(
+        config.SERVER_URL + '/api/statistic/pie-chart',
+        JSON.stringify(this.state.examId),
+        { headers: authHeader() },
+      )
+      .then(res => {
+        const data = res.data;
+        const chartData = [
+          { name: 'Yếu', value: data[0] },
+          { name: 'Trung bình', value: data[1] },
+          { name: 'Khá', value: data[2] },
+          { name: 'Giỏi', value: data[3] },
+        ];
+        this.setState({ data: chartData });
+      });
   }
   render() {
     const COLORS = ['#dc3545', '#ffc107', '#007bff', '#28a745'];
@@ -333,59 +351,157 @@ class RaitoPieChart extends PureComponent {
   }
 }
 
-class DifficultyProgressBar extends Component {
+class ProgressBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { examId: this.props.examId };
+    this.state = { examId: this.props.examId, difficulty: [], type: [] };
   }
+
+  componentDidMount() {
+    axios
+      .post(
+        config.SERVER_URL + '/api/statistic/progressbar',
+        JSON.stringify(this.state.examId),
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(async res => {
+        const data = res.data;
+        await this.setState({
+          difficulty: data.difficulty,
+          type: data.type,
+        });
+        console.log(this.state);
+      });
+  }
+
   render() {
     return (
-      <div className="col-lg-6 mb-4">
-        <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h6 className="m-0 font-weight-bold text-primary">
-              Tỉ lệ trả lời đúng
-            </h6>
+      <div className="row">
+        <div className="col-lg-6 mb-4">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3">
+              <h6 className="m-0 font-weight-bold text-primary">
+                Tỉ lệ trả lời đúng
+              </h6>
+            </div>
+            <div className="card-body">
+              <h4 className="small font-weight-bold">
+                Dễ
+                <span className="float-right">
+                  {this.state.difficulty[0] + '%'}
+                </span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-success"
+                  role="progressbar"
+                  style={{ width: this.state.difficulty[0] + '%' }}
+                  aria-valuenow={this.state.difficulty[0]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+              <h4 className="small font-weight-bold">
+                Trung bình
+                <span className="float-right">
+                  {this.state.difficulty[1] + '%'}
+                </span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-warning"
+                  role="progressbar"
+                  style={{ width: this.state.difficulty[1] + '%' }}
+                  aria-valuenow={this.state.difficulty[1]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+              <h4 className="small font-weight-bold">
+                Khó
+                <span className="float-right">
+                  {this.state.difficulty[2] + '%'}
+                </span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-danger"
+                  role="progressbar"
+                  style={{ width: this.state.difficulty[2] + '%' }}
+                  aria-valuenow={this.state.difficulty[2]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+            </div>
           </div>
-          <div className="card-body">
-            <h4 className="small font-weight-bold">
-              Khó<span className="float-right">20%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar bg-danger"
-                role="progressbar"
-                style={{ width: '20%' }}
-                aria-valuenow={20}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
+        </div>
+        <div className="col-lg-6 mb-4">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3">
+              <h6 className="m-0 font-weight-bold text-primary">
+                Tỉ lệ trả lời đúng theo loại câu hỏi
+              </h6>
             </div>
-            <h4 className="small font-weight-bold">
-              Trung bình<span className="float-right">40%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar bg-warning"
-                role="progressbar"
-                style={{ width: '40%' }}
-                aria-valuenow={40}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-            <h4 className="small font-weight-bold">
-              Dễ<span className="float-right">60%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: '60%' }}
-                aria-valuenow={60}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
+            <div className="card-body">
+              <h4 className="small font-weight-bold">
+                Dạng Text Input
+                <span className="float-right">{this.state.type[0] + '%'}</span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-danger"
+                  role="progressbar"
+                  style={{ width: this.state.type[0] + '%' }}
+                  aria-valuenow={this.state.type[0]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+              <h4 className="small font-weight-bold">
+                Dạng Multiple Choice
+                <span className="float-right">{this.state.type[1] + '%'}</span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-warning"
+                  role="progressbar"
+                  style={{ width: this.state.type[1] + '%' }}
+                  aria-valuenow={this.state.type[1]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+              <h4 className="small font-weight-bold">
+                Dạng Single Choice
+                <span className="float-right">{this.state.type[2] + '%'}</span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar"
+                  role="progressbar"
+                  style={{ width: this.state.type[2] + '%' }}
+                  aria-valuenow={this.state.type[2]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
+              <h4 className="small font-weight-bold">
+                Dạng Yes/No
+                <span className="float-right">{this.state.type[3] + '%'}</span>
+              </h4>
+              <div className="progress mb-4">
+                <div
+                  className="progress-bar bg-success"
+                  role="progressbar"
+                  style={{ width: this.state.type[3] + '%' }}
+                  aria-valuenow={this.state.type[3]}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -394,85 +510,24 @@ class DifficultyProgressBar extends Component {
   }
 }
 
-class TypeProgressBar extends Component {
+class ParticipantsTable extends Component {
   constructor(props) {
     super(props);
     this.state = { examId: this.props.examId };
   }
-  render() {
-    return (
-      <div className="col-lg-6 mb-4">
-        <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h6 className="m-0 font-weight-bold text-primary">
-              Tỉ lệ trả lời đúng theo loại câu hỏi
-            </h6>
-          </div>
-          <div className="card-body">
-            <h4 className="small font-weight-bold">
-              Dạng Text Input<span className="float-right">20%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar bg-danger"
-                role="progressbar"
-                style={{ width: '20%' }}
-                aria-valuenow={20}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-            <h4 className="small font-weight-bold">
-              Dạng Multiple Choice<span className="float-right">40%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar bg-warning"
-                role="progressbar"
-                style={{ width: '40%' }}
-                aria-valuenow={40}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-            <h4 className="small font-weight-bold">
-              Dạng Single Choice<span className="float-right">60%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar"
-                role="progressbar"
-                style={{ width: '60%' }}
-                aria-valuenow={60}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-            <h4 className="small font-weight-bold">
-              Dạng Yes/No<span className="float-right">80%</span>
-            </h4>
-            <div className="progress mb-4">
-              <div
-                className="progress-bar bg-success"
-                role="progressbar"
-                style={{ width: '60%' }}
-                aria-valuenow={80}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-          
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
-class UserExamTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { examId: this.props.examId };
+  componentDidMount() {
+    axios
+      .post(
+        config.SERVER_URL + '/API/statistic/participant',
+        JSON.stringify(this.state.examId),
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(res => {
+        const data = res.data;
+      });
   }
   render() {
     return (

@@ -5,6 +5,7 @@ import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import Countdown from 'react-countdown-now';
+import PreviewExam from './PreviewExam';
 
 import './ExamPage.css';
 
@@ -47,8 +48,8 @@ class DoingExam extends Component {
         headers: authHeader(),
       })
       .then(res => {
-        console.log(res.data);
         const exam = res.data;
+        console.log(res.data);
         this.setState({
           name: exam.name,
           time: exam.time,
@@ -75,11 +76,9 @@ class DoingExam extends Component {
     const currentEdit = this.state;
     currentEdit[name] = value;
     this.setState(currentEdit);
-    console.log(this.state.password);
   }
 
   onEnterExam() {
-    console.log('id: ' + this.state.id + ' pass: ' + this.state.password);
     axios
       .post(
         config.SERVER_URL + '/api/examinee/do',
@@ -106,7 +105,6 @@ class DoingExam extends Component {
           examData: examData,
           status: 'doing',
         });
-        console.log(this.state);
       })
       .catch(error => {
         alert('Có lỗi xảy ra!');
@@ -178,7 +176,6 @@ class DoingExam extends Component {
         };
       }
     });
-    console.log(listAnswerDetail);
     await axios
       .post(
         config.SERVER_URL + '/api/examinee/submit',
@@ -191,7 +188,6 @@ class DoingExam extends Component {
         },
       )
       .then(res => {
-        console.log(res.data);
         if (res.data) {
           this.setState({ status: 'viewResult', score: res.data.score });
         }
@@ -487,6 +483,9 @@ class DoingExam extends Component {
                   <b>Điểm: </b>
                   {this.state.score}
                 </h5>
+                <Link to={'/done-exam/' + this.state.id}>
+                  <button className="btn btn-primary">Xem lại bài làm</button>
+                </Link>
               </div>
             </div>
           ) : (
@@ -504,11 +503,22 @@ class DoingExam extends Component {
               <div className="exam-status mt-2">
                 {this.state.status === 'early' ? (
                   <div className="alert alert-danger">
-                    Chưa đến thời gian làm bài
+                    Chưa đến thời gian làm bài.
                   </div>
                 ) : this.state.status === 'late' ? (
                   <div className="alert alert-danger">
-                    Đã hết thời gian mở đề
+                    Đã hết thời gian mở đề.
+                  </div>
+                ) : this.state.status === 'done' ? (
+                  <div>
+                    <div className="alert alert-success">
+                      Bạn đã làm bài kiểm tra này.
+                    </div>
+                    <Link to={'/done-exam/' + this.state.id}>
+                      <button className="btn btn-primary">
+                        Xem lại bài làm
+                      </button>
+                    </Link>
                   </div>
                 ) : (
                   <div>
