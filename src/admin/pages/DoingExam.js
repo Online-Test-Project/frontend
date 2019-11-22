@@ -137,6 +137,17 @@ class DoingExam extends Component {
           newQuestion.isAnswered = true;
           newExamData[i] = newQuestion;
           break;
+        } else if (newQuestion.type === 4){
+          for (let j = 0; j < newQuestion.answers.length; j++) {
+            if (newQuestion.answers[j].id === answerId) {
+              newQuestion.answers[j].selected = true;
+            } else {
+              newQuestion.answers[j].selected = false;
+            }
+          }
+          newQuestion.isAnswered = true;
+          newExamData[i] = newQuestion;
+          break;
         }
       }
     }
@@ -162,7 +173,7 @@ class DoingExam extends Component {
       const userAnswers = question.answers.map(answer => {
         return { AnswerId: answer.id, IsSelected: answer.selected.toString() };
       });
-      if (question.type === 1 || question.type === 2) {
+      if (question.type === 1 || question.type === 2 || question.type === 4) {
         return {
           QuestionId: question.id,
           UserAnswers: userAnswers,
@@ -407,7 +418,60 @@ class DoingExam extends Component {
                           </div>
                         </div>
                       );
-                    }
+                    } else if(question.type===4){
+                      return (
+                        <div
+                          className="question"
+                          id={index + 1}
+                          key={index + 1}
+                        >
+                          <div className="question-title pt-2">
+                            <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
+                              {index + 1}.
+                            </div>
+                            {question.content}
+                          </div>
+                          <div className="d-flex bd-highlight">
+                            <div className="w-100 bd-highlight">
+                              <div className="card card-question">
+                                <div className="card-body">
+                                  <div className="content">
+                                    <div className="row select-answer">
+                                      {question.answers.map((answer, i) => {
+                                        return (
+                                          <div
+                                            className={
+                                              answer.selected
+                                                ? 'options col-sm mb-2 md-4 select-checked'
+                                                : 'options col-sm mb-2 md-4'
+                                            }
+                                          >
+                                            <div
+                                              className="select-check"
+                                              onClick={() =>
+                                                this.onChangeAnswer(
+                                                  question.id,
+                                                  answer.id,
+                                                )
+                                              }
+                                            >
+                                              {String.fromCharCode(i + 65)}
+                                            </div>
+                                            <div className="text-wrap">
+                                              {answer.content}
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } 
                   })}
                 </div>
               </div>

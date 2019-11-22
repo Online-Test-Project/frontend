@@ -125,6 +125,39 @@ class ViewExamAdmin extends Component {
             </div>
           </div>
         );
+      } else if(question.type == 4){
+        return (
+          <div className="question" id={index + 1} key={index + 1}>
+            <div className="question-title">
+              <div className="flex-shrink-1 bd-highlight float-left font-weight-bold pr-2">
+                {' '}
+                {index + 1}.{' '}
+              </div>
+              {question.content}
+            </div>
+            <div className="d-flex bd-highlight">
+              <div className="w-100 bd-highlight">
+                <div className="card card-question">
+                  <div className="card-body">
+                    <div className="content">
+                      <div className="select-answer">
+                      {question.answers.map((answer, i) => (
+                          <div className="options col-sm mb-2 md-4">
+                            <div className="select-check">
+                              {String.fromCharCode(i + 65)}
+                            </div>
+                            <div className="text-wrap">{answer.content}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       }
     });
 

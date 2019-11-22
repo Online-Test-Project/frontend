@@ -1,5 +1,124 @@
 /* .content .table-content {
     height: 100%;
-    width: calc(100% - 216px) !important;
-    padding: 8px 0 0 8px;
-} */
+    vertical-align: middle;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 10px;
+}
+.header-item-wrapper{
+    display: flex;
+    box-sizing: border-box;
+    margin: 0 8px;
+}
+
+.header-item-wrapper:hover{
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.header .header-item-wrapper .fomat-icon-menu{
+    color:#4e73df;
+    font-size: 20px;
+    margin: 0 8px;
+}
+
+.header .header-item-wrapper .item-text{
+    color: #96a8fa;
+    line-height: 21px;
+}
+/* ============content================ */
+
+.content {
+    height: calc(100% - 60px);
+}
+    .content .table-content{
+        height: 100%;
+        padding: 8px 0 0 8px;
+    }
+/* =====================toolbar================================ */
+        .content .table-content .toolbar{
+            width: 100%;
+            height: 40px;
+            background-color: #4e73df;
+            overflow: hidden!important;
+        }
+        .content .table-content .toolbar button.btn-toolbar{
+            background-color:#4e73df;
+            border: none;
+            padding: 0 8px;
+            border-right: 1px solid #dedede;
+            color: white;
+            overflow: hidden!important;
+        }
+        .content .table-content .toolbar .fomat-icon-menu{
+            margin: 0 8px 0 0;
+        }
+/* ========================= bang chua cau hoi ============================== */
+    .content .table-content .main-table {
+        height: calc(100% - 50px);
+        overflow: auto;
+        background: #fefefe;
+        box-shadow: 1px 2px 2px 1px #dedede;
+    }
+        .content .table-content .main-table table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 600px;
+        }
+        
+        .content .table-content .main-table td {
+            text-align: left;
+            padding: 8px;
+        }
+        .content .table-content .main-table th {
+            text-align: center;
+            padding: 8px;
+            
+        }
+        
+        tr:nth-child(odd) {background-color: #f2f2f2;}
+        
+
+/* ====================thong tin ngan hang==================================== */
+    .content .infob-content{
+        width: 200px;
+        margin: 8px;
+        min-height: calc(100% - 16px);
+        overflow: auto;
+        box-sizing: border-box;
+        border: 1px solid #ffffff;
+        background-color: white;
+        padding-left: 8px;
+        box-shadow: 0px 2px 2px 2px #dedede;
+    }
+
+/* =================sua class cua bootstrap================================== */
+.main-content .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    padding: 0;
+}
+.col-3{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    
+}
+/* ============================================= */
+.menu-left.active{
+    left: -200px!important;
+}
+.main-content.active-main{
+    left: 0!important;
+}
+
+.menu-left .logo i.active{
+    position: absolute;
+    top: 16px;
+    left: 210px;
+    z-index: 10;
+    font-size: 25px;
+    color: blue;
+}
+

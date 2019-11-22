@@ -58,6 +58,7 @@ class Table extends Component {
       })
       .then(response => {
         const bankinfo = response.data;
+        console.log(bankinfo);
         this.setState({ bankInfo: bankinfo });
         this.setState({ type: bankinfo.type });
         this.setState({ difficulty: bankinfo.difficulty });
@@ -113,6 +114,9 @@ class Table extends Component {
         break;
       case 'Text Input':
         type = 3;
+        break;
+      case 'Yes/No':
+        type = 4;
         break;
       default:
         type = 'Tất cả';
@@ -248,6 +252,7 @@ class Table extends Component {
                       <option>Single Choice</option>
                       <option>Multiple Choice</option>
                       <option>Text Input</option>
+                      <option>Yes/No</option>
                     </select>
                   </th>
                   <th scope="col" style={{ width: '20%' }}>
@@ -316,7 +321,10 @@ class Table extends Component {
                               ? 'Single Choice'
                               : e.type === 2
                               ? 'Multiple Choice'
-                              : 'Text Input'}
+                              : e.type === 3
+                              ? 'Text Input'
+                              : 'Yes/No'
+                            }
                           </td>
                           <td className="align-middle">
                             {e.difficulty === 1
@@ -487,6 +495,10 @@ class Table extends Component {
               <label>
                 <b>Text Input:</b> {this.state.type[2]}{' '}
               </label>
+              <br/>
+              <label>
+                <b>Yes/No:</b> {this.state.type[3]}{' '}
+              </label>
             </div>
 
             <br />
@@ -549,6 +561,9 @@ class AddQuestionModal extends Component {
       case 'Text Input':
         type = 3;
         break;
+        case 'Yes/No':
+          type = 4;
+          break;
       default:
         type = 'Single Choice';
     }
@@ -577,7 +592,7 @@ class AddQuestionModal extends Component {
 
   async onSubmit() {
     let listAnswer = [];
-    if (this.state.type === 1 || this.state.type === 2) {
+    if (this.state.type === 1 || this.state.type === 2 ) {
       let answers = document.getElementsByName('answer');
       let isCorrectList = document.getElementsByName('isCorrect');
       for (let i = 0; i < answers.length; i++) {
@@ -586,9 +601,18 @@ class AddQuestionModal extends Component {
           isCorrect: isCorrectList[i].checked,
         });
       }
-    } else {
+    } else if(this.state.type === 3) {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
+    } else if(this.state.type === 4){
+      let answers = document.getElementsByName('ynanswer');
+      let isCorrectList = document.getElementsByName('isCorrect');
+      for (let i = 0; i < answers.length; i++) {
+        listAnswer.push({
+          content: answers[i].value,
+          isCorrect: isCorrectList[i].checked,
+        });
+      }
     }
     await this.setState({ listAnswer: listAnswer });
     axios
@@ -607,15 +631,19 @@ class AddQuestionModal extends Component {
       )
       .then(res => {
         if (res.data) {
-        this.props.updateBankFromServer();
-        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
+        this.props.updateBankFromServer();     
         let answers = document.getElementsByName('answer');
+        if(this.state.type === 1 || this.state.type === 2 || this.state.type === 3){
+          for (let i = 0; i < answers.length; i++) {
+            answers[i].value = "";
+          }
+          
+        }
+        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
         document.getElementById('content').value = "";
         document.getElementById("typeSelect").value = "Single Choice";
         document.getElementById("levelSelect").value = "Dễ";
-        for (let i = 0; i < answers.length; i++) {
-          answers[i].value = "";
-        }
+        
         alert("Thêm câu hỏi thành công!");
         console.log(this.state);
         }
@@ -771,6 +799,40 @@ class AddQuestionModal extends Component {
           </div>
         );
         break;
+      case 4:
+          element = (
+                <div>
+                  <div className="input-group mb-2">
+                    <div className="input-group-prepend">
+                      <div className="input-group-text">
+                        <input type="radio" name="isCorrect" defaultChecked />
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="ynanswer"
+                      defaultValue = 'Đúng'
+                      readOnly
+                    />
+                  </div>
+                  <div className="input-group mb-2">
+                    <div className="input-group-prepend">
+                      <div className="input-group-text">
+                        <input type="radio" name="isCorrect" />
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="ynanswer"
+                      defaultValue='Sai'
+                      readOnly
+                    />
+                  </div>
+                </div>
+              );
+              break;
       default:
     }
     return (
@@ -820,6 +882,7 @@ class AddQuestionModal extends Component {
                       <option>Single Choice</option>
                       <option>Multiple Choice</option>
                       <option>Text Input</option>
+                      <option>Yes/No</option>
                     </select>
                   </div>
                   <div className="col-6">
@@ -891,6 +954,9 @@ class EditQuestionModal extends Component {
       case 'Text Input':
         type = 3;
         break;
+      case 'Yes/No':
+        type = 4;
+        break;
       default:
         type = 'Single Choice';
     }
@@ -930,9 +996,20 @@ class EditQuestionModal extends Component {
           isCorrect: isCorrectList[i].checked,
         });
       }
-    } else {
+    } else if (this.state.type === 3) {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
+    } else if (this.state.type === 4){
+      let answers = document.getElementsByName('ynanswer' + this.state.id);
+      let isCorrectList = document.getElementsByName(
+        'isCorrect' + this.state.id,
+      );
+      for (let i = 0; i < answers.length; i++) {
+        listAnswer.push({
+          content: answers[i].value,
+          isCorrect: isCorrectList[i].checked,
+        });
+      }
     }
     const content = document.getElementById('content' + this.state.id).value;
     await this.setState({ answers: listAnswer, content: content });
@@ -1111,6 +1188,42 @@ class EditQuestionModal extends Component {
           </div>
         );
         break;
+        case 4:
+            element = (
+              <div>
+                {this.state.answers.map((answer, index) => {
+                  return (
+                    <div className="input-group mb-2" key={index}>
+                      <div className="input-group-prepend">
+                        <div className="input-group-text">
+                          {answer.isCorrect ? (
+                            <input
+                              type="radio"
+                              name={'isCorrect' + this.state.id}
+                              defaultChecked
+                            />
+                          ) : (
+                            <input
+                              type="radio"
+                              name={'isCorrect' + this.state.id}
+                              readOnly
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name={'ynanswer' + this.state.id}
+                        defaultValue={answer.content}
+                        readOnly
+                      />
+                    </div>
+                  );
+                })}       
+              </div>
+            );
+            break;
       default:
     }
     return (
@@ -1154,9 +1267,10 @@ class EditQuestionModal extends Component {
                     name="type"
                     onChange={event => this.onChangeType(event)}
                   >
-                    <option>Single Choice</option>
-                    <option>Multiple Choice</option>
-                    <option>Text Input</option>
+                    <option selected={this.state.type === 1 ? "selected" : ""}>Single Choice</option> 
+                    <option selected={this.state.type === 2 ? "selected" : ""}>Multiple Choice</option>
+                    <option selected={this.state.type === 3 ? "selected" : ""}>Text Input</option>
+                    <option selected={this.state.type === 4 ? "selected" : ""}>Yes/No</option>
                   </select>
                 </div>
                 <div className="col-6">
@@ -1165,9 +1279,9 @@ class EditQuestionModal extends Component {
                     name="difficulty"
                     onChange={event => this.onChangeLevel(event)}
                   >
-                    <option defaultChecked>Dễ</option>
-                    <option>Trung bình</option>
-                    <option>Khó</option>
+                    <option defaultChecked selected={this.state.difficulty === 1 ? "selected" : ""}>Dễ</option>
+                    <option selected={this.state.difficulty === 2 ? "selected" : ""}>Trung bình</option>
+                    <option selected={this.state.difficulty === 3 ? "selected" : ""}>Khó</option>
                   </select>
                 </div>
                 <br />
