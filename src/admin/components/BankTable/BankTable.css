@@ -1,9 +1,16 @@
 .checked {
     background-color: #a7cddf !important;
 }
-.content .infor{
+
+#info {
     height: 100%;
-    width: calc(100% - 216px)!important;
+    width: calc(100% - 216px) !important;
+    padding: 8px 0 0 8px;
+}
+
+.content .infor {
+    height: 100%;
+    width: calc(100% - 216px) !important;
     padding: 8px 0 0 8px;
 }
 

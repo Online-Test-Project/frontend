@@ -31,7 +31,7 @@
   background-image: linear-gradient(to bottom, #1f3b8e, rgb(89, 192, 198));
 }
 
-#menu-icon{
+#menu-icon {
   z-index: 1001;
 }
 
@@ -48,7 +48,7 @@
   line-height: 60px;
 }
 
-.text-center{
+.text-center {
   line-height: 60px;
 }
 
@@ -90,7 +90,7 @@
 
 /*=========================================== main-content =========================================*/
 .main-content {
-  background-color: #f8f8f8;
+  background-color: #f8f8f8 !important;
   position: absolute;
   left: 200px;
   right: 0;

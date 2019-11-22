@@ -21,6 +21,10 @@
     color: #1877f2;
 }
 
+#field-main {
+    overflow: hidden !important;
+}
+
 #list-question {
     float: left;
 }
@@ -211,13 +215,13 @@ li {
     margin-left: auto;
     margin-right: auto;
 }
-
+/* 
 .card-body {
     background-color: #EFFFFB !important;
 }
 
 .card {
     border-color: #EFFFFB !important;
-}
+} */
 
 /* end css cho phan bang cau hoi */

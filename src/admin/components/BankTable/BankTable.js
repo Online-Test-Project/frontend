@@ -196,7 +196,7 @@ class Table extends Component {
   render() {
     return (
       <div className="content row">
-        <div className="table-content infor">
+        <div className="table-content infor" id="info">
           <div className="toolbar row">
             <button
               className="row item-center btn-header"

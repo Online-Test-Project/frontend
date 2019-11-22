@@ -13,6 +13,7 @@ import BankPage from '../admin/pages/BankPage';
 import ViewExamAdmin from '../admin/pages/ViewExamAdmin';
 import PreviewExam from '../admin/pages/PreviewExam';
 import CreateExamPage from '../admin/pages/CreateExamPage';
+import StatisticsPageAdmin from '../admin/pages/StatisticsPageAdmin';
 
 const Routes = () => {
   return (
@@ -24,7 +25,7 @@ const Routes = () => {
       <PrivateRoute exact path="/bank/:id" component={BankPage}></PrivateRoute>
 
       <PrivateRoute
-        exact
+        exact1
         path="/created-exam"
         component={ListAdminExam}
       ></PrivateRoute>
@@ -33,6 +34,11 @@ const Routes = () => {
         exact
         path="/created-exam/:id"
         component={ViewExamAdmin}
+      ></PrivateRoute>
+      <PrivateRoute
+        exact
+        path="/created-exam/statistics/:id"
+        component={StatisticsPageAdmin}
       ></PrivateRoute>
       <PrivateRoute
         exact

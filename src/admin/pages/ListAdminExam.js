@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout/Layout';
 import './ListAdminExam.css';
 import { Link } from 'react-router-dom';
-import ExamPage from './ExamPage';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 class ListAdminExam extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +21,6 @@ class ListAdminExam extends Component {
         headers: authHeader(),
       })
       .then(response => {
-        console.log(response.data);
         const data = response.data;
         this.setState({ listExam: data });
       });
@@ -28,49 +28,49 @@ class ListAdminExam extends Component {
 
   onDeleteExam(id) {
     axios
-    .post(config.SERVER_URL+'/api/exam/delete', JSON.stringify(id), {
-      headers: authHeader(),
-    })
+      .post(config.SERVER_URL + '/api/exam/delete', JSON.stringify(id), {
+        headers: authHeader(),
+      })
       .then(async response => {
-        console.log(response.data);
         if (response.data) {
           let newListExam = await this.state.listExam.filter(
             exam => exam.id !== id,
           );
           await this.setState({ listExam: newListExam });
-          alert("Xóa đề thành công!");
+          alert('Xóa đề thành công!');
         }
-      }).catch(error => {
-        alert("Có lỗi xảy ra. Vui lòng thử lại!");
+      })
+      .catch(error => {
+        alert('Có lỗi xảy ra. Vui lòng thử lại!');
       });
   }
 
   render() {
     return (
       <Layout>
-        <div class="content row">
-          <div class="table-content">
-            <div class="header-row-list">
-              <div class="title">
-                  <h3
-                    style={{
-                      marginTop: '10px',
-                      marginLeft: '40px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Đề thi đã tạo
-                  </h3>
+        <div className="content row">
+          <div className="table-content">
+            <div className="header-row-list">
+              <div className="title">
+                <h3
+                  style={{
+                    marginTop: '10px',
+                    marginLeft: '40px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Đề thi đã tạo
+                </h3>
               </div>
-              <div class="row justify-content-end header-wrapper-end">
+              <div className="row justify-content-end header-wrapper-end">
                 <div
-                  class="header-item-wrapper"
+                  className="header-item-wrapper"
                   data-toggle="modal"
                   data-target="#modelAddExam"
                 >
-                  <div class="fa fa-plus-square fomat-icon-menu"></div>
+                  <div className="fa fa-plus-square fomat-icon-menu"></div>
                   <Link to={'/create-exam'}>
-                    <div class="item-text">Thêm đề thi</div>
+                    <div className="item-text">Thêm đề thi</div>
                   </Link>
                 </div>
               </div>
@@ -78,49 +78,49 @@ class ListAdminExam extends Component {
 
             {this.state.listExam.map((exam, index) => {
               return (
-                <div class="white-box" key={index} id={exam.id}>
-                  <div class="bank-center">
-                    <div class="bank-body">
-                      <div class="bank-contnet">
-                        <div class="row justify-content-end header-wrapper-end">
+                <div className="white-box" key={index} id={exam.id}>
+                  <div className="bank-center">
+                    <div className="bank-body">
+                      <div className="bank-contnet">
+                        <div className="row justify-content-end header-wrapper-end">
                           <button
                             type="button"
-                            class="btn btn-sm dt-delete"
+                            className="btn btn-sm dt-delete"
                             data-toggle="modal"
                             data-target={'#modelConfirmDelete' + exam.id}
                           >
-                            <span class="" aria-hidden="true">
-                              <div class="fa fa-remove fomat-icon-menu"></div>
+                            <span className="" aria-hidden="true">
+                              <div className="fa fa-remove fomat-icon-menu"></div>
                             </span>
                           </button>
                           <div
-                            class="modal fade"
+                            className="modal fade"
                             id={'modelConfirmDelete' + exam.id}
                             tabIndex="-1"
                             role="dialog"
                             aria-labelledby="modelTitleId"
                             aria-hidden="true"
                           >
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Xóa đề thi</h5>
+                            <div className="modal-dialog" role="document">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h5 className="modal-title">Xóa đề thi</h5>
                                   <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="modal"
                                     aria-label="Close"
                                   >
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                   Bạn có chắc chắn muốn xóa đề thi này?
                                 </div>
-                                <div class="modal-footer">
+                                <div className="modal-footer">
                                   <button
                                     type="button"
-                                    class="btn btn-primary"
+                                    className="btn btn-primary"
                                     data-dismiss="modal"
                                     onClick={this.onDeleteExam.bind(
                                       this,
@@ -131,7 +131,7 @@ class ListAdminExam extends Component {
                                   </button>
                                   <button
                                     type="button"
-                                    class="btn btn-secondary"
+                                    className="btn btn-secondary"
                                     data-dismiss="modal"
                                   >
                                     Hủy
@@ -141,15 +141,19 @@ class ListAdminExam extends Component {
                             </div>
                           </div>
                         </div>
-                        {exam.isRandom ? <h4>{exam.name}</h4> : <Link to={'/created-exam/' + exam.id}>
+                        {exam.isRandom ? (
                           <h4>{exam.name}</h4>
-                        </Link> }
-                        
-                        <span class="Updatetime">
+                        ) : (
+                          <Link to={'/created-exam/' + exam.id}>
+                            <h4>{exam.name}</h4>
+                          </Link>
+                        )}
+
+                        <span className="Updatetime">
                           <b>Mật khẩu: </b>
                           {exam.password}
                         </span>
-                        <span class="bank-desc">
+                        <span className="bank-desc">
                           <span>
                             <b>Thời gian làm bài: </b>
                             {exam.time}
@@ -170,6 +174,19 @@ class ListAdminExam extends Component {
                             {exam.isRandom === true ? 'Ngẫu nhiên' : 'Tự chọn'}
                           </span>
                           <br></br>
+                          <Link to={'/created-exam/statistics/' + exam.id}>
+                            <button className="btn btn-success">
+                              <span> Thống kê kết quả</span>
+                            </button>
+                          </Link>
+                          <CopyToClipboard
+                            text={'http://localhost:3000/do-exam/' + exam.id}
+                          >
+                            <button type="button" className="btn btn-warning">
+                              <i className="fa fa-clone" />
+                              <span> Copy liên kết</span>
+                            </button>
+                          </CopyToClipboard>
                         </span>
                       </div>
                     </div>
