@@ -85,8 +85,6 @@
     top: 0;
     bottom: 0;
     transition: 0.3s;
-    overflow: auto;
-
 }
 
     .main-content .header{

@@ -127,9 +127,9 @@ css cho phan dap an */
 
 .options .multiselect-check {
     position: absolute;
-    border: .1em solid #1877F2 !important;
-    color: #1877F2 !important;
-    border-radius: .25rem !important;
+    border: .1em solid #1877F2;
+    color: #1877F2;
+    border-radius: .25rem;
     height: 1.5em;
     width: 1.5em;
     line-height: 1.3em;
@@ -137,9 +137,9 @@ css cho phan dap an */
 }
 
 .input[type=checkbox] {
-    border: .1em solid #1877F2 !important;
-    color: #1877F2 !important;
-    border-radius: .25rem !important;
+    border: .1em solid #1877F2;
+    color: #1877F2;
+    border-radius: .25rem;
 }
 
 .options .input-answer {
