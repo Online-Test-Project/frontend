@@ -280,6 +280,7 @@ class CreateExamPage extends Component {
                 <div className="col-sm-9">
                   <DateTimePicker
                     format="dd-MM-yyyy HH:mm"
+                    disableClock = "true"
                     onChange={this.onChangeStartTime}
                     value={this.state.startTime}
                   />
@@ -295,6 +296,8 @@ class CreateExamPage extends Component {
                 </label>
                 <div className="col-sm-9">
                   <DateTimePicker
+                   format="dd-MM-yyyy HH:mm"
+                   disableClock = "true"
                     onChange={this.onChangeEndTime}
                     value={this.state.endTime}
                   />

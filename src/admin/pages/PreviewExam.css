@@ -10,7 +10,7 @@
 #content {
     position: relative;
     height: 100%;
-    overflow-y: auto;
+    
 }
 
 #list-question{
@@ -70,21 +70,11 @@ css cho phan dap an */
     padding: 0 0 1rem 0;
 }
 
-.options .select-check {
-    position: absolute;
-    border: .1em solid #1877F2;
-    color: #1877F2;
-    border-radius: .25rem;
-    height: 1.5em;
-    width: 1.5em;
-    line-height: 1.3em;
-    text-align: center;
-}
 .select-checked-true .select-check{
     position: absolute;
-    border: .1em solid #28a745;
-    color: white;
-    background: #28a745;
+    border: .1em solid #28a745!important;
+    color: white!important;
+    background: #28a745!important;
     border-radius: .25rem;
     height: 1.5em;
     width: 1.5em;
@@ -94,9 +84,9 @@ css cho phan dap an */
 }
 .select-checked-false .select-check{
     position: absolute;
-    border: .1em solid #dc3545;
-    color: white;
-    background: #dc3545;
+    border: .1em solid #dc3545!important;
+    color: white!important;
+    background: #dc3545!important;
     border-radius: .25rem;
     height: 1.5em;
     width: 1.5em;
@@ -120,22 +110,7 @@ css cho phan dap an */
     cursor: not-allowed;
 }
 
-.options .multiselect-check
-{
-    position: absolute;
-    border: .1em solid #1877F2!important;
-    color: #1877F2!important;
-    border-radius: .25rem!important;
-    height: 1.5em;
-    width: 1.5em;
-    line-height: 1.3em;
-    text-align: center;
-}
-.input[type = checkbox]{
-    border: .1em solid #1877F2!important;
-    color: #1877F2!important;
-    border-radius: .25rem!important;
-}
+
 
 .multiselect-checked-true .multiselect-check {
     position: absolute;
