@@ -4,7 +4,7 @@ export function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         console.log(response.statusCode());
-        if (response.status == 400) {
+        if (response.status === 400) {
             console.log("Loi");
         }
             if ([401, 403].indexOf(response.status) !== -1) {

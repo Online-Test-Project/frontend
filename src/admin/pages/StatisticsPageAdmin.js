@@ -15,7 +15,6 @@ import {
   Label,
   ResponsiveContainer,
 } from 'recharts';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
@@ -192,7 +191,6 @@ class ScoreLineChart extends PureComponent {
         list = res.data;
         const data = await this.renderData(this.state.step, list);
         await this.setState({ data: data });
-        console.log(this.state);
       });
   }
 
@@ -366,13 +364,12 @@ class ProgressBar extends Component {
           headers: authHeader(),
         },
       )
-      .then(async res => {
+      .then(res => {
         const data = res.data;
-        await this.setState({
+        this.setState({
           difficulty: data.difficulty,
           type: data.type,
         });
-        console.log(this.state);
       });
   }
 
@@ -513,22 +510,90 @@ class ProgressBar extends Component {
 class ParticipantsTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { examId: this.props.examId };
+    this.state = {
+      examId: this.props.examId,
+      participants: [],
+      sortASCByUsername: true,
+      sortASCByScore: false,
+      sortASCByTime: false,
+    };
   }
 
   componentDidMount() {
     axios
       .post(
         config.SERVER_URL + '/API/statistic/participant',
-        JSON.stringify(this.state.examId),
+        {
+          examId: this.state.examId,
+          sortField: 1,
+          asc: this.state.sortASCByScore,
+        },
         {
           headers: authHeader(),
         },
       )
       .then(res => {
-        const data = res.data;
+        this.setState({ participants: res.data });
       });
   }
+
+  async onRevertSortByUsername() {
+    await this.setState({ sortASCByUsername: !this.state.sortASCByUsername });
+    axios
+      .post(
+        config.SERVER_URL + '/API/statistic/participant',
+        {
+          examId: this.state.examId,
+          sortField: 1,
+          asc: this.state.sortASCByUsername,
+        },
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(res => {
+        this.setState({ participants: res.data });
+      });
+  }
+
+  async onRevertSortByScore() {
+    await this.setState({ sortASCByScore: !this.state.sortASCByScore });
+    axios
+      .post(
+        config.SERVER_URL + '/API/statistic/participant',
+        {
+          examId: this.state.examId,
+          sortField: 2,
+          asc: this.state.sortASCByScore,
+        },
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(res => {
+        this.setState({ participants: res.data });
+      });
+  }
+
+  async onRevertSortByTime() {
+    await this.setState({ sortASCByTime: !this.state.sortASCByTime });
+    axios
+      .post(
+        config.SERVER_URL + '/API/statistic/participant',
+        {
+          examId: this.state.examId,
+          sortField: 3,
+          asc: this.state.sortASCByTime,
+        },
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(res => {
+        this.setState({ participants: res.data });
+      });
+  }
+
   render() {
     return (
       <div className="card shadow mb-4 m-15">
@@ -544,7 +609,7 @@ class ParticipantsTable extends Component {
               className="dataTables_wrapper dt-bootstrap4"
             >
               <div className="row">
-                <div className="col-sm-12">
+                <div className="col-sm-12 tbl-statistic">
                   <table
                     className="table table-striped"
                     width="100%"
@@ -558,44 +623,64 @@ class ParticipantsTable extends Component {
                           rowSpan={1}
                           colSpan={1}
                           style={{ width: '30.6px' }}
+                          className="text-center"
                         >
                           STT
-                        </th>
-                        <th tabIndex={0} rowSpan={1} colSpan={1}>
-                          Người làm bài
                         </th>
                         <th
                           tabIndex={0}
                           rowSpan={1}
                           colSpan={1}
-                          style={{ width: '30.6px' }}
+                          className="text-center"
+                          onClick={() => this.onRevertSortByUsername()}
+                        >
+                          Người làm bài
+                          <i className="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th
+                          tabIndex={0}
+                          rowSpan={1}
+                          colSpan={1}
+                          style={{ minWidth: '60.6px' }}
+                          className="text-center"
+                          onClick={() => this.onRevertSortByScore()}
                         >
                           Điểm
+                          <i className="fa fa-fw fa-sort"></i>
                         </th>
-                        <th tabIndex={0} rowSpan={1} colSpan={1}>
+                        <th
+                          tabIndex={0}
+                          rowSpan={1}
+                          colSpan={1}
+                          className="text-center"
+                          onClick={() => this.onRevertSortByTime()}
+                        >
                           Thời gian làm bài
+                          <i className="fa fa-fw fa-sort"></i>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr role="row" className="odd">
-                        <td className="sorting_1 text-center">1</td>
-                        <td>Accountant</td>
-                        <td className="text-center">10</td>
-                        <td className="text-center">33</td>
-                      </tr>
-                      <tr role="row" className="even">
-                        <td className="sorting_1 text-center">2</td>
-                        <td>Chief Executive Officer (CEO)</td>
-                        <td className="text-center">10</td>
-                        <td className="text-center">47</td>
-                      </tr>
-                      <tr role="row" className="odd">
-                        <td className="sorting_1 text-center">3</td>
-                        <td>Junior Technical Author</td>
-                        <td className="text-center">10</td>
-                        <td className="text-center">66</td>
-                      </tr>
+                      {this.state.participants.map((participants, index) => {
+                        return (
+                          <tr
+                            role="row"
+                            className={(index + 1) % 2 === 1 ? 'odd' : 'even'}
+                            key={index + 1}
+                          >
+                            <td className="sorting_1 text-center">
+                              {index + 1}
+                            </td>
+                            <td className="text-center">
+                              {participants.username}
+                            </td>
+                            <td className="text-center">
+                              {participants.score}
+                            </td>
+                            <td className="text-center">{participants.time}</td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>

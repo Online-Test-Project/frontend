@@ -64,4 +64,19 @@
 
 .table thead th {
     background-color: #fcfcfc;
+    position: sticky;
+    top: 0;
+}
+
+.tbl-statistic{
+    height: 500px;
+    overflow: auto;
+}
+
+th a {
+    display: block;
+}
+
+#field-main > div.content > div.container-fluid > div:nth-child(2) > div.col-xl-4.col-lg-5 > div > div:nth-child(2) > div.card-body.d-flex.align-items-center > div {
+    margin: 0 auto!important;
 }

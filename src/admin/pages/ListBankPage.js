@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { history } from '../../_helpers/index';
-import PrivateRoute from '../../_components/PrivateRoute';
-
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 
 import Layout from '../components/Layout/Layout';
 import './ListBankPage.css';
-
-import BankPage from './BankPage';
 
 class ListBankPage extends Component {
   constructor(props) {
