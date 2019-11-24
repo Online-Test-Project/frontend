@@ -4,6 +4,7 @@ import './ViewExamAdmin.css';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
+import { ClipLoader } from 'react-spinners';
 
 class ViewExamAdmin extends Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class ViewExamAdmin extends Component {
       id: this.props.match.params.id,
       exam: {},
       examData: [],
+      loading: true
     };
-    console.log(this.state);
   }
 
   async componentDidMount() {
@@ -25,7 +26,7 @@ class ViewExamAdmin extends Component {
         console.log(response.data);
         const data = response.data;
         this.setState({ examData: data.questions });
-        this.setState({ exam: data });
+        this.setState({ exam: data , loading: false});
       });
   }
 
@@ -125,7 +126,7 @@ class ViewExamAdmin extends Component {
             </div>
           </div>
         );
-      } else if(question.type == 4){
+      } else if (question.type == 4) {
         return (
           <div className="question" id={index + 1} key={index + 1}>
             <div className="question-title">
@@ -141,7 +142,7 @@ class ViewExamAdmin extends Component {
                   <div className="card-body">
                     <div className="content">
                       <div className="select-answer">
-                      {question.answers.map((answer, i) => (
+                        {question.answers.map((answer, i) => (
                           <div className="options col-sm mb-2 md-4">
                             <div className="select-check">
                               {String.fromCharCode(i + 65)}
@@ -157,7 +158,6 @@ class ViewExamAdmin extends Component {
             </div>
           </div>
         );
-
       }
     });
 
@@ -173,25 +173,37 @@ class ViewExamAdmin extends Component {
 
     return (
       <Layout>
-        <div id="content">
-          <div id="list-question" className="list-question col-sm-2 mt-3">
-            <div className="time">
-              Thời gian: {this.state.exam.time + ' phút'}
+        {this.state.loading && (
+          <div className="d-flex justify-content-center">
+            <ClipLoader
+              sizeUnit={'px'}
+              size={30}
+              color={'#254994'}
+              loading={this.state.loading}
+            />
+          </div>
+        )}
+        {!this.state.loading && (
+          <div id="content">
+            <div id="list-question" className="list-question col-sm-2 mt-3">
+              <div className="time">
+                Thời gian: {this.state.exam.time + ' phút'}
+              </div>
+              <div className="row-fluid" id="pagination-question">
+                <ul
+                  className="pagination pagination-sm d-inline-block"
+                  id="question-nos"
+                >
+                  {linkQuestion}
+                </ul>
+              </div>
             </div>
-            <div className="row-fluid" id="pagination-question">
-              <ul
-                className="pagination pagination-sm d-inline-block"
-                id="question-nos"
-              >
-                {linkQuestion}
-              </ul>
+            <div id="exam-test" className="exam-test col-sm-10 mt-3">
+              <h4>{this.state.exam.name}</h4>
+              {questions}
             </div>
           </div>
-          <div id="exam-test" className="exam-test col-sm-10 mt-3">
-            <h4>{this.state.exam.name}</h4>
-            {questions}
-          </div>
-        </div>
+        )}
       </Layout>
     );
   }

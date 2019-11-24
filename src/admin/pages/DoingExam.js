@@ -6,6 +6,7 @@ import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import Countdown from 'react-countdown-now';
 import PreviewExam from './PreviewExam';
+import { ClipLoader } from 'react-spinners';
 
 import './ExamPage.css';
 
@@ -39,6 +40,7 @@ class DoingExam extends Component {
       examData: [],
       isRandom: false,
       scrore: 0,
+      loading: true,
     };
   }
 
@@ -57,6 +59,7 @@ class DoingExam extends Component {
           endTime: exam.endTime,
           status: exam.status,
           isRandom: exam.isRandom,
+          loading: false,
         });
       });
   }
@@ -137,7 +140,7 @@ class DoingExam extends Component {
           newQuestion.isAnswered = true;
           newExamData[i] = newQuestion;
           break;
-        } else if (newQuestion.type === 4){
+        } else if (newQuestion.type === 4) {
           for (let j = 0; j < newQuestion.answers.length; j++) {
             if (newQuestion.answers[j].id === answerId) {
               newQuestion.answers[j].selected = true;
@@ -214,7 +217,17 @@ class DoingExam extends Component {
               <h3 className="pt-2 ml-3 font-weight-bold">Làm bài</h3>
             </div>
           </div>
-          {this.state.status === 'doing' ? (
+          {this.state.loading && (
+            <div className="d-flex justify-content-center">
+              <ClipLoader
+                sizeUnit={'px'}
+                size={30}
+                color={'#254994'}
+                loading={this.state.loading}
+              />
+            </div>
+          )}
+          {!this.state.loading && this.state.status === 'doing' ? (
             <React.Fragment>
               <div id="content row">
                 <div id="list-question" className="list-question col-sm-2">
@@ -418,7 +431,7 @@ class DoingExam extends Component {
                           </div>
                         </div>
                       );
-                    } else if(question.type===4){
+                    } else if (question.type === 4) {
                       return (
                         <div
                           className="question"
@@ -471,7 +484,7 @@ class DoingExam extends Component {
                           </div>
                         </div>
                       );
-                    } 
+                    }
                   })}
                 </div>
               </div>

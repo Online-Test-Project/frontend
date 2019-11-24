@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
+import { ClipLoader } from 'react-spinners';
 
 class ListUserExam extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listReviewExam: [],
+      loading: true
     };
   }
 
@@ -22,7 +24,7 @@ class ListUserExam extends Component {
       .then(response => {
         console.log(response.data);
         const data = response.data;
-        this.setState({ listReviewExam: data });
+        this.setState({ listReviewExam: data, loading: false });
       });
   }
   render() {
@@ -44,8 +46,17 @@ class ListUserExam extends Component {
               </div>
              
             </div>
-
-            {this.state.listReviewExam.map((exam, index) => {
+            {this.state.loading && (
+              <div className="d-flex justify-content-center">
+                <ClipLoader
+                  sizeUnit={'px'}
+                  size={30}
+                  color={'#254994'}
+                  loading={this.state.loading}
+                />
+              </div>
+            )}
+            {!this.state.loading && this.state.listReviewExam.map((exam, index) => {
               return (
                 <div class="white-box" key={index} id={exam.examId}>
                   <div class="bank-center">

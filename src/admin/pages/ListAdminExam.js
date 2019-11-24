@@ -6,12 +6,14 @@ import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ClipLoader } from 'react-spinners';
 
 class ListAdminExam extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listExam: [{ id: '', name: '', password: '' }],
+      loading: true,
     };
   }
 
@@ -20,9 +22,10 @@ class ListAdminExam extends Component {
       .get(config.SERVER_URL + '/api/exam/list', {
         headers: authHeader(),
       })
-      .then(response => {
+      .then(async response => {
         const data = response.data;
-        this.setState({ listExam: data });
+        await this.setState({ listExam: data });
+        this.setState({ loading: false });
       });
   }
 
@@ -75,8 +78,17 @@ class ListAdminExam extends Component {
                 </div>
               </div>
             </div>
-
-            {this.state.listExam.map((exam, index) => {
+            {this.state.loading && (
+              <div className="d-flex justify-content-center">
+                <ClipLoader
+                  sizeUnit={'px'}
+                  size={30}
+                  color={'#254994'}
+                  loading={this.state.loading}
+                />
+              </div>
+            )}
+            {!this.state.loading && this.state.listExam.map((exam, index) => {
               return (
                 <div className="white-box" key={index} id={exam.id}>
                   <div className="bank-center">

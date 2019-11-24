@@ -6,6 +6,7 @@ import { authHeader } from '../../_helpers/auth-header';
 
 import Layout from '../components/Layout/Layout';
 import './ListBankPage.css';
+import { ClipLoader } from 'react-spinners';
 
 class ListBankPage extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class ListBankPage extends Component {
       listBank: [],
       filteredBank: [],
       currentEditBank: { id: '', name: '', description: '' },
+      loading: true,
     };
   }
 
@@ -37,9 +39,8 @@ class ListBankPage extends Component {
         headers: authHeader(),
       })
       .then(response => {
-        console.log(response.data);
         const data = response.data;
-        this.setState({ listBank: data, filteredBank: data });
+        this.setState({ listBank: data, filteredBank: data, loading: false });
       });
   }
 
@@ -49,9 +50,7 @@ class ListBankPage extends Component {
         headers: authHeader(),
       })
       .then(response => {
-        console.log(response.data);
         const data = response.data;
-
         this.setState({ listBank: data });
       });
   }
@@ -66,7 +65,6 @@ class ListBankPage extends Component {
         console.log(response.data);
         if (response.data) {
           let newListBank = this.state.listBank.filter(bank => bank.id !== id);
-          console.log(newListBank);
           this.setState({ listBank: newListBank });
         }
       });
@@ -116,11 +114,22 @@ class ListBankPage extends Component {
                   onUpdateListBank={() => this.onUpdateListBank()}
                 ></AddBankModal>
               </div>
-              {this.state.filteredBank.length === 0 ? (
+              {this.state.loading && (
+                <div className="d-flex justify-content-center">
+                  <ClipLoader
+                    sizeUnit={'px'}
+                    size={30}
+                    color={'#254994'}
+                    loading={this.state.loading}
+                  />
+                </div>
+              )}
+              {!this.state.loading && this.state.filteredBank.length === 0 ? (
                 <div className="text-center">
                   Không tìm thấy ngân hàng yêu cầu
                 </div>
               ) : (
+                !this.state.loading &&
                 this.state.filteredBank.map((bank, index) => {
                   return (
                     <Bank
@@ -135,7 +144,6 @@ class ListBankPage extends Component {
             </div>
           </div>
         </Layout>
-        
       </React.Fragment>
     );
   }
@@ -363,10 +371,11 @@ class AddBankModal extends Component {
         console.log(res.data);
         if (res.data === true) {
           this.props.onUpdateListBank();
-          alert("Tạo ngân hàng mới thành công!");
+          alert('Tạo ngân hàng mới thành công!');
         }
-      }).catch(error => {
-        alert("Có lỗi xảy ra. Vui lòng thử lại!");
+      })
+      .catch(error => {
+        alert('Có lỗi xảy ra. Vui lòng thử lại!');
       });
   }
 

@@ -4,6 +4,8 @@ import './BankTable.css';
 import config from '../../../_config/config';
 import { authHeader } from '../../../_helpers/index';
 
+import { ClipLoader } from 'react-spinners';
+
 const bank = [];
 
 function normalizeString(str) {
@@ -47,25 +49,28 @@ class Table extends Component {
         difficulty: 1,
         answers: [],
       },
+      loading: true,
     };
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
     this.updateBankFromServer();
     axios
       .get(config.SERVER_URL + '/api/bank/get/' + this.state.id, {
         headers: authHeader(),
       })
-      .then(response => {
+      .then(async response => {
         const bankinfo = response.data;
-        console.log(bankinfo);
-        this.setState({ bankInfo: bankinfo });
-        this.setState({ type: bankinfo.type });
-        this.setState({ difficulty: bankinfo.difficulty });
+        await this.setState({ bankInfo: bankinfo });
+        await this.setState({ type: bankinfo.type });
+        await this.setState({ difficulty: bankinfo.difficulty });
+        this.setState({ loading: false });
       });
   }
 
   async updateBankFromServer() {
+    await this.setState({loading: true});
     await axios
       .get(config.SERVER_URL + '/api/question/list/' + this.state.id, {
         headers: authHeader(),
@@ -73,7 +78,7 @@ class Table extends Component {
       .then(res => {
         console.log(res.data);
         const data = res.data;
-        this.setState({ bank: data, filteredBank: data });
+        this.setState({ bank: data, filteredBank: data, loading: false });
       });
   }
 
@@ -140,7 +145,6 @@ class Table extends Component {
       return contentValid && typeValid && levelValid;
     });
     await this.setState({ filteredBank: newFilteredBank });
-    this.setState({ isSearching: false });
   }
 
   toggleSelect(id) {
@@ -270,23 +274,21 @@ class Table extends Component {
                   </th>
                 </tr>
               </thead>
-              {this.state.isSearching ? (
-                <tr>
-                  <th className="text-center" scope="row"></th>
-                  <td className="text-center"></td>
-                  <td className="text-right">Đang tìm kiếm</td>
-                  <td></td>
-                  <td></td>
+              {this.state.loading && (
+                <tr className="text-center" scope="row">
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <ClipLoader
+                      sizeUnit={'px'}
+                      size={30}
+                      color={'#4E73DF'}
+                      loading={this.state.loading}
+                    />
+                  </th>
                 </tr>
-              ) : this.state.filteredBank.length === 0 ? (
-                <tr>
-                  <th className="text-center" scope="row"></th>
-                  <td className="text-center"></td>
-                  <td className="text-right">Không tìm thấy câu hỏi nào</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              ) : (
+              )}
+              {!this.state.loading && (
                 <tbody>
                   {this.state.filteredBank.map((e, i) => {
                     return (
@@ -323,8 +325,7 @@ class Table extends Component {
                               ? 'Multiple Choice'
                               : e.type === 3
                               ? 'Text Input'
-                              : 'Yes/No'
-                            }
+                              : 'Yes/No'}
                           </td>
                           <td className="align-middle">
                             {e.difficulty === 1
@@ -495,7 +496,7 @@ class Table extends Component {
               <label>
                 <b>Text Input:</b> {this.state.type[2]}{' '}
               </label>
-              <br/>
+              <br />
               <label>
                 <b>Yes/No:</b> {this.state.type[3]}{' '}
               </label>
@@ -561,13 +562,13 @@ class AddQuestionModal extends Component {
       case 'Text Input':
         type = 3;
         break;
-        case 'Yes/No':
-          type = 4;
-          break;
+      case 'Yes/No':
+        type = 4;
+        break;
       default:
         type = 'Single Choice';
     }
-    
+
     await this.setState({ type: type });
     console.log(this.state);
   }
@@ -593,7 +594,7 @@ class AddQuestionModal extends Component {
 
   async onSubmit() {
     let listAnswer = [];
-    if (this.state.type === 1 || this.state.type === 2 ) {
+    if (this.state.type === 1 || this.state.type === 2) {
       let answers = document.getElementsByName('answer');
       let isCorrectList = document.getElementsByName('isCorrect');
       for (let i = 0; i < answers.length; i++) {
@@ -602,10 +603,10 @@ class AddQuestionModal extends Component {
           isCorrect: isCorrectList[i].checked,
         });
       }
-    } else if(this.state.type === 3) {
+    } else if (this.state.type === 3) {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
-    } else if(this.state.type === 4){
+    } else if (this.state.type === 4) {
       let answers = document.getElementsByName('ynanswer');
       let isCorrectList = document.getElementsByName('isCorrect');
       for (let i = 0; i < answers.length; i++) {
@@ -632,25 +633,33 @@ class AddQuestionModal extends Component {
       )
       .then(res => {
         if (res.data) {
-        this.props.updateBankFromServer();     
-        let answers = document.getElementsByName('answer');
-        if(this.state.type === 1 || this.state.type === 2 || this.state.type === 3){
-          for (let i = 0; i < answers.length; i++) {
-            answers[i].value = "";
+          this.props.updateBankFromServer();
+          let answers = document.getElementsByName('answer');
+          if (
+            this.state.type === 1 ||
+            this.state.type === 2 ||
+            this.state.type === 3
+          ) {
+            for (let i = 0; i < answers.length; i++) {
+              answers[i].value = '';
+            }
           }
-          
+          this.setState({
+            numOfBonusAnswer: 0,
+            content: '',
+            type: 1,
+            difficulty: 1,
+          });
+          document.getElementById('content').value = '';
+          document.getElementById('typeSelect').value = 'Single Choice';
+          document.getElementById('levelSelect').value = 'Dễ';
+          alert('Thêm câu hỏi thành công!');
+          console.log(this.state);
         }
-        this.setState({numOfBonusAnswer: 0, content: '', type: 1, difficulty: 1});
-        document.getElementById('content').value = "";
-        document.getElementById("typeSelect").value = "Single Choice";
-        document.getElementById("levelSelect").value = "Dễ";
-        alert("Thêm câu hỏi thành công!");
-        console.log(this.state);
-        }
-      }).catch(error => {
-        console.log("Có lỗi xảy ra. Vui lòng thử lại!");
+      })
+      .catch(error => {
+        console.log('Có lỗi xảy ra. Vui lòng thử lại!');
       });
-      
   }
 
   render() {
@@ -719,7 +728,7 @@ class AddQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
-            {"  "}
+            {'  '}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -773,7 +782,7 @@ class AddQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
-            {"  "}
+            {'  '}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -800,39 +809,39 @@ class AddQuestionModal extends Component {
         );
         break;
       case 4:
-          element = (
-                <div>
-                  <div className="input-group mb-2">
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <input type="radio" name="isCorrect" defaultChecked />
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="ynanswer"
-                      defaultValue = 'Đúng'
-                      readOnly
-                    />
-                  </div>
-                  <div className="input-group mb-2">
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <input type="radio" name="isCorrect" />
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="ynanswer"
-                      defaultValue='Sai'
-                      readOnly
-                    />
-                  </div>
+        element = (
+          <div>
+            <div className="input-group mb-2">
+              <div className="input-group-prepend">
+                <div className="input-group-text">
+                  <input type="radio" name="isCorrect" defaultChecked />
                 </div>
-              );
-              break;
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                name="ynanswer"
+                defaultValue="Đúng"
+                readOnly
+              />
+            </div>
+            <div className="input-group mb-2">
+              <div className="input-group-prepend">
+                <div className="input-group-text">
+                  <input type="radio" name="isCorrect" />
+                </div>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                name="ynanswer"
+                defaultValue="Sai"
+                readOnly
+              />
+            </div>
+          </div>
+        );
+        break;
       default:
     }
     return (
@@ -866,9 +875,9 @@ class AddQuestionModal extends Component {
                   className="form-control mb-2"
                   type="text"
                   name="content"
-                  id='content'
+                  id="content"
                   placeholder="Nhập nội dung câu hỏi"
-                  defaultValue=''
+                  defaultValue=""
                   onChange={event => this.onChange(event)}
                 ></input>
                 <div className="row">
@@ -1000,7 +1009,7 @@ class EditQuestionModal extends Component {
     } else if (this.state.type === 3) {
       const answer = document.getElementById('text-answer').value;
       listAnswer.push({ content: answer, isCorrect: true });
-    } else if (this.state.type === 4){
+    } else if (this.state.type === 4) {
       let answers = document.getElementsByName('ynanswer' + this.state.id);
       let isCorrectList = document.getElementsByName(
         'isCorrect' + this.state.id,
@@ -1033,7 +1042,6 @@ class EditQuestionModal extends Component {
         if (res.data) {
           this.props.updateBankFromServer();
           alert('Sửa câu hỏi thành công');
-          
         }
       })
       .catch(error => {
@@ -1110,7 +1118,7 @@ class EditQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
-            {"  "}
+            {'  '}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -1161,7 +1169,7 @@ class EditQuestionModal extends Component {
             >
               Thêm đáp án
             </button>
-            {"  "}
+            {'  '}
             <button
               className="btn btn-danger"
               onClick={() => {
@@ -1189,42 +1197,42 @@ class EditQuestionModal extends Component {
           </div>
         );
         break;
-        case 4:
-            element = (
-              <div>
-                {this.state.answers.map((answer, index) => {
-                  return (
-                    <div className="input-group mb-2" key={index}>
-                      <div className="input-group-prepend">
-                        <div className="input-group-text">
-                          {answer.isCorrect ? (
-                            <input
-                              type="radio"
-                              name={'isCorrect' + this.state.id}
-                              defaultChecked
-                            />
-                          ) : (
-                            <input
-                              type="radio"
-                              name={'isCorrect' + this.state.id}
-                              readOnly
-                            />
-                          )}
-                        </div>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name={'ynanswer' + this.state.id}
-                        defaultValue={answer.content}
-                        readOnly
-                      />
+      case 4:
+        element = (
+          <div>
+            {this.state.answers.map((answer, index) => {
+              return (
+                <div className="input-group mb-2" key={index}>
+                  <div className="input-group-prepend">
+                    <div className="input-group-text">
+                      {answer.isCorrect ? (
+                        <input
+                          type="radio"
+                          name={'isCorrect' + this.state.id}
+                          defaultChecked
+                        />
+                      ) : (
+                        <input
+                          type="radio"
+                          name={'isCorrect' + this.state.id}
+                          readOnly
+                        />
+                      )}
                     </div>
-                  );
-                })}       
-              </div>
-            );
-            break;
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name={'ynanswer' + this.state.id}
+                    defaultValue={answer.content}
+                    readOnly
+                  />
+                </div>
+              );
+            })}
+          </div>
+        );
+        break;
       default:
     }
     return (
@@ -1268,10 +1276,18 @@ class EditQuestionModal extends Component {
                     name="type"
                     onChange={event => this.onChangeType(event)}
                   >
-                    <option selected={this.state.type === 1 ? "selected" : ""}>Single Choice</option> 
-                    <option selected={this.state.type === 2 ? "selected" : ""}>Multiple Choice</option>
-                    <option selected={this.state.type === 3 ? "selected" : ""}>Text Input</option>
-                    <option selected={this.state.type === 4 ? "selected" : ""}>Yes/No</option>
+                    <option selected={this.state.type === 1 ? 'selected' : ''}>
+                      Single Choice
+                    </option>
+                    <option selected={this.state.type === 2 ? 'selected' : ''}>
+                      Multiple Choice
+                    </option>
+                    <option selected={this.state.type === 3 ? 'selected' : ''}>
+                      Text Input
+                    </option>
+                    <option selected={this.state.type === 4 ? 'selected' : ''}>
+                      Yes/No
+                    </option>
                   </select>
                 </div>
                 <div className="col-6">
@@ -1280,9 +1296,22 @@ class EditQuestionModal extends Component {
                     name="difficulty"
                     onChange={event => this.onChangeLevel(event)}
                   >
-                    <option defaultChecked selected={this.state.difficulty === 1 ? "selected" : ""}>Dễ</option>
-                    <option selected={this.state.difficulty === 2 ? "selected" : ""}>Trung bình</option>
-                    <option selected={this.state.difficulty === 3 ? "selected" : ""}>Khó</option>
+                    <option
+                      defaultChecked
+                      selected={this.state.difficulty === 1 ? 'selected' : ''}
+                    >
+                      Dễ
+                    </option>
+                    <option
+                      selected={this.state.difficulty === 2 ? 'selected' : ''}
+                    >
+                      Trung bình
+                    </option>
+                    <option
+                      selected={this.state.difficulty === 3 ? 'selected' : ''}
+                    >
+                      Khó
+                    </option>
                   </select>
                 </div>
                 <br />
