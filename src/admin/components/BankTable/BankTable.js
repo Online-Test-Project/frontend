@@ -567,6 +567,7 @@ class AddQuestionModal extends Component {
       default:
         type = 'Single Choice';
     }
+    
     await this.setState({ type: type });
     console.log(this.state);
   }
@@ -643,7 +644,6 @@ class AddQuestionModal extends Component {
         document.getElementById('content').value = "";
         document.getElementById("typeSelect").value = "Single Choice";
         document.getElementById("levelSelect").value = "Dễ";
-        
         alert("Thêm câu hỏi thành công!");
         console.log(this.state);
         }
@@ -956,6 +956,7 @@ class EditQuestionModal extends Component {
         break;
       case 'Yes/No':
         type = 4;
+
         break;
       default:
         type = 'Single Choice';

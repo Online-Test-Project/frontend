@@ -283,7 +283,7 @@ class DoingExam extends Component {
                               <div className="card card-question">
                                 <div className="card-body">
                                   <div className="content">
-                                    <div className="row select-answer">
+                                    <div className="select-answer">
                                       {question.answers.map((answer, i) => {
                                         return (
                                           <div
@@ -337,7 +337,7 @@ class DoingExam extends Component {
                               <div className="card card-question">
                                 <div className="card-body">
                                   <div className="content">
-                                    <div className="row select-answer">
+                                    <div className="select-answer">
                                       {question.answers.map((answer, i) => (
                                         <div
                                           className={
@@ -393,7 +393,7 @@ class DoingExam extends Component {
                               <div className="card card-question">
                                 <div className="card-body">
                                   <div className="content">
-                                    <div className="row select-answer">
+                                    <div className="select-answer">
                                       <div className="options col-sm mb-2 md-4">
                                         <div className="text-wrap float-left">
                                           Đáp án:{' '}
@@ -436,7 +436,7 @@ class DoingExam extends Component {
                               <div className="card card-question">
                                 <div className="card-body">
                                   <div className="content">
-                                    <div className="row select-answer">
+                                    <div className="select-answer">
                                       {question.answers.map((answer, i) => {
                                         return (
                                           <div
