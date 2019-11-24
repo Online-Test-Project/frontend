@@ -13,7 +13,7 @@ import './ExamPage.css';
 const timeRenderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
-    return <div>Chạy xong rồi!</div>;
+    return <div>Hết giờ!</div>;
   } else {
     // Render a countdown
     return (
@@ -108,6 +108,7 @@ class DoingExam extends Component {
           examData: examData,
           status: 'doing',
         });
+        console.log(this.state);
       })
       .catch(error => {
         alert('Có lỗi xảy ra!');
@@ -235,8 +236,8 @@ class DoingExam extends Component {
                     Thời gian còn:{' '}
                     <Countdown
                       date={Date.now() + this.getTime()}
-                      onTick={() => {
-                        this.updateTimeRemaining();
+                      onTick={async () => {
+                        await this.updateTimeRemaining();
                       }}
                       renderer={timeRenderer}
                       onComplete={() => this.onSubmit()}

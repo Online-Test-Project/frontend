@@ -7,6 +7,7 @@ import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import DateTimePicker from 'react-datetime-picker';
+import { ClipLoader } from 'react-spinners';
 
 class CreateExamPage extends Component {
   constructor(props) {
@@ -20,16 +21,17 @@ class CreateExamPage extends Component {
       bankId: '',
       listBank: [],
       bankData: [],
+      loading: false,
     };
   }
 
   async componentDidMount() {
+    this.setState({ loading: true });
     await axios
       .get(config.SERVER_URL + '/api/bank/list', {
         headers: authHeader(),
       })
       .then(response => {
-        console.log(response.data);
         const data = response.data;
         let arrBank = data.map((bank, index) => {
           return { id: bank.id, name: bank.name };
@@ -52,8 +54,7 @@ class CreateExamPage extends Component {
             selected: false,
           };
         });
-        this.setState({ bankData: bankData });
-        console.log(this.state);
+        this.setState({ bankData: bankData, loading: false });
       });
   }
   handleChange(e) {
@@ -61,20 +62,18 @@ class CreateExamPage extends Component {
     const currentEdit = this.state;
     currentEdit[name] = value;
     this.setState(currentEdit);
-    console.log(this.state);
   }
 
   async onChangeBank(e) {
     const bankId = e.target.value;
-    await this.setState({ bankId: bankId });
+    await this.setState({ bankId: bankId, loading: true });
     await axios
       .get(config.SERVER_URL + '/api/question/list/' + this.state.bankId, {
         headers: authHeader(),
       })
       .then(async res => {
-        await this.setState({ bankData: res.data });
+        await this.setState({ bankData: res.data, loading: false });
       });
-    console.log(this.state);
   }
 
   onCreateRandomExam(e) {
@@ -106,13 +105,11 @@ class CreateExamPage extends Component {
           },
         )
         .then(response => {
-          console.log(response.data);
           if (response.data === true) {
             alert('Tạo đề ngẫu nhiên thành công!');
           } else {
             alert('Tạo đề không thành công');
           }
-          console.log(this.state.startTime);
         });
     }
   }
@@ -122,7 +119,6 @@ class CreateExamPage extends Component {
       question => question.selected,
     );
     const listQuestionsId = listQuestions.map(question => question.id);
-    console.log(listQuestionsId);
     if (
       this.state.nameExam === '' ||
       this.state.time === '' ||
@@ -139,15 +135,14 @@ class CreateExamPage extends Component {
             time: this.state.time,
             questionId: listQuestionsId,
             startTime: this.state.startTime.toUTCString(),
-            endTime: this.state.endTime.toUTCString()
+            endTime: this.state.endTime.toUTCString(),
           },
           {
             headers: authHeader(),
           },
         )
         .then(res => {
-          console.log(res.data);
-          if (res.data == true) {
+          if (res.data === true) {
             alert('Tạo đề tự chọn thành công!');
           } else {
             alert('Tạo đề không thành công');
@@ -194,12 +189,14 @@ class CreateExamPage extends Component {
             <h3 className="font-weight-bold">Tạo đề thi</h3>
             <div className="form-inline">
               <div className style={{ width: '8px' }} />
-              <button
-                className="btn btn-outline-danger my-2 my-sm-0"
-                type="submit"
-              >
-                Hủy
-              </button>
+              <Link to="/created-exam">
+                <button
+                  className="btn btn-outline-danger my-2 my-sm-0"
+                  type="button"
+                >
+                  Hủy
+                </button>
+              </Link>
             </div>
           </nav>
         </div>
@@ -280,7 +277,7 @@ class CreateExamPage extends Component {
                 <div className="col-sm-9">
                   <DateTimePicker
                     format="dd-MM-yyyy HH:mm"
-                    disableClock = "true"
+                    disableClock="true"
                     onChange={this.onChangeStartTime}
                     value={this.state.startTime}
                   />
@@ -296,8 +293,8 @@ class CreateExamPage extends Component {
                 </label>
                 <div className="col-sm-9">
                   <DateTimePicker
-                   format="dd-MM-yyyy HH:mm"
-                   disableClock = "true"
+                    format="dd-MM-yyyy HH:mm"
+                    disableClock="true"
                     onChange={this.onChangeEndTime}
                     value={this.state.endTime}
                   />
@@ -398,50 +395,60 @@ class CreateExamPage extends Component {
             </fieldset>
           </form>
         </div>
-        <div className="p-3 wrap-table">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Nội dung</th>
-                <th scope="col">Loại câu hỏi</th>
-                <th scope="col">Độ khó</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.bankData.map(question => (
-                <tr onClick={() => this.toggleSelect(question.id)}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={!!question.selected}
-                      
-                      readOnly
-                    ></input>
-                  </td>
-                  <td>{question.content}</td>
-                  <td>
-                    {question.type === 1
-                      ? 'Single Choice'
-                      : question.type === 2
-                      ? 'Multiple Choice'
-                      : question.type === 3
-                      ? 'Text Input'
-                      : 'Yes/No'
-                    }
-                  </td>
-                  <td>
-                    {question.difficulty === 1 
-                    ? "Dễ" :
-                    question.difficulty === 2
-                    ? "Trung bình" :
-                    "Khó"}
-                  </td>
+        {this.state.loading && (
+          <div className="d-flex justify-content-center">
+            <ClipLoader
+              sizeUnit={'px'}
+              size={30}
+              color={'#254994'}
+              loading={this.state.loading}
+            />
+          </div>
+        )}
+        {!this.state.loading && (
+          <div className="p-3 wrap-table">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">STT</th>
+                  <th scope="col">Nội dung</th>
+                  <th scope="col">Loại câu hỏi</th>
+                  <th scope="col">Độ khó</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {this.state.bankData.map(question => (
+                  <tr onClick={() => this.toggleSelect(question.id)}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={!!question.selected}
+                        readOnly
+                      ></input>
+                    </td>
+                    <td>{question.content}</td>
+                    <td>
+                      {question.type === 1
+                        ? 'Single Choice'
+                        : question.type === 2
+                        ? 'Multiple Choice'
+                        : question.type === 3
+                        ? 'Text Input'
+                        : 'Yes/No'}
+                    </td>
+                    <td>
+                      {question.difficulty === 1
+                        ? 'Dễ'
+                        : question.difficulty === 2
+                        ? 'Trung bình'
+                        : 'Khó'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </Layout>
     );
   }

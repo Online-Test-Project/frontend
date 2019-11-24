@@ -18,6 +18,7 @@ import {
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
+import { ClipLoader } from 'react-spinners';
 
 import './StatisticsPageAdmin.css';
 
@@ -516,6 +517,7 @@ class ParticipantsTable extends Component {
       sortASCByUsername: true,
       sortASCByScore: false,
       sortASCByTime: false,
+      loading: true,
     };
   }
 
@@ -533,12 +535,15 @@ class ParticipantsTable extends Component {
         },
       )
       .then(res => {
-        this.setState({ participants: res.data });
+        this.setState({ participants: res.data, loading: false });
       });
   }
 
   async onRevertSortByUsername() {
-    await this.setState({ sortASCByUsername: !this.state.sortASCByUsername });
+    await this.setState({
+      sortASCByUsername: !this.state.sortASCByUsername,
+      loading: true,
+    });
     axios
       .post(
         config.SERVER_URL + '/API/statistic/participant',
@@ -552,12 +557,15 @@ class ParticipantsTable extends Component {
         },
       )
       .then(res => {
-        this.setState({ participants: res.data });
+        this.setState({ participants: res.data, loading: false });
       });
   }
 
   async onRevertSortByScore() {
-    await this.setState({ sortASCByScore: !this.state.sortASCByScore });
+    await this.setState({
+      sortASCByScore: !this.state.sortASCByScore,
+      loading: true,
+    });
     axios
       .post(
         config.SERVER_URL + '/API/statistic/participant',
@@ -571,12 +579,15 @@ class ParticipantsTable extends Component {
         },
       )
       .then(res => {
-        this.setState({ participants: res.data });
+        this.setState({ participants: res.data, loading: false });
       });
   }
 
   async onRevertSortByTime() {
-    await this.setState({ sortASCByTime: !this.state.sortASCByTime });
+    await this.setState({
+      sortASCByTime: !this.state.sortASCByTime,
+      loading: true,
+    });
     axios
       .post(
         config.SERVER_URL + '/API/statistic/participant',
@@ -590,7 +601,7 @@ class ParticipantsTable extends Component {
         },
       )
       .then(res => {
-        this.setState({ participants: res.data });
+        this.setState({ participants: res.data, loading: false });
       });
   }
 
@@ -660,28 +671,49 @@ class ParticipantsTable extends Component {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {this.state.participants.map((participants, index) => {
-                        return (
-                          <tr
-                            role="row"
-                            className={(index + 1) % 2 === 1 ? 'odd' : 'even'}
-                            key={index + 1}
-                          >
-                            <td className="sorting_1 text-center">
-                              {index + 1}
-                            </td>
-                            <td className="text-center">
-                              {participants.username}
-                            </td>
-                            <td className="text-center">
-                              {participants.score}
-                            </td>
-                            <td className="text-center">{participants.time}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
+                    {this.state.loading && (
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <div className="d-flex justify-content-center text-center">
+                            <ClipLoader
+                              sizeUnit={'px'}
+                              size={30}
+                              color={'#254994'}
+                              loading={this.state.loading}
+                            />
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                    )}
+                    {!this.state.loading && (
+                      <tbody>
+                        {this.state.participants.map((participants, index) => {
+                          return (
+                            <tr
+                              role="row"
+                              className={(index + 1) % 2 === 1 ? 'odd' : 'even'}
+                              key={index + 1}
+                            >
+                              <td className="sorting_1 text-center">
+                                {index + 1}
+                              </td>
+                              <td className="text-center">
+                                {participants.username}
+                              </td>
+                              <td className="text-center">
+                                {participants.score}
+                              </td>
+                              <td className="text-center">
+                                {participants.time}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    )}
                   </table>
                 </div>
               </div>
