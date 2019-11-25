@@ -44,14 +44,15 @@ class ListBankPage extends Component {
       });
   }
 
-  onUpdateListBank() {
-    axios
+  async onUpdateListBank() {
+    await axios
       .get(config.SERVER_URL + '/api/bank/list', {
         headers: authHeader(),
       })
       .then(response => {
         const data = response.data;
         this.setState({ listBank: data });
+        console.log('Đã update');
       });
   }
 
@@ -111,7 +112,7 @@ class ListBankPage extends Component {
                   </div>
                 </div>
                 <AddBankModal
-                  onUpdateListBank={() => this.onUpdateListBank()}
+                  onUpdateListBank={this.onUpdateListBank}
                 ></AddBankModal>
               </div>
               {this.state.loading && (
@@ -272,7 +273,7 @@ class Bank extends Component {
               <div className="modal-footer">
                 <button
                   type="submit"
-                  className="btn btn-secondary"
+                  className="btn btn-primary"
                   data-dismiss="modal"
                   onClick={() => this.onSave()}
                 >
@@ -280,7 +281,7 @@ class Bank extends Component {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                   data-dismiss="modal"
                   onClick={() => this.onCancelEdit()}
                 >
@@ -367,11 +368,13 @@ class AddBankModal extends Component {
           headers: authHeader(),
         },
       )
-      .then(res => {
-        console.log(res.data);
+      .then(async res => {
+        await console.log(res.data);
         if (res.data === true) {
-          this.props.onUpdateListBank();
+          await this.props.onUpdateListBank();
           alert('Tạo ngân hàng mới thành công!');
+        } else {
+          alert('Có lỗi xảy ra. Vui lòng thử lại!');
         }
       })
       .catch(error => {

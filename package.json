@@ -19,6 +19,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.8",
     "react-spinners": "^0.6.1",
+    "react-to-print": "^2.5.0",
     "recharts": "^1.8.5",
     "rxjs": "^6.5.3"
   },

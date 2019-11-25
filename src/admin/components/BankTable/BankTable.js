@@ -4,7 +4,7 @@ import './BankTable.css';
 import config from '../../../_config/config';
 import { authHeader } from '../../../_helpers/index';
 
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader, PacmanLoader } from 'react-spinners';
 
 const bank = [];
 
@@ -438,7 +438,7 @@ class Table extends Component {
                 <div className="modal-footer">
                   <button
                     type="submit"
-                    className="btn btn-secondary"
+                    className="btn btn-primary"
                     data-dismiss="modal"
                     onClick={() => this.onDelete()}
                   >
@@ -446,7 +446,7 @@ class Table extends Component {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                     data-dismiss="modal"
                   >
                     Hủy
@@ -631,9 +631,9 @@ class AddQuestionModal extends Component {
           headers: authHeader(),
         },
       )
-      .then(res => {
+      .then(async res => {
         if (res.data) {
-          this.props.updateBankFromServer();
+          await this.props.updateBankFromServer();
           let answers = document.getElementsByName('answer');
           if (
             this.state.type === 1 ||
@@ -917,7 +917,7 @@ class AddQuestionModal extends Component {
             <div className="modal-footer">
               <button
                 type="submit"
-                className="btn btn-secondary"
+                className="btn btn-primary"
                 data-dismiss="modal"
                 onClick={() => this.onSubmit()}
               >
@@ -925,7 +925,7 @@ class AddQuestionModal extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Hủy
@@ -990,7 +990,6 @@ class EditQuestionModal extends Component {
         difficulty = 1;
     }
     await this.setState({ difficulty: difficulty });
-    console.log(this.state);
   }
 
   async onSubmit() {
@@ -1322,7 +1321,7 @@ class EditQuestionModal extends Component {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-primary"
                 data-dismiss="modal"
                 onClick={() => this.onSubmit()}
               >
@@ -1330,7 +1329,7 @@ class EditQuestionModal extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Hủy

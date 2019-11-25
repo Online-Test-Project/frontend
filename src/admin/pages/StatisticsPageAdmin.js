@@ -19,13 +19,33 @@ import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import { ClipLoader } from 'react-spinners';
+import ReactToPrint from 'react-to-print';
 
 import './StatisticsPageAdmin.css';
 
 class StatisticsPageAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = { id: this.props.match.params.id, name: '' };
+    this.state = { id: this.props.match.params.id };
+  }
+
+  render() {
+    return (
+      <Layout>
+        
+        <StatisticsPageAdminContent
+          id={this.state.id}
+          ref={el => (this.componentRef = el)}
+        />
+      </Layout>
+    );
+  }
+}
+
+class StatisticsPageAdminContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { id: this.props.id, name: '' };
   }
 
   componentDidMount() {
@@ -43,29 +63,27 @@ class StatisticsPageAdmin extends Component {
 
   render() {
     return (
-      <Layout>
-        <div className="content">
-          <div className="separation-y" />
-          <div className="container-fluid">
-            <div className="header-row-list">
-              <h3 className="ml-3 py-3">{this.state.name}</h3>
-            </div>
-            <OverallDataRow examId={this.state.id}></OverallDataRow>
-            {/* Biểu đồ đường/tròn */}
-            <div className="row">
-              {/* Biểu đồ đường */}
-              <ScoreLineChart examId={this.state.id}></ScoreLineChart>
-              {/* Biểu đồ tròn */}
-              <RaitoPieChart examId={this.state.id}></RaitoPieChart>
-            </div>
-            {/* biểu đồ progress */}
-            {/*  Biểu đồ dạng progress bar tỉ lệ trả lời đúng câu hỏi Dễ/ TB/ Khó */}
-            <ProgressBar examId={this.state.id}></ProgressBar>
-            {/* Bảng thống kê người làm bài */}
-            <ParticipantsTable examId={this.state.id}></ParticipantsTable>
+      <div className="content">
+        <div className="separation-y" />
+        <div className="container-fluid">
+          <div className="header-row-list">
+            <h3 className="ml-3 py-3">{this.state.name}</h3>
           </div>
+          <OverallDataRow examId={this.state.id}></OverallDataRow>
+          {/* Biểu đồ đường/tròn */}
+          <div className="row">
+            {/* Biểu đồ đường */}
+            <ScoreLineChart examId={this.state.id}></ScoreLineChart>
+            {/* Biểu đồ tròn */}
+            <RaitoPieChart examId={this.state.id}></RaitoPieChart>
+          </div>
+          {/* biểu đồ progress */}
+          {/*  Biểu đồ dạng progress bar tỉ lệ trả lời đúng câu hỏi Dễ/ TB/ Khó */}
+          <ProgressBar examId={this.state.id}></ProgressBar>
+          {/* Bảng thống kê người làm bài */}
+          <ParticipantsTable examId={this.state.id}></ParticipantsTable>
         </div>
-      </Layout>
+      </div>
     );
   }
 }
