@@ -1,32 +1,43 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout/Layout';
-import './ViewExamAdmin.css';
+import './ViewRandom.css';
 import axios from 'axios';
 import config from '../../_config/config';
 import { authHeader } from '../../_helpers/auth-header';
 import { ClipLoader } from 'react-spinners';
 
-class ViewExamAdmin extends Component {
+class ViewRandom extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
       exam: {},
       examData: [],
-      loading: true
+      loading: true,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.onChangeRandomExamToView();
+  }
+
+  onChangeRandomExamToView() {
     axios
-      .get(config.SERVER_URL + '/api/exam/get/' + this.state.id, {
-        headers: authHeader(),
-      })
-      .then(response => {
+      .post(
+        config.SERVER_URL + '/API/exam/generate',
+        JSON.stringify(this.state.id),
+        {
+          headers: authHeader(),
+        },
+      )
+      .then(async response => {
         console.log(response.data);
-        const data = response.data;
-        this.setState({ examData: data.questions });
-        this.setState({ exam: data , loading: false});
+        const data = await response.data;
+        this.setState({ examData: data.examineeQuestions });
+        this.setState({ exam: data, loading: false });
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -187,7 +198,7 @@ class ViewExamAdmin extends Component {
           <div id="content">
             <div id="list-question" className="list-question col-sm-2 mt-3">
               <div className="time">
-                Thời gian: {this.state.exam.time + ' phút'}
+                Thời gian: {this.state.exam.timeRemaining + ' phút'}
               </div>
               <div className="row-fluid" id="pagination-question">
                 <ul
@@ -196,11 +207,18 @@ class ViewExamAdmin extends Component {
                 >
                   {linkQuestion}
                 </ul>
-                
+              </div>
+              <div className="clssubmit">
+                <button
+                  className="btn-rounded btn btn-success submit"
+                  onClick={() => this.onChangeRandomExamToView()}
+                >
+                  Xem đề tương tự
+                </button>
               </div>
             </div>
             <div id="exam-test" className="exam-test col-sm-10 mt-3">
-              <h4>{this.state.exam.name}</h4>
+                <h4>{this.state.exam.name}</h4>
               {questions}
             </div>
           </div>
@@ -209,4 +227,4 @@ class ViewExamAdmin extends Component {
     );
   }
 }
-export default ViewExamAdmin;
+export default ViewRandom;
