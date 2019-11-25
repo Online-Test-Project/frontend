@@ -14,6 +14,7 @@ import ViewExamAdmin from '../admin/pages/ViewExamAdmin';
 import PreviewExam from '../admin/pages/PreviewExam';
 import CreateExamPage from '../admin/pages/CreateExamPage';
 import StatisticsPageAdmin from '../admin/pages/StatisticsPageAdmin';
+import ViewRandom from '../admin/pages/ViewRandom';
 
 const Routes = () => {
   return (
@@ -60,7 +61,11 @@ const Routes = () => {
         path="/do-exam/:id"
         component={DoingExam}
       ></PrivateRoute>
-
+      <PrivateRoute 
+      exact
+      path='/created-exam/view-random/:id'
+      component={ViewRandom}
+      ></PrivateRoute>
     </Router>
   );
 };

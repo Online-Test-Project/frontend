@@ -154,7 +154,9 @@ class ListAdminExam extends Component {
                           </div>
                         </div>
                         {exam.isRandom ? (
+                          <Link to={'/created-exam/view-random/'+ exam.id}>
                           <h4>{exam.name}</h4>
+                          </Link>
                         ) : (
                           <Link to={'/created-exam/' + exam.id}>
                             <h4>{exam.name}</h4>
