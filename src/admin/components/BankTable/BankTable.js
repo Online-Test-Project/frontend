@@ -540,6 +540,7 @@ class AddQuestionModal extends Component {
       difficulty: 1,
       listAnswer: [],
       numOfBonusAnswer: 0,
+      ysAnswer: ["Đúng", "Sai"]
     };
   }
 
@@ -566,10 +567,14 @@ class AddQuestionModal extends Component {
         type = 4;
         break;
       default:
-        type = 'Single Choice';
+        type = 1;
     }
 
-    await this.setState({ type: type });
+    await this.setState({ type: type, numOfBonusAnswer: 0 });
+    let answersInput = document.getElementsByName("answer");
+    for (let i = 0; i < answersInput.length; i++) {
+      answersInput[i].value = "";
+    }
     console.log(this.state);
   }
 
@@ -634,26 +639,7 @@ class AddQuestionModal extends Component {
       .then(async res => {
         if (res.data) {
           await this.props.updateBankFromServer();
-          let answers = document.getElementsByName('answer');
-          if (
-            this.state.type === 1 ||
-            this.state.type === 2 ||
-            this.state.type === 3
-          ) {
-            for (let i = 0; i < answers.length; i++) {
-              answers[i].value = '';
-            }
-          }
-          this.setState({
-            numOfBonusAnswer: 0,
-            content: '',
-            type: 1,
-            difficulty: 1,
-          });
-          document.getElementById('content').value = '';
-          document.getElementById('typeSelect').value = 'Single Choice';
-          document.getElementById('levelSelect').value = 'Dễ';
-          alert('Thêm câu hỏi thành công!');
+          this.resetModal();
           console.log(this.state);
         }
       })
@@ -662,10 +648,21 @@ class AddQuestionModal extends Component {
       });
   }
 
+  resetModal() {
+    let answersInput = document.getElementsByName("answer");
+    for (let i = 0; i < answersInput.length; i++) {
+      answersInput[i].value = "";
+    }
+    document.getElementById("add-content").value = "";
+    document.getElementById("addTypeSelect").value = "Single Choice";
+    document.getElementById("addLevelSelect").value = "Dễ";
+    this.setState({content: "", difficulty: 1, type: 1 ,numOfBonusAnswer: 0});
+  }
+
   render() {
+    let bonusAnswers = [];
     let element;
     let type = this.state.type;
-    let bonusAnswers = [];
     for (let i = 0; i < this.state.numOfBonusAnswer; i++) {
       bonusAnswers.push(
         <div className="input-group mb-2">
@@ -702,6 +699,7 @@ class AddQuestionModal extends Component {
                 className="form-control"
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
+                defaultValue=""
               />
             </div>
             <div className="input-group mb-2">
@@ -715,6 +713,7 @@ class AddQuestionModal extends Component {
                 className="form-control"
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
+                defaultValue=""
               />
             </div>
             {bonusAnswers}
@@ -752,10 +751,12 @@ class AddQuestionModal extends Component {
                 </div>
               </div>
               <input
+                id="answer"
                 type="text"
                 className="form-control"
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
+                defaultValue=""
               />
             </div>
             <div className="input-group mb-2">
@@ -769,6 +770,7 @@ class AddQuestionModal extends Component {
                 className="form-control"
                 name="answer"
                 placeholder="Nhập đáp án, tích nếu đáp án đúng"
+                defaultValue=""
               />
             </div>
             {bonusAnswers}
@@ -821,7 +823,7 @@ class AddQuestionModal extends Component {
                 type="text"
                 className="form-control"
                 name="ynanswer"
-                defaultValue="Đúng"
+                value={this.state.ysAnswer[0]}
                 readOnly
               />
             </div>
@@ -835,7 +837,7 @@ class AddQuestionModal extends Component {
                 type="text"
                 className="form-control"
                 name="ynanswer"
-                defaultValue="Sai"
+                value={this.state.ysAnswer[1]}
                 readOnly
               />
             </div>
@@ -864,6 +866,7 @@ class AddQuestionModal extends Component {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
+                onClick={() => this.resetModal()}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -875,7 +878,7 @@ class AddQuestionModal extends Component {
                   className="form-control mb-2"
                   type="text"
                   name="content"
-                  id="content"
+                  id="add-content"
                   placeholder="Nhập nội dung câu hỏi"
                   defaultValue=""
                   onChange={event => this.onChange(event)}
@@ -886,7 +889,7 @@ class AddQuestionModal extends Component {
                       className="form-control"
                       name="type"
                       onChange={event => this.onChangeType(event)}
-                      id="typeSelect"
+                      id="addTypeSelect"
                     >
                       <option>Single Choice</option>
                       <option>Multiple Choice</option>
@@ -898,7 +901,7 @@ class AddQuestionModal extends Component {
                     <select
                       className="form-control"
                       name="difficulty"
-                      id="levelSelect"
+                      id="addLevelSelect"
                       onChange={event => this.onChangeLevel(event)}
                     >
                       <option defaultChecked>Dễ</option>
@@ -927,6 +930,7 @@ class AddQuestionModal extends Component {
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
+                onClick={() => this.resetModal()}
               >
                 Hủy
               </button>
@@ -1223,7 +1227,7 @@ class EditQuestionModal extends Component {
                     type="text"
                     className="form-control"
                     name={'ynanswer' + this.state.id}
-                    defaultValue={answer.content}
+                    value={answer.content}
                     readOnly
                   />
                 </div>
@@ -1269,7 +1273,7 @@ class EditQuestionModal extends Component {
               </div>
 
               <div className="row mt-2">
-                <div className="col-6">
+                {/* <div className="col-6">
                   <select
                     className="form-control"
                     name="type"
@@ -1288,7 +1292,7 @@ class EditQuestionModal extends Component {
                       Yes/No
                     </option>
                   </select>
-                </div>
+                </div> */}
                 <div className="col-6">
                   <select
                     className="form-control"

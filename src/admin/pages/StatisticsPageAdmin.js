@@ -32,7 +32,10 @@ class StatisticsPageAdmin extends Component {
   render() {
     return (
       <Layout>
-        
+        <ReactToPrint
+          trigger={() => <button type="button" className="btn btn-primary">In thống kê</button>}
+          content={() => this.componentRef}
+        />
         <StatisticsPageAdminContent
           id={this.state.id}
           ref={el => (this.componentRef = el)}

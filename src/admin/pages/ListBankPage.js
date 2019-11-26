@@ -17,6 +17,8 @@ class ListBankPage extends Component {
       currentEditBank: { id: '', name: '', description: '' },
       loading: true,
     };
+    this.onUpdateListBank = this.onUpdateListBank.bind(this);
+    this.onDeleteBank = this.onDeleteBank.bind(this);
   }
 
   async onSearch() {
@@ -45,19 +47,20 @@ class ListBankPage extends Component {
   }
 
   async onUpdateListBank() {
+    await this.setState({loading: true})
     await axios
       .get(config.SERVER_URL + '/api/bank/list', {
         headers: authHeader(),
       })
       .then(response => {
         const data = response.data;
-        this.setState({ listBank: data });
+        this.setState({ listBank: data, filteredBank: data, loading: false });
         console.log('Đã update');
       });
   }
 
   onDeleteBank(id) {
-    console.log('XOa thang: ' + id);
+    this.setState({loading: true})
     axios
       .post(config.SERVER_URL + '/api/bank/delete', JSON.stringify(id), {
         headers: authHeader(),
@@ -66,7 +69,7 @@ class ListBankPage extends Component {
         console.log(response.data);
         if (response.data) {
           let newListBank = this.state.listBank.filter(bank => bank.id !== id);
-          this.setState({ listBank: newListBank });
+          this.setState({ listBank: newListBank, filteredBank: newListBank, loading: false });
         }
       });
   }
