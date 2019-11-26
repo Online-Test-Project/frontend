@@ -323,7 +323,7 @@ class Bank extends Component {
               <div className="modal-footer">
                 <button
                   type="submit"
-                  className="btn btn-secondary"
+                  className="btn btn-danger"
                   data-dismiss="modal"
                   onClick={() => this.props.onDeleteBank(this.state.id)}
                 >
@@ -331,7 +331,7 @@ class Bank extends Component {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                   data-dismiss="modal"
                 >
                   Hủy
