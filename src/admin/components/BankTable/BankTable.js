@@ -639,13 +639,14 @@ class AddQuestionModal extends Component {
       .then(async res => {
         if (res.data) {
           await this.props.updateBankFromServer();
-          this.resetModal();
+         
           console.log(this.state);
         }
       })
       .catch(error => {
         console.log('Có lỗi xảy ra. Vui lòng thử lại!');
       });
+      await this.resetModal();
   }
 
   resetModal() {
@@ -922,7 +923,7 @@ class AddQuestionModal extends Component {
                 type="submit"
                 className="btn btn-primary"
                 data-dismiss="modal"
-                onClick={() => this.onSubmit()}
+                onClick={async () => {await this.onSubmit(); this.resetModal()}}
               >
                 Lưu
               </button>
