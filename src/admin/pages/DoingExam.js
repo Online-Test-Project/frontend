@@ -306,6 +306,12 @@ class DoingExam extends Component {
                                                 ? 'options col-sm mb-2 md-4 select-checked'
                                                 : 'options col-sm mb-2 md-4'
                                             }
+                                            onClick={() =>
+                                              this.onChangeAnswer(
+                                                question.id,
+                                                answer.id,
+                                              )
+                                            }
                                           >
                                             <div
                                               className="select-check"
@@ -314,7 +320,7 @@ class DoingExam extends Component {
                                                   question.id,
                                                   answer.id,
                                                 )
-                                              }
+                                              }        
                                             >
                                               {String.fromCharCode(i + 65)}
                                             </div>
@@ -459,15 +465,16 @@ class DoingExam extends Component {
                                                 ? 'options col-sm mb-2 md-4 select-checked'
                                                 : 'options col-sm mb-2 md-4'
                                             }
+                                            onClick={() =>
+                                              this.onChangeAnswer(
+                                                question.id,
+                                                answer.id,
+                                              )
+                                            }
                                           >
                                             <div
                                               className="select-check"
-                                              onClick={() =>
-                                                this.onChangeAnswer(
-                                                  question.id,
-                                                  answer.id,
-                                                )
-                                              }
+                                              
                                             >
                                               {String.fromCharCode(i + 65)}
                                             </div>
